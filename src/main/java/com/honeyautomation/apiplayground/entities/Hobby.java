@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_hobbies")
-public class Hobbies {
+public class Hobby {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String hobbie;
+    private String hobby;
 
     public int getId() {
         return id;
@@ -19,11 +19,11 @@ public class Hobbies {
         this.id = id;
     }
 
-    public String getHobbie() {
-        return hobbie;
+    public String getHobby() {
+        return hobby;
     }
 
-    public void setHobbie(String hobbie) {
-        this.hobbie = hobbie;
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
     }
 }
