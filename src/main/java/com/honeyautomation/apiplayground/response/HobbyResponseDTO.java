@@ -1,6 +1,6 @@
-package com.honeyautomation.apiplayground.dto;
+package com.honeyautomation.apiplayground.response;
 
-import com.honeyautomation.apiplayground.entities.Hobby;
+import com.honeyautomation.apiplayground.domain.Hobby;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
-public class HobbyDTO implements Serializable {
+public class HobbyResponseDTO implements Serializable {
 
     private List<String> hobbies;
 
-    public HobbyDTO(List<Hobby> hobbies) {
+    public HobbyResponseDTO(List<Hobby> hobbies) {
         this.hobbies = hobbies.stream().map(Hobby::getHobby).collect(Collectors.toList());
     }
 }

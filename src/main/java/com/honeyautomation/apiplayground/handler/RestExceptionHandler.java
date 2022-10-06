@@ -1,7 +1,7 @@
 package com.honeyautomation.apiplayground.handler;
 
-import com.honeyautomation.apiplayground.exceptions.ItemNotFoundException;
-import com.honeyautomation.apiplayground.exceptions.ItemNotFoundExceptionResponseTemplate;
+import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
+import com.honeyautomation.apiplayground.exception.ItemNotFoundExceptionResponseTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

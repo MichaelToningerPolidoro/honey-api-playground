@@ -1,7 +1,7 @@
-package com.honeyautomation.apiplayground.controllers;
+package com.honeyautomation.apiplayground.controller;
 
-import com.honeyautomation.apiplayground.dto.HobbyDTO;
-import com.honeyautomation.apiplayground.services.HobbyService;
+import com.honeyautomation.apiplayground.response.HobbyResponseDTO;
+import com.honeyautomation.apiplayground.service.HobbyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class HobbyController {
     private HobbyService hobbyService;
 
     @GetMapping
-    public ResponseEntity<HobbyDTO> findAll() {
+    public ResponseEntity<HobbyResponseDTO> findAll() {
         return ResponseEntity.ok(hobbyService.findAll());
     }
 }

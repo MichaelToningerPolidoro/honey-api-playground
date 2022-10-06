@@ -1,4 +1,4 @@
-package com.honeyautomation.apiplayground.exceptions;
+package com.honeyautomation.apiplayground.exception;
 
 public class ItemNotFoundException extends RuntimeException {
 

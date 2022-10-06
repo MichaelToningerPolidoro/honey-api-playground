@@ -1,4 +1,4 @@
-package com.honeyautomation.apiplayground.entities;
+package com.honeyautomation.apiplayground.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
