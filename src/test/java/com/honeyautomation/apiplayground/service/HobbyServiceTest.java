@@ -27,8 +27,8 @@ class HobbyServiceTest {
     @Test
     @DisplayName("Find all hobbies should return successfully")
     void findAllHobbiesShouldReturnAList() {
-        final String hobbyName = "Programming";
-        Mockito.when(hobbyRepositoryMock.findAll()).thenReturn(List.of(new Hobby(1, hobbyName)));
+        final String hobbyNameMockData = "Programming";
+        Mockito.when(hobbyRepositoryMock.findAll()).thenReturn(List.of(new Hobby(1, hobbyNameMockData)));
 
         Assertions.assertDoesNotThrow(() -> {
             hobbyService.findAll();
@@ -39,7 +39,7 @@ class HobbyServiceTest {
         Assertions.assertNotNull(allHobbies);
         Assertions.assertNotNull(allHobbies.getHobbies());
         Assertions.assertEquals(allHobbies.getHobbies().size(), 1);
-        Assertions.assertTrue(allHobbies.getHobbies().contains(hobbyName));
+        Assertions.assertTrue(allHobbies.getHobbies().contains(hobbyNameMockData));
     }
 
     @Test
