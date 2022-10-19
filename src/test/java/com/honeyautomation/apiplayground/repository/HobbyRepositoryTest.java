@@ -1,7 +1,6 @@
 package com.honeyautomation.apiplayground.repository;
 
 import com.honeyautomation.apiplayground.domain.Hobby;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,8 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @DataJpaTest
-@DisplayName("Hobby Repository tests")
 class HobbyRepositoryTest {
 
     @Autowired
@@ -35,10 +35,11 @@ class HobbyRepositoryTest {
     void findAllShouldReturnAllValuesSuccessfully() {
         final List<Hobby> hobbies = hobbyRepository.findAll();
 
-        Assertions.assertNotNull(hobbies);
-        Assertions.assertFalse(hobbies.isEmpty());
-        Assertions.assertEquals(hobbies.size(), hobbiesData.size());
-        Assertions.assertNotNull(hobbies.get(0));
-        Assertions.assertEquals(hobbies.get(0).getHobby(), "Programming");
+        assertNotNull(hobbies);
+        assertFalse(hobbies.isEmpty());
+        assertEquals(hobbies.size(), hobbiesData.size());
+        assertNotNull(hobbies.get(0));
+        assertInstanceOf(Integer.class, hobbies.get(0).getId());
+        assertEquals(hobbies.get(0).getHobby(), "Programming");
     }
 }

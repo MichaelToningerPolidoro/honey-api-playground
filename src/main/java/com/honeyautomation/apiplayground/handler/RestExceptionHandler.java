@@ -12,7 +12,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<ItemNotFoundExceptionResponseTemplate> notFound(ItemNotFoundException itemNotFoundException) {
-        ItemNotFoundExceptionResponseTemplate responseBody = ItemNotFoundExceptionResponseTemplate.builder()
+        final ItemNotFoundExceptionResponseTemplate responseBody = ItemNotFoundExceptionResponseTemplate.builder()
                 .message(itemNotFoundException.getMessage())
                 .build();
 
