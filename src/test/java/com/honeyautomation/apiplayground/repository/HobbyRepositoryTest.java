@@ -31,8 +31,8 @@ class HobbyRepositoryTest {
     }
 
     @Test
-    @DisplayName("Retrieve all values from database should return all values successfully")
-    void findAllShouldReturnAllValuesSuccessfully() {
+    @DisplayName("Retrieve all values from database should return all hobbies successfully")
+    void findAllShouldReturnAllHobbiesSuccessfully() {
         final List<Hobby> hobbies = hobbyRepository.findAll();
 
         assertNotNull(hobbies);
