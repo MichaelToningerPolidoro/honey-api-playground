@@ -27,20 +27,19 @@ class HobbyServiceTest {
     private HobbyRepository hobbyRepositoryMock;
 
     @Test
-    @DisplayName("Find all hobbies should return successfully")
+    @DisplayName("Find all hobbies should return a list successfully")
     void findAllHobbiesShouldReturnAList() {
         final Hobby hobbyMockData = HobbyFactory.validHobby();
-        when(hobbyRepositoryMock.findAll()).thenReturn(List.of(hobbyMockData));
+        final List<Hobby> hobbyListMockData = List.of(hobbyMockData);
+        when(hobbyRepositoryMock.findAll()).thenReturn(hobbyListMockData);
 
-        assertDoesNotThrow(() -> {
-            hobbyService.findAll();
-        }, ItemNotFoundException.class.getSimpleName());
+        assertDoesNotThrow(() -> hobbyService.findAll(), ItemNotFoundException.class.getSimpleName());
 
         final HobbyResponseDTO allHobbiesFound = hobbyService.findAll();
 
         assertNotNull(allHobbiesFound);
         assertNotNull(allHobbiesFound.getHobbies());
-        assertEquals(allHobbiesFound.getHobbies().size(), 1);
+        assertEquals(hobbyListMockData.size(), allHobbiesFound.getHobbies().size());
         assertTrue(allHobbiesFound.getHobbies().contains(hobbyMockData.getHobby()));
     }
 
