@@ -48,6 +48,7 @@ class HobbyControllerTest {
 
         assertNotNull(responseBody);
         assertNotNull(responseBody.getHobbies());
+        assertFalse(responseBody.getHobbies().isEmpty());
         assertEquals(responseBody.getHobbies().size(), responseDTOMockData.getHobbies().size());
         assertTrue(responseBody.getHobbies().contains(hobbyMockData.getHobby()));
     }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(Endpoints.REQUEST_MAPPING_PROGRAMMING_TIME_OPTIONS)
-public class ProgrammingTimeOptionsController {
+public class ProgrammingTimeOptionController {
 
     @Autowired
     private ProgrammingTimeOptionService programmingTimeOptionService;
