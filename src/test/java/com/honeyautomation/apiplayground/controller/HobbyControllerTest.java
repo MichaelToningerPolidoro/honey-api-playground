@@ -1,7 +1,10 @@
 package com.honeyautomation.apiplayground.controller;
 
+import com.honeyautomation.apiplayground.constants.Endpoints;
+import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
+import com.honeyautomation.apiplayground.factory.HobbyFactory;
 import com.honeyautomation.apiplayground.factory.MockMvcFactory;
 import com.honeyautomation.apiplayground.response.HobbyResponseDTO;
 import com.honeyautomation.apiplayground.service.HobbyService;
@@ -25,9 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 class HobbyControllerTest {
 
-    private static final String GET_HOBBIES_ENDPOINT = "/v1/hobbies";
-    private static final String EXPECTED_ITEM_NOT_FOUND_MESSAGE = "None hobby was found ...";
-
     @InjectMocks
     private HobbyController hobbyController;
     @Mock
@@ -36,8 +36,8 @@ class HobbyControllerTest {
     @Test
     @DisplayName("Hobby controller should return list of hobbies successfully")
     void hobbyControllerShouldReturnHobbiesWhenSuccessfully() {
-        final String hobbyNameMockData = "Programming";
-        final HobbyResponseDTO responseDTOMockData = new HobbyResponseDTO(List.of(new Hobby(1, hobbyNameMockData)));
+        final Hobby hobbyMockData = HobbyFactory.validHobby();
+        final HobbyResponseDTO responseDTOMockData = new HobbyResponseDTO(List.of(hobbyMockData));
         when(hobbyServiceMock.findAll()).thenReturn(responseDTOMockData);
 
         assertDoesNotThrow(() -> {
@@ -49,7 +49,7 @@ class HobbyControllerTest {
         assertNotNull(responseBody);
         assertNotNull(responseBody.getHobbies());
         assertEquals(responseBody.getHobbies().size(), responseDTOMockData.getHobbies().size());
-        assertTrue(responseBody.getHobbies().contains(hobbyNameMockData));
+        assertTrue(responseBody.getHobbies().contains(hobbyMockData.getHobby()));
     }
 
     @Test
@@ -57,14 +57,14 @@ class HobbyControllerTest {
     void hobbyControllerShouldReturnItemNotFoundExceptionTemplateWhenNoHobbyWereFound() throws Exception {
         final MockMvc mockMvc = MockMvcFactory.create(hobbyController);
 
-        when(hobbyServiceMock.findAll()).thenThrow(new ItemNotFoundException(EXPECTED_ITEM_NOT_FOUND_MESSAGE));
+        when(hobbyServiceMock.findAll()).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_HOBBY));
 
         assertThrows(ItemNotFoundException.class, () -> hobbyController.findAll());
 
-        mockMvc.perform(get(GET_HOBBIES_ENDPOINT))
+        mockMvc.perform(get(Endpoints.REQUEST_MAPPING_HOBBY))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("message", is(EXPECTED_ITEM_NOT_FOUND_MESSAGE)))
+                .andExpect(jsonPath("message", is(ExceptionMessages.NOT_FOUND_HOBBY)))
                 ;
     }
 }

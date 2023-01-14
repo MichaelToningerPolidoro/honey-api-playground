@@ -2,6 +2,7 @@ package com.honeyautomation.apiplayground.service;
 
 import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
+import com.honeyautomation.apiplayground.factory.HobbyFactory;
 import com.honeyautomation.apiplayground.repository.HobbyRepository;
 import com.honeyautomation.apiplayground.response.HobbyResponseDTO;
 import org.junit.jupiter.api.DisplayName;
@@ -28,19 +29,19 @@ class HobbyServiceTest {
     @Test
     @DisplayName("Find all hobbies should return successfully")
     void findAllHobbiesShouldReturnAList() {
-        final String hobbyNameMockData = "Programming";
-        when(hobbyRepositoryMock.findAll()).thenReturn(List.of(new Hobby(1, hobbyNameMockData)));
+        final Hobby hobbyMockData = HobbyFactory.validHobby();
+        when(hobbyRepositoryMock.findAll()).thenReturn(List.of(hobbyMockData));
 
         assertDoesNotThrow(() -> {
             hobbyService.findAll();
         }, ItemNotFoundException.class.getSimpleName());
 
-        final HobbyResponseDTO allHobbies = hobbyService.findAll();
+        final HobbyResponseDTO allHobbiesFound = hobbyService.findAll();
 
-        assertNotNull(allHobbies);
-        assertNotNull(allHobbies.getHobbies());
-        assertEquals(allHobbies.getHobbies().size(), 1);
-        assertTrue(allHobbies.getHobbies().contains(hobbyNameMockData));
+        assertNotNull(allHobbiesFound);
+        assertNotNull(allHobbiesFound.getHobbies());
+        assertEquals(allHobbiesFound.getHobbies().size(), 1);
+        assertTrue(allHobbiesFound.getHobbies().contains(hobbyMockData.getHobby()));
     }
 
     @Test

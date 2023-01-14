@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.service;
 
+import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
 import com.honeyautomation.apiplayground.repository.ProgrammingTimeOptionRepository;
 import com.honeyautomation.apiplayground.response.ProgrammingTimeOptionResponseDTO;
@@ -19,7 +20,7 @@ public class ProgrammingTimeOptionService {
                 new ProgrammingTimeOptionResponseDTO(programmingTimeOptionRepository.findAll());
 
         if (programmingTimeOptionResponseDTO.getProgrammingTimeOptions().isEmpty()) {
-            throw new ItemNotFoundException("None programming time option was found ...");
+            throw new ItemNotFoundException(ExceptionMessages.NOT_FOUND_PROGRAMMING_TIME_OPTION);
         }
 
         return programmingTimeOptionResponseDTO;

@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.service;
 
+import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
 import com.honeyautomation.apiplayground.repository.HobbyRepository;
 import com.honeyautomation.apiplayground.response.HobbyResponseDTO;
@@ -18,7 +19,7 @@ public class HobbyService {
         final HobbyResponseDTO hobbyResponseDTO = new HobbyResponseDTO(hobbyRepository.findAll());
 
         if (hobbyResponseDTO.getHobbies().isEmpty()) {
-            throw new ItemNotFoundException("None hobby was found ...");
+            throw new ItemNotFoundException(ExceptionMessages.NOT_FOUND_HOBBY);
         }
 
         return hobbyResponseDTO;

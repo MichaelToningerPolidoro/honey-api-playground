@@ -1,6 +1,7 @@
 package com.honeyautomation.apiplayground.repository;
 
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
+import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,28 +19,29 @@ public class ProgrammingTimeOptionRepositoryTest {
 
     @Autowired
     private ProgrammingTimeOptionRepository programmingTimeOptionRepository;
-    private Set<ProgrammingTimeOption> programmingTimeOptionData;
+    private Set<ProgrammingTimeOption> programmingTimeOptionDataSet;
+    private final ProgrammingTimeOption programmingTimeOptionData = ProgrammingTimeOptionFactory.validProgrammingTimeOption();
 
     @BeforeEach
     void before() {
         programmingTimeOptionRepository.deleteAll();
 
-        programmingTimeOptionData = new HashSet<>();
-        programmingTimeOptionData.add(new ProgrammingTimeOption(1, "Test time option"));
+        programmingTimeOptionDataSet = new HashSet<>();
+        programmingTimeOptionDataSet.add(programmingTimeOptionData);
 
-        programmingTimeOptionRepository.saveAll(programmingTimeOptionData);
+        programmingTimeOptionRepository.saveAll(programmingTimeOptionDataSet);
     }
 
     @Test
     @DisplayName("Retrieve all values from database should return all programming time options successfully")
     void findAllShouldReturnAllProgrammingTimeOptionsSuccessfully() {
-        final List<ProgrammingTimeOption> programmingTimeOptions = programmingTimeOptionRepository.findAll();
+        final List<ProgrammingTimeOption> programmingTimeOptionsRetrievedFromDatabase = programmingTimeOptionRepository.findAll();
 
-        assertNotNull(programmingTimeOptions);
-        assertFalse(programmingTimeOptions.isEmpty());
-        assertEquals(programmingTimeOptions.size(), programmingTimeOptionData.size());
-        assertNotNull(programmingTimeOptions.get(0));
-        assertInstanceOf(Integer.class, programmingTimeOptions.get(0).getId());
-        assertEquals(programmingTimeOptions.get(0).getProgrammingTime(), "Test time option");
+        assertNotNull(programmingTimeOptionsRetrievedFromDatabase);
+        assertFalse(programmingTimeOptionsRetrievedFromDatabase.isEmpty());
+        assertEquals(programmingTimeOptionDataSet.size(), programmingTimeOptionsRetrievedFromDatabase.size());
+        assertNotNull(programmingTimeOptionsRetrievedFromDatabase.get(0));
+        assertInstanceOf(Integer.class, programmingTimeOptionsRetrievedFromDatabase.get(0).getId());
+        assertEquals(programmingTimeOptionData.getProgrammingTime(), programmingTimeOptionsRetrievedFromDatabase.get(0).getProgrammingTime());
     }
 }

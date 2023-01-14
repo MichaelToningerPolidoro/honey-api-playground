@@ -1,6 +1,7 @@
 package com.honeyautomation.apiplayground.repository;
 
 import com.honeyautomation.apiplayground.domain.Hobby;
+import com.honeyautomation.apiplayground.factory.HobbyFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,28 +19,29 @@ class HobbyRepositoryTest {
 
     @Autowired
     private HobbyRepository hobbyRepository;
-    private Set<Hobby> hobbiesData;
+    private Set<Hobby> hobbiesDataSet;
+    private final Hobby hobbyData = HobbyFactory.validHobby();
 
     @BeforeEach
     void before() {
         hobbyRepository.deleteAll();
 
-        hobbiesData = new HashSet<>();
-        hobbiesData.add(new Hobby(1, "Programming"));
+        hobbiesDataSet = new HashSet<>();
+        hobbiesDataSet.add(hobbyData);
 
-        hobbyRepository.saveAll(hobbiesData);
+        hobbyRepository.saveAll(hobbiesDataSet);
     }
 
     @Test
     @DisplayName("Retrieve all values from database should return all hobbies successfully")
     void findAllShouldReturnAllHobbiesSuccessfully() {
-        final List<Hobby> hobbies = hobbyRepository.findAll();
+        final List<Hobby> hobbiesRetrievedFromDatabase = hobbyRepository.findAll();
 
-        assertNotNull(hobbies);
-        assertFalse(hobbies.isEmpty());
-        assertEquals(hobbies.size(), hobbiesData.size());
-        assertNotNull(hobbies.get(0));
-        assertInstanceOf(Integer.class, hobbies.get(0).getId());
-        assertEquals(hobbies.get(0).getHobby(), "Programming");
+        assertNotNull(hobbiesRetrievedFromDatabase);
+        assertFalse(hobbiesRetrievedFromDatabase.isEmpty());
+        assertEquals(hobbiesDataSet.size(), hobbiesRetrievedFromDatabase.size());
+        assertNotNull(hobbiesRetrievedFromDatabase.get(0));
+        assertInstanceOf(Integer.class, hobbiesRetrievedFromDatabase.get(0).getId());
+        assertEquals(hobbyData.getHobby(), hobbiesRetrievedFromDatabase.get(0).getHobby());
     }
 }
