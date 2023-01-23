@@ -6,7 +6,7 @@ import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
 import com.honeyautomation.apiplayground.factory.HobbyFactory;
 import com.honeyautomation.apiplayground.factory.MockMvcFactory;
-import com.honeyautomation.apiplayground.response.HobbyResponseDTO;
+import com.honeyautomation.apiplayground.dto.response.HobbyResponseDTO;
 import com.honeyautomation.apiplayground.service.HobbyService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

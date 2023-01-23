@@ -1,7 +1,7 @@
 package com.honeyautomation.apiplayground.controller;
 
 import com.honeyautomation.apiplayground.constants.Endpoints;
-import com.honeyautomation.apiplayground.response.ProgrammingTimeOptionResponseDTO;
+import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
 import com.honeyautomation.apiplayground.service.ProgrammingTimeOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

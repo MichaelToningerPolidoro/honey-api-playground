@@ -1,4 +1,4 @@
-package com.honeyautomation.apiplayground.response;
+package com.honeyautomation.apiplayground.dto.response;
 
 import com.honeyautomation.apiplayground.domain.Hobby;
 import lombok.Getter;
