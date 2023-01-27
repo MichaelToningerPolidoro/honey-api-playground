@@ -6,6 +6,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class MockMvcFactory {
 
+    private MockMvcFactory() {}
+
     public static MockMvc create(Object ...controllers) {
         return MockMvcBuilders.standaloneSetup(controllers)
                 .setControllerAdvice(new RestExceptionHandler())
