@@ -6,7 +6,7 @@ import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
 import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
 import com.honeyautomation.apiplayground.factory.MockMvcFactory;
 import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionFactory;
-import com.honeyautomation.apiplayground.response.ProgrammingTimeOptionResponseDTO;
+import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
 import com.honeyautomation.apiplayground.service.ProgrammingTimeOptionService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
