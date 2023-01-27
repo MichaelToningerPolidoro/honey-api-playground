@@ -1,7 +1,7 @@
 package com.honeyautomation.apiplayground.domain;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "tb_born_data")
@@ -11,9 +11,9 @@ public class BornData {
     private int id;
 
     @Temporal(TemporalType.DATE)
-    private LocalDate date;
+    private Date date;
 
     @OneToOne
     // here will be Country when implemented
-    private int country;
+    private Country country;
 }
