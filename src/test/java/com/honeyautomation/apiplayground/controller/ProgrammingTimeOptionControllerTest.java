@@ -3,10 +3,10 @@ package com.honeyautomation.apiplayground.controller;
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
+import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
 import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
 import com.honeyautomation.apiplayground.factory.MockMvcFactory;
 import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionFactory;
-import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
 import com.honeyautomation.apiplayground.service.ProgrammingTimeOptionService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -54,7 +54,7 @@ public class ProgrammingTimeOptionControllerTest {
 
     @Test
     @DisplayName("Programming time option controller should return ItemNotFoundExceptionTemplate body")
-    void programmingTimeOptionControllerShouldReturnItemNotFoundWhenNoOptionsWereFound() throws Exception {
+    void programmingTimeOptionControllerShouldReturnItemNotFoundWhenNoOptionsHaveBeenFound() throws Exception {
         final MockMvc mockMvc = MockMvcFactory.create(programmingTimeOptionsController);
 
         when(programmingTimeOptionService.findAll()).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_PROGRAMMING_TIME_OPTION));

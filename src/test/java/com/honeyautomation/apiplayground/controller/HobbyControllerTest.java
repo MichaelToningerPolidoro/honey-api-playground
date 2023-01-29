@@ -3,10 +3,10 @@ package com.honeyautomation.apiplayground.controller;
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.domain.Hobby;
+import com.honeyautomation.apiplayground.dto.response.HobbyResponseDTO;
 import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
 import com.honeyautomation.apiplayground.factory.HobbyFactory;
 import com.honeyautomation.apiplayground.factory.MockMvcFactory;
-import com.honeyautomation.apiplayground.dto.response.HobbyResponseDTO;
 import com.honeyautomation.apiplayground.service.HobbyService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,9 +40,7 @@ class HobbyControllerTest {
         final HobbyResponseDTO responseDTOMockData = new HobbyResponseDTO(List.of(hobbyMockData));
         when(hobbyServiceMock.findAll()).thenReturn(responseDTOMockData);
 
-        assertDoesNotThrow(() -> {
-            hobbyController.findAll();
-        }, Exception.class.getSimpleName());
+        assertDoesNotThrow(() -> hobbyController.findAll(), Exception.class.getSimpleName());
 
         final HobbyResponseDTO responseBody = hobbyController.findAll().getBody();
 
@@ -55,7 +53,7 @@ class HobbyControllerTest {
 
     @Test
     @DisplayName("Hobby controller should return ItemNotFoundExceptionTemplate body")
-    void hobbyControllerShouldReturnItemNotFoundExceptionTemplateWhenNoHobbyWereFound() throws Exception {
+    void hobbyControllerShouldReturnItemNotFoundExceptionTemplateWhenNoHobbiesHaveBeenFound() throws Exception {
         final MockMvc mockMvc = MockMvcFactory.create(hobbyController);
 
         when(hobbyServiceMock.findAll()).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_HOBBY));
