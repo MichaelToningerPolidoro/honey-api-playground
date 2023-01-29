@@ -53,7 +53,7 @@ public class ProgrammingTimeOptionServiceTest {
     }
 
     @Test
-    @DisplayName("Should thrown ItemNotFoundException when no programming time options were found")
+    @DisplayName("Should thrown ItemNotFoundException when no programming time options have been found")
     void findAllProgrammingTimeOptionsShouldThrownNoItemFoundExceptionWhenNoOptionsWereFound() {
         when(programmingTimeOptionRepository.findAll()).thenReturn(Collections.emptyList());
 

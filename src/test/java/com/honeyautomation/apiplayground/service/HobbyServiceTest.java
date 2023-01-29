@@ -44,7 +44,7 @@ class HobbyServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw ItemNotFoundException when no hobbies were found")
+    @DisplayName("Should throw ItemNotFoundException when no hobbies have been found")
     void findAllHobbiesShouldThrownItemNotFoundExceptionWhenNoHobbiesWereFound() {
         when(hobbyRepositoryMock.findAll()).thenReturn(Collections.emptyList());
 
