@@ -2,7 +2,7 @@ package com.honeyautomation.apiplayground.controller;
 
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.domain.*;
-import com.honeyautomation.apiplayground.dto.request.RegisterDTO;
+import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
 import com.honeyautomation.apiplayground.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping
-    public void register(@RequestBody RegisterDTO registerDTO) {
+    public void register(@RequestBody RegisterRequestDTO registerRequestDTO) {
         final Function<Integer, Integer> random = (max) -> ThreadLocalRandom.current().nextInt(1, max);
         final Password password = Password.builder().password("dawdwa").build();
         final ProgrammingTimeOption programmingTimeOption = new ProgrammingTimeOption(random.apply(5), "some");
