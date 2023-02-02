@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 public class RegisterRequestDTO {
 
+    private String nickName;
     private String name;
     private String email;
     private String password;

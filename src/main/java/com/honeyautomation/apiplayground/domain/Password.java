@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.domain;
 
+import com.honeyautomation.apiplayground.encoder.DefaultPasswordEncoder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,8 @@ public class Password {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String password;
+
+    public Password(String rawPassword) {
+        password = DefaultPasswordEncoder.getDefaultEncoder().encode(rawPassword);
+    }
 }

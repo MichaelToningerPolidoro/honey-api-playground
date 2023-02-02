@@ -24,4 +24,9 @@ public class BornData {
     @OneToOne(targetEntity = Country.class, cascade = CascadeType.DETACH)
     @JoinColumn(name = "country_fk", referencedColumnName = "id")
     private Country country;
+
+    public BornData(Date date, Country country) {
+        this.date = date;
+        this.country = country;
+    }
 }

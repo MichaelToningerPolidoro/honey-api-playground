@@ -17,4 +17,8 @@ public class Hobby {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String hobby;
+
+    public Hobby(String Hobby) {
+        this.hobby = hobby;
+    }
 }
