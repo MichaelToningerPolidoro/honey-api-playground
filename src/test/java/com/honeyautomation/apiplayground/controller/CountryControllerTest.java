@@ -36,7 +36,7 @@ public class CountryControllerTest {
 
 
     @Test
-    @DisplayName("")
+    @DisplayName("Country controller should return list of hobbies successfully")
     void countryControllerShouldReturnCountriesWhenSuccessfully() {
         final Country countryDataMock = CountryFactory.validCountry();
         final CountryResponseDTO responseDTOMockData = new CountryResponseDTO(List.of(countryDataMock));
