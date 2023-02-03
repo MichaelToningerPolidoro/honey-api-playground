@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 @Data
 @Builder
-public class ItemNotFoundExceptionDetails implements Serializable {
+public class ValidationExceptionDetails implements Serializable {
 
+    private String field;
     private String message;
 }
