@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ItemNotFoundExceptionResponseTemplate {
+public class ItemNotFoundExceptionDetails {
 
     private String message;
 }
