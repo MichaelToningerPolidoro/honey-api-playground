@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,14 +18,13 @@ public class BornData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    private LocalDate date;
 
     @OneToOne(targetEntity = Country.class, cascade = CascadeType.DETACH)
     @JoinColumn(name = "country_fk", referencedColumnName = "id")
     private Country country;
 
-    public BornData(Date date, Country country) {
+    public BornData(LocalDate date, Country country) {
         this.date = date;
         this.country = country;
     }
