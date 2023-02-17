@@ -40,7 +40,7 @@ public class UserService {
         // TODO: check data here
 
         final LocalDate bornDate = LocalDateFactory.getLocalDate(registerRequestDTO.getBornData().getDate().trim());
-        
+
         final User userToRegister = User.builder()
                 .nickName(registerRequestDTO.getNickName().trim())
                 .name(registerRequestDTO.getName().trim())

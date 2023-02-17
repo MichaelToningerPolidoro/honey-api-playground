@@ -9,5 +9,4 @@ public class Resource {
 
     private final String method;
     private final String endpoint;
-
 }

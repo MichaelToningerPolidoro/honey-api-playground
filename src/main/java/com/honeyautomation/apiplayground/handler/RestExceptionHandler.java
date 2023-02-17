@@ -1,8 +1,11 @@
 package com.honeyautomation.apiplayground.handler;
 
-import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.exception.details.ItemNotFoundExceptionDetails;
+import com.honeyautomation.apiplayground.exception.details.ItemNotRegisteredExceptionDetails;
 import com.honeyautomation.apiplayground.exception.details.ValidationExceptionDetails;
+import com.honeyautomation.apiplayground.exception.models.Resource;
+import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -35,6 +38,21 @@ public class RestExceptionHandler {
                         .build())
                 .collect(Collectors.toList())
         ;
+
+        return ResponseEntity.badRequest().body(responseBody);
+    }
+
+    @ExceptionHandler(ItemNotRegisteredException.class)
+    public ResponseEntity<ItemNotRegisteredExceptionDetails> itemNotRegistered(ItemNotRegisteredException itemNotRegisteredException) {
+        final Resource resource = new Resource(
+                itemNotRegisteredException.getResource().getMethod(),
+                itemNotRegisteredException.getResource().getEndpoint()
+        );
+
+        final ItemNotRegisteredExceptionDetails responseBody = ItemNotRegisteredExceptionDetails.builder()
+                .message(itemNotRegisteredException.getMessage())
+                .resource(resource)
+                .build();
 
         return ResponseEntity.badRequest().body(responseBody);
     }

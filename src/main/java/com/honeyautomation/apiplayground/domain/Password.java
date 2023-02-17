@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Table(name = "tb_passwords")
 public class Password {
 
-    // foreign key a senha, lembrando que essa senha tem o mesmo ID do usuário criado
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
