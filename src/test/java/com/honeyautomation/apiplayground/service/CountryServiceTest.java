@@ -2,7 +2,7 @@ package com.honeyautomation.apiplayground.service;
 
 import com.honeyautomation.apiplayground.domain.Country;
 import com.honeyautomation.apiplayground.dto.response.CountryResponseDTO;
-import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.factory.CountryFactory;
 import com.honeyautomation.apiplayground.repository.CountryRepository;
 import org.junit.jupiter.api.DisplayName;

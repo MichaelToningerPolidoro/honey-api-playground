@@ -1,4 +1,4 @@
-package com.honeyautomation.apiplayground.exception;
+package com.honeyautomation.apiplayground.exception.details;
 
 import lombok.Builder;
 import lombok.Data;

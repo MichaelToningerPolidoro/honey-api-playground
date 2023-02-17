@@ -1,4 +1,4 @@
-package com.honeyautomation.apiplayground.exception;
+package com.honeyautomation.apiplayground.exception.type;
 
 public class ValidationException extends RuntimeException {
 

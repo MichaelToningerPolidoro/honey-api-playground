@@ -2,7 +2,7 @@ package com.honeyautomation.apiplayground.service;
 
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.dto.response.HobbyResponseDTO;
-import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.repository.HobbyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

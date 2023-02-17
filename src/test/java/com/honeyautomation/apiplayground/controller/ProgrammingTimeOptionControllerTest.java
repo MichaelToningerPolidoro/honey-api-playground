@@ -4,7 +4,7 @@ import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
 import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
-import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.factory.MockMvcFactory;
 import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionFactory;
 import com.honeyautomation.apiplayground.service.ProgrammingTimeOptionService;

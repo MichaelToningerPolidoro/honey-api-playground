@@ -4,7 +4,7 @@ import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.dto.response.HobbyResponseDTO;
-import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.factory.HobbyFactory;
 import com.honeyautomation.apiplayground.factory.MockMvcFactory;
 import com.honeyautomation.apiplayground.service.HobbyService;

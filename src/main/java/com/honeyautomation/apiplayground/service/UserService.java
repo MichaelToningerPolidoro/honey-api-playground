@@ -30,21 +30,21 @@ public class UserService {
 
     public void create(RegisterRequestDTO registerRequestDTO) {
         final ProgrammingTimeOption programmingTimeOption = programmingTimeOptionRepository
-                .findByProgrammingTime(registerRequestDTO.getProgrammingTime());
+                .findByProgrammingTime(registerRequestDTO.getProgrammingTime().trim());
         // TODO: check data here
 
-        final Country country = countryRepository.findByCountry(registerRequestDTO.getBornData().getCountry());
+        final Country country = countryRepository.findByCountry(registerRequestDTO.getBornData().getCountry().trim());
         // TODO: check data here
 
         final List<Hobby> hobbies = hobbyRepository.findAllByHobbyIn(registerRequestDTO.getHobbies());
         // TODO: check data here
 
-        final LocalDate bornDate = LocalDateFactory.getLocalDate(registerRequestDTO.getBornData().getDate());
+        final LocalDate bornDate = LocalDateFactory.getLocalDate(registerRequestDTO.getBornData().getDate().trim());
         
         final User userToRegister = User.builder()
-                .nickName(registerRequestDTO.getNickName())
-                .name(registerRequestDTO.getName())
-                .email(registerRequestDTO.getEmail())
+                .nickName(registerRequestDTO.getNickName().trim())
+                .name(registerRequestDTO.getName().trim())
+                .email(registerRequestDTO.getEmail().trim().toLowerCase())
                 .password(new Password(registerRequestDTO.getPassword()))
                 .programmingTimeOption(programmingTimeOption)
                 .bornData(new BornData(bornDate, country))

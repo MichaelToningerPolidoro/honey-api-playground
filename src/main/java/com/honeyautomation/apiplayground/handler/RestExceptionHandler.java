@@ -1,8 +1,8 @@
 package com.honeyautomation.apiplayground.handler;
 
-import com.honeyautomation.apiplayground.exception.ItemNotFoundException;
-import com.honeyautomation.apiplayground.exception.ItemNotFoundExceptionDetails;
-import com.honeyautomation.apiplayground.exception.ValidationExceptionDetails;
+import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
+import com.honeyautomation.apiplayground.exception.details.ItemNotFoundExceptionDetails;
+import com.honeyautomation.apiplayground.exception.details.ValidationExceptionDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
