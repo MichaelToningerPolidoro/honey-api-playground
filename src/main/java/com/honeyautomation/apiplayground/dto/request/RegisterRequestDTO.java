@@ -6,10 +6,11 @@ import lombok.Getter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
-public class RegisterRequestDTO {
+public class RegisterRequestDTO implements Serializable {
 
     @NotBlank(message = "The nickName cannot be null or blank")
     @Size(max = 32, message = "The character limit for nickName is 32")
@@ -26,7 +27,7 @@ public class RegisterRequestDTO {
 
     @NotBlank(message = "The password cannot be null or blank")
     @Size(max = 64, message = "The character limit for password is 64")
-    @Pattern(regexp = "^[a-zA-Z0-9!\";#$%&'()*+,\\-/:<=>?@\\[\\]_{|}\\.]+$", message = "The password can only contain numbers, letters and these characters !\";#$%&'()*+,-/:<=>?@[]_{|}.")
+    @Pattern(regexp = Validations.PASSWORD_VALIDATION_REGEX_PATTERN, message = "The password can only contain numbers, letters and these characters !\";#$%&'()*+,-/:<=>?@[]_{|}.")
     private String password;
 
     @NotBlank(message = "The programmingTime cannot be null or blank")

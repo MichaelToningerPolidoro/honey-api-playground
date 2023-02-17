@@ -3,11 +3,12 @@ package com.honeyautomation.apiplayground.dto.response;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class ProgrammingTimeOptionResponseDTO {
+public class ProgrammingTimeOptionResponseDTO implements Serializable {
 
     private final List<String> programmingTimeOptions;
 

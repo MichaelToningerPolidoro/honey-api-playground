@@ -5,9 +5,10 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Getter
-public class BornDataDTO {
+public class BornDataDTO implements Serializable {
 
     @NotBlank(message = "The date cannot be null or blank")
     @Size(max = 10, message = "The character limit for date is 64")
