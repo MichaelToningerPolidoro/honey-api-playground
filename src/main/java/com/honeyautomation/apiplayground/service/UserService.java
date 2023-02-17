@@ -3,9 +3,6 @@ package com.honeyautomation.apiplayground.service;
 import com.honeyautomation.apiplayground.domain.*;
 import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
 import com.honeyautomation.apiplayground.factory.LocalDateFactory;
-import com.honeyautomation.apiplayground.repository.CountryRepository;
-import com.honeyautomation.apiplayground.repository.HobbyRepository;
-import com.honeyautomation.apiplayground.repository.ProgrammingTimeOptionRepository;
 import com.honeyautomation.apiplayground.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,25 +17,20 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private ProgrammingTimeOptionRepository programmingTimeOptionRepository;
+    private ProgrammingTimeOptionService programmingTimeOptionService;
 
     @Autowired
-    private CountryRepository countryRepository;
+    private CountryService countryService;
 
     @Autowired
-    private HobbyRepository hobbyRepository;
+    private HobbyService hobbyService;
 
     public void create(RegisterRequestDTO registerRequestDTO) {
-        final ProgrammingTimeOption programmingTimeOption = programmingTimeOptionRepository
-                .findByProgrammingTime(registerRequestDTO.getProgrammingTime().trim());
-        // TODO: check data here
+        final ProgrammingTimeOption programmingTimeOption = programmingTimeOptionService
+                .findProgrammingTime(registerRequestDTO.getProgrammingTime().trim());
 
-        final Country country = countryRepository.findByCountry(registerRequestDTO.getBornData().getCountry().trim());
-        // TODO: check data here
-
-        final List<Hobby> hobbies = hobbyRepository.findAllByHobbyIn(registerRequestDTO.getHobbies());
-        // TODO: check data here
-
+        final List<Hobby> hobbies = hobbyService.findHobbies(registerRequestDTO.getHobbies());
+        final Country country = countryService.findCountry(registerRequestDTO.getBornData().getCountry().trim());
         final LocalDate bornDate = LocalDateFactory.getLocalDate(registerRequestDTO.getBornData().getDate().trim());
 
         final User userToRegister = User.builder()
