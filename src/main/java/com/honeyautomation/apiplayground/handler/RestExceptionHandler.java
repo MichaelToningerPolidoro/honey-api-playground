@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.handler;
 
+import com.honeyautomation.apiplayground.exception.details.InternalServerErrorDetails;
 import com.honeyautomation.apiplayground.exception.details.ItemNotFoundExceptionDetails;
 import com.honeyautomation.apiplayground.exception.details.ItemNotRegisteredExceptionDetails;
 import com.honeyautomation.apiplayground.exception.details.ValidationExceptionDetails;
@@ -55,5 +56,10 @@ public class RestExceptionHandler {
                 .build();
 
         return ResponseEntity.badRequest().body(responseBody);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<InternalServerErrorDetails> internalServerError (Exception internalServerErrorException) {
+        return new ResponseEntity<>(new InternalServerErrorDetails(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

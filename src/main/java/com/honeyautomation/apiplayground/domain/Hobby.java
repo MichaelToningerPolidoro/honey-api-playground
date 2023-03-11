@@ -16,6 +16,8 @@ public class Hobby {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false, unique = true, length = 64)
     private String hobby;
 
     public Hobby(String Hobby) {
