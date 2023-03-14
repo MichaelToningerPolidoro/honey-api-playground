@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.domain;
 
+import com.honeyautomation.apiplayground.constants.Validations;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class Hobby {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, unique = true, length = 64)
+    @Column(nullable = false, unique = true, length = Validations.HOBBY_VALUE_MAX_LENGTH)
     private String hobby;
 
     public Hobby(String Hobby) {
