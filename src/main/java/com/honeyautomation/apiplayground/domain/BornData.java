@@ -18,10 +18,11 @@ public class BornData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
     private LocalDate date;
 
     @OneToOne(targetEntity = Country.class, cascade = CascadeType.DETACH)
-    @JoinColumn(name = "country_fk", referencedColumnName = "id")
+    @JoinColumn(nullable = false, name = "country_fk", referencedColumnName = "id")
     private Country country;
 
     public BornData(LocalDate date, Country country) {

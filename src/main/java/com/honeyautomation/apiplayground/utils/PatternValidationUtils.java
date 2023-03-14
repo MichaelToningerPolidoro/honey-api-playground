@@ -9,6 +9,6 @@ public final class PatternValidationUtils {
     private PatternValidationUtils() {}
 
     public static boolean isDateValid(String rawDate) {
-        return Pattern.matches(Validations.DATE_VALIDATION_REGEX_PATTERN, rawDate);
+        return Pattern.matches(Validations.REGEX_PATTERN_DATE_VALIDATION, rawDate);
     }
 }

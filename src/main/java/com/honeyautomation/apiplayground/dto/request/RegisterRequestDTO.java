@@ -1,6 +1,7 @@
 package com.honeyautomation.apiplayground.dto.request;
 
 import com.honeyautomation.apiplayground.constants.Validations;
+import com.honeyautomation.apiplayground.constants.ValidationsMessages;
 import com.honeyautomation.apiplayground.dto.model.BornDataDTO;
 import lombok.Getter;
 
@@ -12,33 +13,33 @@ import java.util.List;
 @Getter
 public class RegisterRequestDTO implements Serializable {
 
-    @NotBlank(message = "The nickName cannot be null or blank")
-    @Size(max = Validations.MAX_LENGTH_NICK_NAME, message = "The character limit for nickName is 32")
+    @NotBlank(message = ValidationsMessages.NOT_BLANK_NICK_NAME)
+    @Size(max = Validations.MAX_LENGTH_NICK_NAME, message = ValidationsMessages.MAX_LENGTH_NICK_NAME)
     private String nickName;
 
-    @NotBlank(message = "The name cannot be null or blank")
-    @Size(max = Validations.MAX_LENGTH_NAME, message = "The character limit for name is 64")
+    @NotBlank(message = ValidationsMessages.NOT_BLANK_NAME)
+    @Size(max = Validations.MAX_LENGTH_NAME, message = ValidationsMessages.MAX_LENGTH_NAME)
     private String name;
 
-    @NotBlank(message = "The email cannot be null or blank")
-    @Size(max = Validations.MAX_LENGTH_EMAIL, message = "The character limit for email is 64")
-    @Email(regexp = Validations.REGEX_PATTERN_EMAIL_VALIDATION, message = "The email needs to be valid")
+    @NotBlank(message = ValidationsMessages.NOT_BLANK_EMAIL)
+    @Size(max = Validations.MAX_LENGTH_EMAIL, message = ValidationsMessages.MAX_LENGTH_EMAIL)
+    @Email(regexp = Validations.REGEX_PATTERN_EMAIL_VALIDATION, message = ValidationsMessages.REGEX_PATTERN_EMAIL_VALIDATION)
     private String email;
 
-    @NotBlank(message = "The password cannot be null or blank")
-    @Size(max = Validations.MAX_LENGTH_PASSWORD, message = "The character limit for password is 64")
-    @Pattern(regexp = Validations.REGEX_PATTERN_PASSWORD_VALIDATION, message = "The password can only contain numbers, letters and these characters !\";#$%&'()*+,-/:<=>?@[]_{|}.")
+    @NotBlank(message = ValidationsMessages.NOT_BLANK_PASSWORD)
+    @Size(max = Validations.MAX_LENGTH_PASSWORD, message = ValidationsMessages.MAX_LENGTH_PASSWORD)
+    @Pattern(regexp = Validations.REGEX_PATTERN_PASSWORD_VALIDATION, message = ValidationsMessages.REGEX_PATTERN_PASSWORD_VALIDATION)
     private String password;
 
-    @NotBlank(message = "The programmingTime cannot be null or blank")
-    @Size(max = Validations.MAX_LENGTH_PROGRAMMING_TIME, message = "The character limit for programmingTime is 256")
+    @NotBlank(message = ValidationsMessages.NOT_BLANK_PROGRAMMING_TIME)
+    @Size(max = Validations.MAX_LENGTH_PROGRAMMING_TIME, message = ValidationsMessages.MAX_LENGTH_PROGRAMMING_TIME)
     private String programmingTime;
 
-    @NotNull(message = "The bornData cannot be null")
+    @NotNull(message = ValidationsMessages.NOT_NULL_BORN_DATA)
     @Valid
     private BornDataDTO bornData;
 
-    @NotEmpty(message = "The hobbies cannot be null or empty")
-    @Size(max = Validations.MAX_LENGTH_HOBBIES_LIST, message = "The max size os hobbies list is 3")
+    @NotEmpty(message = ValidationsMessages.NOT_NULL_HOBBIES_LIST)
+    @Size(max = Validations.MAX_LENGTH_HOBBIES_LIST, message = ValidationsMessages.MAX_LENGTH_HOBBIES_LIST)
     private List<String> hobbies;
 }

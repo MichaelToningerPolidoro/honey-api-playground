@@ -27,7 +27,7 @@ public class HobbyFactory {
 
     private static String getHobbyValueTooBig() {
         final String character = "g";
-        final int length = Validations.HOBBY_VALUE_MAX_LENGTH + 1;
+        final int length = Validations.MAX_LENGTH_HOBBY_VALUE + 1;
         return character.repeat(length);
     }
 }

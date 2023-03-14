@@ -18,7 +18,7 @@ public class Hobby {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, unique = true, length = Validations.HOBBY_VALUE_MAX_LENGTH)
+    @Column(nullable = false, unique = true, length = Validations.MAX_LENGTH_HOBBY_VALUE)
     private String hobby;
 
     public Hobby(String Hobby) {
