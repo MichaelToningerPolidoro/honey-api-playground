@@ -1,6 +1,7 @@
 package com.honeyautomation.apiplayground.dto.model;
 
 import com.honeyautomation.apiplayground.annotation.validation.ValidDate;
+import com.honeyautomation.apiplayground.constants.Validations;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -11,12 +12,12 @@ import java.io.Serializable;
 public class BornDataDTO implements Serializable {
 
     @NotBlank(message = "The date cannot be null or blank")
-    @Size(max = 10, message = "The character limit for date is 64")
+    @Size(max = Validations.MAX_LENGTH_BORN_DATA_DATE, message = "The character limit for date is 64")
     @ValidDate
     private String date;
 
     @NotBlank(message = "The country cannot be null or blank")
-    @Size(max = 48, message = "The character limit for country is 64")
+    @Size(max = Validations.MAX_LENGTH_COUNTRY, message = "The character limit for country is 64")
     private String country;
 
 }
