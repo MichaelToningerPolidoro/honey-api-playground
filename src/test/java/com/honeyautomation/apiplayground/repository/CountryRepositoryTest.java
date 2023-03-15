@@ -5,8 +5,12 @@ import com.honeyautomation.apiplayground.factory.CountryFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,14 +25,14 @@ public class CountryRepositoryTest {
     private CountryRepository countryRepository;
 
     private Set<Country> countryDataSet;
-    private final Country countryData = CountryFactory.validCountry();
+    private static final Country countryDataToSaveBeforeTests = CountryFactory.validCountry();
 
     @BeforeEach
     public void before() {
         countryRepository.deleteAll();
 
         countryDataSet = new HashSet<>();
-        countryDataSet.add(countryData);
+        countryDataSet.add(countryDataToSaveBeforeTests);
 
         countryRepository.saveAll(countryDataSet);
     }
@@ -43,7 +47,35 @@ public class CountryRepositoryTest {
         assertEquals(countryDataSet.size(), countriesRetrievedFromDatabase.size());
         assertNotNull(countriesRetrievedFromDatabase.get(0));
         assertInstanceOf(Integer.class, countriesRetrievedFromDatabase.get(0).getId());
-        assertEquals(countryData.getCountry(), countriesRetrievedFromDatabase.get(0).getCountry());
-        assertEquals(countryData.getIso(), countriesRetrievedFromDatabase.get(0).getIso());
+        assertEquals(countryDataToSaveBeforeTests.getCountry(), countriesRetrievedFromDatabase.get(0).getCountry());
+        assertEquals(countryDataToSaveBeforeTests.getIso(), countriesRetrievedFromDatabase.get(0).getIso());
+    }
+
+    @Test
+    @DisplayName("Saving new country should be successfully inserted")
+    void saveNewValidCountryShouldBeSuccessfullyInserted() {
+        final Country countryToSave = CountryFactory.validCountry();
+        final Country savedCountry = countryRepository.save(countryToSave);
+
+        assertNotNull(savedCountry);
+        assertInstanceOf(Integer.class, savedCountry.getId());
+        assertEquals(countryToSave.getCountry(), savedCountry.getCountry());
+        assertEquals(countryToSave.getIso(), savedCountry.getIso());
+    }
+
+    @ParameterizedTest(name = "Saving new country should thrown constraint violation")
+    @MethodSource("constraintViolationProvidedParameters")
+    void saveNewCountryShouldThrowConstraintViolationException(Country country) {
+        assertThrows(DataIntegrityViolationException.class, () -> countryRepository.save(country));
+    }
+
+    private static Arguments[] constraintViolationProvidedParameters() {
+        return new Arguments[] {
+                Arguments.of(countryDataToSaveBeforeTests),
+                Arguments.of(CountryFactory.countryWithNullCountryValue()),
+                Arguments.of(CountryFactory.countryWithNullIsoValue()),
+                Arguments.of(CountryFactory.countryWithCountryValueTooBig()),
+                Arguments.of(CountryFactory.countryWithIsoValueTooBig())
+        };
     }
 }

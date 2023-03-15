@@ -20,8 +20,4 @@ public class Hobby {
 
     @Column(nullable = false, unique = true, length = Validations.MAX_LENGTH_HOBBY_VALUE)
     private String hobby;
-
-    public Hobby(String Hobby) {
-        this.hobby = hobby;
-    }
 }

@@ -18,8 +18,4 @@ public class ProgrammingTimeOption {
     private int id;
     @Column(name = "programming_time")
     private String programmingTime;
-
-    public ProgrammingTimeOption(String programmingTime) {
-        this.programmingTime = programmingTime;
-    }
 }

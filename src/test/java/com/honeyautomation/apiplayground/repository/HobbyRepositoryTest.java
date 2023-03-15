@@ -51,7 +51,7 @@ class HobbyRepositoryTest {
 
     @Test
     @DisplayName("Saving new hobby should be successfully inserted")
-    void saveNewValidHobbyShouldBeSuccessfully() {
+    void saveNewValidHobbyShouldBeSuccessfullyInserted() {
         final Hobby hobbyToSave = HobbyFactory.validHobby();
         final Hobby savedHobby = hobbyRepository.save(hobbyToSave);
 

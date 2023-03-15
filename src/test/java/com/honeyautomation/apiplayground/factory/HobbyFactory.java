@@ -2,6 +2,7 @@ package com.honeyautomation.apiplayground.factory;
 
 import com.honeyautomation.apiplayground.constants.Validations;
 import com.honeyautomation.apiplayground.domain.Hobby;
+import com.honeyautomation.apiplayground.utils.ValuesGenerator;
 
 public class HobbyFactory {
 
@@ -26,8 +27,6 @@ public class HobbyFactory {
     }
 
     private static String getHobbyValueTooBig() {
-        final String character = "g";
-        final int length = Validations.MAX_LENGTH_HOBBY_VALUE + 1;
-        return character.repeat(length);
+        return ValuesGenerator.getStringExceedingLengthLimit(Validations.MAX_LENGTH_HOBBY_VALUE);
     }
 }
