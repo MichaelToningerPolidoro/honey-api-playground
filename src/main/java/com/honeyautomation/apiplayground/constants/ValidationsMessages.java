@@ -1,6 +1,8 @@
 package com.honeyautomation.apiplayground.constants;
 
-public class ValidationsMessages {
+public final class ValidationsMessages {
+
+    private ValidationsMessages() {}
 
     public static final String REGEX_PATTERN_EMAIL_VALIDATION = "The email needs to be valid";
     public static final String REGEX_PATTERN_PASSWORD_VALIDATION = "The password can only contain numbers, letters and these characters !\";#$%&'()*+,-/:<=>?@[]_{|}.";
