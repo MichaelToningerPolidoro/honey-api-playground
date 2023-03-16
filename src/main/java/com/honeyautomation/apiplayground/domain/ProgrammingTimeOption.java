@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.domain;
 
+import com.honeyautomation.apiplayground.constants.Validations;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,6 @@ public class ProgrammingTimeOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "programming_time")
+    @Column(name = "programming_time", nullable = false, unique = true, length = Validations.MAX_LENGTH_PROGRAMMING_TIME)
     private String programmingTime;
 }

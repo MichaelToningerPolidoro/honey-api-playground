@@ -53,7 +53,7 @@ public class CountryRepositoryTest {
 
     @Test
     @DisplayName("Saving new country should be successfully inserted")
-    void saveNewValidCountryShouldBeSuccessfullyInserted() {
+    void savingNewValidCountryShouldBeSuccessfullyInserted() {
         final Country countryToSave = CountryFactory.validCountry();
         final Country savedCountry = countryRepository.save(countryToSave);
 
@@ -65,7 +65,7 @@ public class CountryRepositoryTest {
 
     @ParameterizedTest(name = "Saving new country should thrown constraint violation")
     @MethodSource("constraintViolationProvidedParameters")
-    void saveNewCountryShouldThrowConstraintViolationException(Country country) {
+    void savingNewCountryShouldThrowConstraintViolationException(Country country) {
         assertThrows(DataIntegrityViolationException.class, () -> countryRepository.save(country));
     }
 

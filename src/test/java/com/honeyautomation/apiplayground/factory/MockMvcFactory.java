@@ -4,7 +4,7 @@ import com.honeyautomation.apiplayground.handler.RestExceptionHandler;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-public class MockMvcFactory {
+public final class MockMvcFactory {
 
     private MockMvcFactory() {}
 

@@ -1,12 +1,36 @@
 package com.honeyautomation.apiplayground.factory;
 
+import com.honeyautomation.apiplayground.constants.Validations;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
+import com.honeyautomation.apiplayground.utils.ValuesGenerator;
 
-public class ProgrammingTimeOptionFactory {
+public final class ProgrammingTimeOptionFactory {
+
+    private static int id = 1;
 
     private ProgrammingTimeOptionFactory() {}
 
     public static ProgrammingTimeOption validProgrammingTimeOption() {
-        return new ProgrammingTimeOption(1, "Test time option");
+        return new ProgrammingTimeOption(getValidId(), getValidProgrammingTimeValue());
+    }
+
+    public static ProgrammingTimeOption programmingTimeOptionWithNullProgrammingTimeOptionValue() {
+        return new ProgrammingTimeOption(getValidId(), null);
+    }
+
+    public static ProgrammingTimeOption programmingTimeOptionWithProgrammingTimeOptionValueTooBig() {
+        return new ProgrammingTimeOption(getValidId(), getProgrammingTimeValueTooBig());
+    }
+
+    private static int getValidId() {
+        return id++;
+    }
+
+    private static String getValidProgrammingTimeValue() {
+        return "programming time option" + System.currentTimeMillis();
+    }
+
+    private static String getProgrammingTimeValueTooBig() {
+        return ValuesGenerator.getStringExceedingLengthLimit(Validations.MAX_LENGTH_PROGRAMMING_TIME);
     }
 }

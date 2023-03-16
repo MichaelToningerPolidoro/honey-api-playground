@@ -4,7 +4,7 @@ import com.honeyautomation.apiplayground.constants.Validations;
 import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.utils.ValuesGenerator;
 
-public class HobbyFactory {
+public final class HobbyFactory {
 
     private static int id = 1;
 

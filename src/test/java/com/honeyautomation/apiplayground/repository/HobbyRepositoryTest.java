@@ -51,7 +51,7 @@ class HobbyRepositoryTest {
 
     @Test
     @DisplayName("Saving new hobby should be successfully inserted")
-    void saveNewValidHobbyShouldBeSuccessfullyInserted() {
+    void savingNewValidHobbyShouldBeSuccessfullyInserted() {
         final Hobby hobbyToSave = HobbyFactory.validHobby();
         final Hobby savedHobby = hobbyRepository.save(hobbyToSave);
 
@@ -62,7 +62,7 @@ class HobbyRepositoryTest {
 
     @ParameterizedTest(name = "Saving new hobby should thrown constraint violation")
     @MethodSource("constraintViolationProvidedParameters")
-    void saveNewHobbyShouldThrowConstraintViolationException(Hobby hobby) {
+    void savingNewHobbyShouldThrowConstraintViolationException(Hobby hobby) {
         assertThrows(DataIntegrityViolationException.class, () -> hobbyRepository.save(hobby));
     }
 

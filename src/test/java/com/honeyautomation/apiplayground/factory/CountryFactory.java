@@ -4,7 +4,7 @@ import com.honeyautomation.apiplayground.constants.Validations;
 import com.honeyautomation.apiplayground.domain.Country;
 import com.honeyautomation.apiplayground.utils.ValuesGenerator;
 
-public class CountryFactory {
+public final class CountryFactory {
 
     private static int id = 1;
     private static int isoCount = 1;
