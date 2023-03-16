@@ -4,6 +4,7 @@ import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.domain.Country;
 import com.honeyautomation.apiplayground.dto.response.CountryResponseDTO;
+import com.honeyautomation.apiplayground.exception.TestException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.factory.CountryFactory;
 import com.honeyautomation.apiplayground.factory.MockMvcFactory;
@@ -67,5 +68,18 @@ public class CountryControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("message", is(ExceptionMessages.NOT_FOUND_COUNTRY)))
             ;
+    }
+
+    @Test
+    @DisplayName("Country controller should thrown internal server body")
+    void countryControllerShouldReturnInternalServerError() throws Exception {
+        final MockMvc mockMvc = MockMvcFactory.create(countryController);
+
+        when(countryServiceMock.findAll()).thenThrow(new TestException());
+
+        mockMvc.perform(get(Endpoints.REQUEST_MAPPING_COUNTRIES))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("message", is(ExceptionMessages.INTERNAL_SERVER_ERROR)));
     }
 }
