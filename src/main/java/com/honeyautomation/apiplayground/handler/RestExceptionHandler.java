@@ -1,14 +1,16 @@
 package com.honeyautomation.apiplayground.handler;
 
-import com.honeyautomation.apiplayground.exception.details.InternalServerErrorDetails;
+import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.exception.details.ItemNotFoundExceptionDetails;
 import com.honeyautomation.apiplayground.exception.details.ItemNotRegisteredExceptionDetails;
+import com.honeyautomation.apiplayground.exception.details.OnlyMessageDetails;
 import com.honeyautomation.apiplayground.exception.details.ValidationExceptionDetails;
 import com.honeyautomation.apiplayground.exception.models.Resource;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -59,7 +61,12 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<InternalServerErrorDetails> internalServerError (Exception internalServerErrorException) {
-        return new ResponseEntity<>(new InternalServerErrorDetails(), HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<OnlyMessageDetails> internalServerError (Exception internalServerErrorException) {
+        return new ResponseEntity<>(new OnlyMessageDetails(ExceptionMessages.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<OnlyMessageDetails> httpMessageNotReadable (HttpMessageNotReadableException HttpMessageNotReadableException) {
+        return new ResponseEntity<>(new OnlyMessageDetails(ExceptionMessages.HTTP_MESSAGE_NOT_READABLE), HttpStatus.NOT_ACCEPTABLE);
     }
 }
