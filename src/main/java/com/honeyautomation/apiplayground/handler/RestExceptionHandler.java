@@ -11,10 +11,10 @@ import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredExcepti
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,17 +30,15 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<ValidationExceptionDetails>> fieldValidationError(MethodArgumentNotValidException methodArgumentNotValidException) {
-        final List<ValidationExceptionDetails> responseBody = methodArgumentNotValidException.getBindingResult()
-                .getFieldErrors()
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<List<ValidationExceptionDetails>> fieldValidationError(ConstraintViolationException constraintViolationException) {
+        final List<ValidationExceptionDetails> responseBody = constraintViolationException.getConstraintViolations()
                 .stream()
-                .map(fieldError -> ValidationExceptionDetails.builder()
-                        .field(fieldError.getField())
-                        .message(fieldError.getDefaultMessage())
+                .map(constraintViolation -> ValidationExceptionDetails.builder()
+                        .field(constraintViolation.getPropertyPath().toString())
+                        .message(constraintViolation.getMessage())
                         .build())
-                .collect(Collectors.toList())
-        ;
+                .collect(Collectors.toList());
 
         return ResponseEntity.badRequest().body(responseBody);
     }
@@ -60,13 +58,13 @@ public class RestExceptionHandler {
         return ResponseEntity.badRequest().body(responseBody);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<OnlyMessageDetails> internalServerError (Exception internalServerErrorException) {
-        return new ResponseEntity<>(new OnlyMessageDetails(ExceptionMessages.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<OnlyMessageDetails> httpMessageNotReadable (HttpMessageNotReadableException HttpMessageNotReadableException) {
         return new ResponseEntity<>(new OnlyMessageDetails(ExceptionMessages.HTTP_MESSAGE_NOT_READABLE), HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<OnlyMessageDetails> internalServerError (Exception internalServerErrorException) {
+        return new ResponseEntity<>(new OnlyMessageDetails(ExceptionMessages.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

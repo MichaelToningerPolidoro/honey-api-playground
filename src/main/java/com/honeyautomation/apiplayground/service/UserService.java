@@ -4,6 +4,7 @@ import com.honeyautomation.apiplayground.domain.*;
 import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
 import com.honeyautomation.apiplayground.factory.LocalDateFactory;
 import com.honeyautomation.apiplayground.repository.UserRepository;
+import com.honeyautomation.apiplayground.validation.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,8 @@ public class UserService {
     private HobbyService hobbyService;
 
     public void create(RegisterRequestDTO registerRequestDTO) {
+        FieldValidator.validate(registerRequestDTO);
+
         final ProgrammingTimeOption programmingTimeOption = programmingTimeOptionService
                 .findProgrammingTime(registerRequestDTO.getProgrammingTime().trim());
 
