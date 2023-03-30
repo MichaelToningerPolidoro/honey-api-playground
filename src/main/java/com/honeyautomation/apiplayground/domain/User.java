@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.domain;
 
+import com.honeyautomation.apiplayground.constants.Validations;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,8 +23,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false, unique = true, length = Validations.MAX_LENGTH_NICK_NAME)
     private String nickName;
+
+    @Column(nullable = false, length = Validations.MAX_LENGTH_NAME)
     private String name;
+
+    @Column(nullable = false, unique = true, length = Validations.MAX_LENGTH_EMAIL)
     private String email;
 
     @OneToOne(targetEntity = Password.class, cascade = CascadeType.ALL)

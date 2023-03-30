@@ -3,7 +3,7 @@ package com.honeyautomation.apiplayground.encoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class DefaultPasswordEncoder {
+public final class DefaultPasswordEncoder {
 
     private DefaultPasswordEncoder() {}
 

@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.domain;
 
+import com.honeyautomation.apiplayground.constants.Validations;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class BornData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
+    @Column(nullable = false, length = Validations.MAX_LENGTH_BORN_DATA_DATE)
     private LocalDate date;
 
     @OneToOne(targetEntity = Country.class, cascade = CascadeType.DETACH)
