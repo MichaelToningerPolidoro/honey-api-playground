@@ -3,11 +3,13 @@ package com.honeyautomation.apiplayground.domain;
 import com.honeyautomation.apiplayground.constants.Validations;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

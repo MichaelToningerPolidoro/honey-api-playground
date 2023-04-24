@@ -6,8 +6,8 @@ import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.dto.response.HobbyResponseDTO;
 import com.honeyautomation.apiplayground.exception.TestException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
-import com.honeyautomation.apiplayground.factory.HobbyFactory;
-import com.honeyautomation.apiplayground.factory.MockMvcFactory;
+import com.honeyautomation.apiplayground.factory.HobbyCreator;
+import com.honeyautomation.apiplayground.factory.MockMvcCreator;
 import com.honeyautomation.apiplayground.service.HobbyService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ class HobbyControllerTest {
     @Test
     @DisplayName("Hobby controller should return list of hobbies successfully")
     void hobbyControllerShouldReturnHobbiesWhenSuccessfully() {
-        final Hobby hobbyMockData = HobbyFactory.validHobby();
+        final Hobby hobbyMockData = HobbyCreator.validHobby();
         final HobbyResponseDTO responseDTOMockData = new HobbyResponseDTO(List.of(hobbyMockData));
         when(hobbyServiceMock.findAll()).thenReturn(responseDTOMockData);
 
@@ -55,7 +55,7 @@ class HobbyControllerTest {
     @Test
     @DisplayName("Hobby controller should return ItemNotFoundExceptionTemplate body")
     void hobbyControllerShouldReturnItemNotFoundExceptionTemplateWhenNoHobbiesHaveBeenFound() throws Exception {
-        final MockMvc mockMvc = MockMvcFactory.create(hobbyController);
+        final MockMvc mockMvc = MockMvcCreator.create(hobbyController);
 
         when(hobbyServiceMock.findAll()).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_HOBBY));
 
@@ -71,7 +71,7 @@ class HobbyControllerTest {
     @Test
     @DisplayName("Hobby controller should thrown internal server body")
     void countryControllerShouldReturnInternalServerError() throws Exception {
-        final MockMvc mockMvc = MockMvcFactory.create(hobbyController);
+        final MockMvc mockMvc = MockMvcCreator.create(hobbyController);
 
         when(hobbyServiceMock.findAll()).thenThrow(new TestException());
 

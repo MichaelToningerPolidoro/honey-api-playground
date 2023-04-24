@@ -4,11 +4,11 @@ import com.honeyautomation.apiplayground.constants.Validations;
 import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.utils.ValuesGenerator;
 
-public final class HobbyFactory {
+public final class HobbyCreator {
 
     private static int id = 1;
 
-    private HobbyFactory() {}
+    private HobbyCreator() {}
 
     public static Hobby validHobby() {
         return new Hobby(getValidId(), "Programming" + System.currentTimeMillis());

@@ -1,7 +1,7 @@
 package com.honeyautomation.apiplayground.repository;
 
 import com.honeyautomation.apiplayground.domain.Country;
-import com.honeyautomation.apiplayground.factory.CountryFactory;
+import com.honeyautomation.apiplayground.factory.CountryCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,14 +24,13 @@ public class CountryRepositoryTest {
     @Autowired
     private CountryRepository countryRepository;
 
-    private Set<Country> countryDataSet;
-    private static final Country countryDataToSaveBeforeTests = CountryFactory.validCountry();
+    private final Set<Country> countryDataSet = new HashSet<>();
+    private static final Country countryDataToSaveBeforeTests = CountryCreator.validCountry();
 
     @BeforeEach
     public void before() {
         countryRepository.deleteAll();
 
-        countryDataSet = new HashSet<>();
         countryDataSet.add(countryDataToSaveBeforeTests);
 
         countryRepository.saveAll(countryDataSet);
@@ -54,7 +53,7 @@ public class CountryRepositoryTest {
     @Test
     @DisplayName("Saving new country should be successfully inserted")
     void savingNewValidCountryShouldBeSuccessfullyInserted() {
-        final Country countryToSave = CountryFactory.validCountry();
+        final Country countryToSave = CountryCreator.validCountry();
         final Country savedCountry = countryRepository.save(countryToSave);
 
         assertNotNull(savedCountry);
@@ -72,10 +71,10 @@ public class CountryRepositoryTest {
     private static Arguments[] constraintViolationProvidedParameters() {
         return new Arguments[] {
                 Arguments.of(countryDataToSaveBeforeTests),
-                Arguments.of(CountryFactory.countryWithNullCountryValue()),
-                Arguments.of(CountryFactory.countryWithNullIsoValue()),
-                Arguments.of(CountryFactory.countryWithCountryValueTooBig()),
-                Arguments.of(CountryFactory.countryWithIsoValueTooBig())
+                Arguments.of(CountryCreator.countryWithNullCountryValue()),
+                Arguments.of(CountryCreator.countryWithNullIsoValue()),
+                Arguments.of(CountryCreator.countryWithCountryValueTooBig()),
+                Arguments.of(CountryCreator.countryWithIsoValueTooBig())
         };
     }
 }

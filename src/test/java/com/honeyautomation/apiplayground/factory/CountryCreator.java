@@ -4,12 +4,12 @@ import com.honeyautomation.apiplayground.constants.Validations;
 import com.honeyautomation.apiplayground.domain.Country;
 import com.honeyautomation.apiplayground.utils.ValuesGenerator;
 
-public final class CountryFactory {
+public final class CountryCreator {
 
     private static int id = 1;
     private static int isoCount = 1;
 
-    private CountryFactory() {}
+    private CountryCreator() {}
 
     public static Country validCountry() {
         return new Country(getValidId(), getValidCountryName(), getValidIso());

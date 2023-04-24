@@ -6,8 +6,8 @@ import com.honeyautomation.apiplayground.domain.Country;
 import com.honeyautomation.apiplayground.dto.response.CountryResponseDTO;
 import com.honeyautomation.apiplayground.exception.TestException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
-import com.honeyautomation.apiplayground.factory.CountryFactory;
-import com.honeyautomation.apiplayground.factory.MockMvcFactory;
+import com.honeyautomation.apiplayground.factory.CountryCreator;
+import com.honeyautomation.apiplayground.factory.MockMvcCreator;
 import com.honeyautomation.apiplayground.service.CountryService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ public class CountryControllerTest {
     @Test
     @DisplayName("Country controller should return list of hobbies successfully")
     void countryControllerShouldReturnCountriesWhenSuccessfully() {
-        final Country countryDataMock = CountryFactory.validCountry();
+        final Country countryDataMock = CountryCreator.validCountry();
         final CountryResponseDTO responseDTOMockData = new CountryResponseDTO(List.of(countryDataMock));
         when(countryServiceMock.findAll()).thenReturn(responseDTOMockData);
 
@@ -57,7 +57,7 @@ public class CountryControllerTest {
     @Test
     @DisplayName("Country controller should return ItemNotFoundExceptionTemplate body")
     void countryControllerShouldReturnItemNotFoundExceptionTemplateWhenNoCountriesHaveBeenFound() throws Exception {
-        final MockMvc mockMvc = MockMvcFactory.create(countryController);
+        final MockMvc mockMvc = MockMvcCreator.create(countryController);
 
         when(countryServiceMock.findAll()).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_COUNTRY));
 
@@ -73,7 +73,7 @@ public class CountryControllerTest {
     @Test
     @DisplayName("Country controller should thrown internal server body")
     void countryControllerShouldReturnInternalServerError() throws Exception {
-        final MockMvc mockMvc = MockMvcFactory.create(countryController);
+        final MockMvc mockMvc = MockMvcCreator.create(countryController);
 
         when(countryServiceMock.findAll()).thenThrow(new TestException());
 

@@ -1,7 +1,7 @@
 package com.honeyautomation.apiplayground.repository;
 
 import com.honeyautomation.apiplayground.domain.Hobby;
-import com.honeyautomation.apiplayground.factory.HobbyFactory;
+import com.honeyautomation.apiplayground.factory.HobbyCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,14 +23,13 @@ class HobbyRepositoryTest {
 
     @Autowired
     private HobbyRepository hobbyRepository;
-    private Set<Hobby> hobbiesDataSet;
-    private static final Hobby hobbyDataToSaveBeforeTests = HobbyFactory.validHobby();
+    private final Set<Hobby> hobbiesDataSet = new HashSet<>();
+    private static final Hobby hobbyDataToSaveBeforeTests = HobbyCreator.validHobby();
 
     @BeforeEach
     void before() {
         hobbyRepository.deleteAll();
 
-        hobbiesDataSet = new HashSet<>();
         hobbiesDataSet.add(hobbyDataToSaveBeforeTests);
 
         hobbyRepository.saveAll(hobbiesDataSet);
@@ -52,7 +51,7 @@ class HobbyRepositoryTest {
     @Test
     @DisplayName("Saving new hobby should be successfully inserted")
     void savingNewValidHobbyShouldBeSuccessfullyInserted() {
-        final Hobby hobbyToSave = HobbyFactory.validHobby();
+        final Hobby hobbyToSave = HobbyCreator.validHobby();
         final Hobby savedHobby = hobbyRepository.save(hobbyToSave);
 
         assertNotNull(savedHobby);
@@ -69,8 +68,8 @@ class HobbyRepositoryTest {
     private static Arguments[] constraintViolationProvidedParameters() {
         return new Arguments[] {
                 Arguments.of(hobbyDataToSaveBeforeTests),
-                Arguments.of(HobbyFactory.hobbyWithNullHobbyValue()),
-                Arguments.of(HobbyFactory.hobbyTooBig())
+                Arguments.of(HobbyCreator.hobbyWithNullHobbyValue()),
+                Arguments.of(HobbyCreator.hobbyTooBig())
         };
     }
 }

@@ -3,7 +3,7 @@ package com.honeyautomation.apiplayground.service;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
 import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
-import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionFactory;
+import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionCreator;
 import com.honeyautomation.apiplayground.repository.ProgrammingTimeOptionRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ public class ProgrammingTimeOptionServiceTest {
     @Test
     @DisplayName("Find all programming time options should return a list successfully")
     void findAllProgrammingTimeOptionsShouldReturnAList() {
-        final ProgrammingTimeOption programmingTimeOptionMockData = ProgrammingTimeOptionFactory.validProgrammingTimeOption();
+        final ProgrammingTimeOption programmingTimeOptionMockData = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
         final List<ProgrammingTimeOption> programmingTimeOptionListMockData = List.of(programmingTimeOptionMockData);
 
         when(programmingTimeOptionRepository.findAll()).thenReturn(programmingTimeOptionListMockData);

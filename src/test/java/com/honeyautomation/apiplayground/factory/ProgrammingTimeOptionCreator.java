@@ -4,11 +4,11 @@ import com.honeyautomation.apiplayground.constants.Validations;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
 import com.honeyautomation.apiplayground.utils.ValuesGenerator;
 
-public final class ProgrammingTimeOptionFactory {
+public final class ProgrammingTimeOptionCreator {
 
     private static int id = 1;
 
-    private ProgrammingTimeOptionFactory() {}
+    private ProgrammingTimeOptionCreator() {}
 
     public static ProgrammingTimeOption validProgrammingTimeOption() {
         return new ProgrammingTimeOption(getValidId(), getValidProgrammingTimeValue());

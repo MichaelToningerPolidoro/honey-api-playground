@@ -6,8 +6,8 @@ import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
 import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
 import com.honeyautomation.apiplayground.exception.TestException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
-import com.honeyautomation.apiplayground.factory.MockMvcFactory;
-import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionFactory;
+import com.honeyautomation.apiplayground.factory.MockMvcCreator;
+import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionCreator;
 import com.honeyautomation.apiplayground.service.ProgrammingTimeOptionService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ public class ProgrammingTimeOptionControllerTest {
     @Test
     @DisplayName("Programming time option controller should return list of options successfully")
     void programmingTimeOptionControllerShouldReturnValuesSuccessfully() {
-        final ProgrammingTimeOption programmingTimeOptionMockData = ProgrammingTimeOptionFactory.validProgrammingTimeOption();
+        final ProgrammingTimeOption programmingTimeOptionMockData = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
         final ProgrammingTimeOptionResponseDTO responseDTOMockData = new ProgrammingTimeOptionResponseDTO(List.of(programmingTimeOptionMockData));
 
         when(programmingTimeOptionServiceMock.findAll()).thenReturn(responseDTOMockData);
@@ -56,7 +56,7 @@ public class ProgrammingTimeOptionControllerTest {
     @Test
     @DisplayName("Programming time option controller should return ItemNotFoundExceptionTemplate body")
     void programmingTimeOptionControllerShouldReturnItemNotFoundWhenNoOptionsHaveBeenFound() throws Exception {
-        final MockMvc mockMvc = MockMvcFactory.create(programmingTimeOptionsController);
+        final MockMvc mockMvc = MockMvcCreator.create(programmingTimeOptionsController);
 
         when(programmingTimeOptionServiceMock.findAll()).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_PROGRAMMING_TIME_OPTION));
 
@@ -72,7 +72,7 @@ public class ProgrammingTimeOptionControllerTest {
     @Test
     @DisplayName("Programming time option controller should thrown internal server body")
     void countryControllerShouldReturnInternalServerError() throws Exception {
-        final MockMvc mockMvc = MockMvcFactory.create(programmingTimeOptionsController);
+        final MockMvc mockMvc = MockMvcCreator.create(programmingTimeOptionsController);
 
         when(programmingTimeOptionServiceMock.findAll()).thenThrow(new TestException());
 

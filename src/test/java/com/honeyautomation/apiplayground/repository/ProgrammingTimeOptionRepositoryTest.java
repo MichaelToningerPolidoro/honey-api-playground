@@ -1,7 +1,7 @@
 package com.honeyautomation.apiplayground.repository;
 
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
-import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionFactory;
+import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,14 +23,13 @@ public class ProgrammingTimeOptionRepositoryTest {
 
     @Autowired
     private ProgrammingTimeOptionRepository programmingTimeOptionRepository;
-    private Set<ProgrammingTimeOption> programmingTimeOptionDataSet;
-    private static final ProgrammingTimeOption programmingTimeOptionDataToSaveBeforeTests = ProgrammingTimeOptionFactory.validProgrammingTimeOption();
+    private final Set<ProgrammingTimeOption> programmingTimeOptionDataSet = new HashSet<>();
+    private static final ProgrammingTimeOption programmingTimeOptionDataToSaveBeforeTests = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
 
     @BeforeEach
     void before() {
         programmingTimeOptionRepository.deleteAll();
 
-        programmingTimeOptionDataSet = new HashSet<>();
         programmingTimeOptionDataSet.add(programmingTimeOptionDataToSaveBeforeTests);
 
         programmingTimeOptionRepository.saveAll(programmingTimeOptionDataSet);
@@ -52,7 +51,7 @@ public class ProgrammingTimeOptionRepositoryTest {
     @Test
     @DisplayName("Saving new programming time option should be successfully inserted")
     void savingNewProgrammingTimeOptionShouldBeSuccessfullyInserted() {
-        final ProgrammingTimeOption programmingTimeOptionToSave = ProgrammingTimeOptionFactory.validProgrammingTimeOption();
+        final ProgrammingTimeOption programmingTimeOptionToSave = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
         final ProgrammingTimeOption programmingTimeOptionFactorySaved = programmingTimeOptionRepository.save(programmingTimeOptionToSave);
 
         assertNotNull(programmingTimeOptionFactorySaved);
@@ -69,8 +68,8 @@ public class ProgrammingTimeOptionRepositoryTest {
     private static Arguments[] constraintViolationProvidedParameters() {
         return new Arguments[] {
                 Arguments.of(programmingTimeOptionDataToSaveBeforeTests),
-                Arguments.of(ProgrammingTimeOptionFactory.programmingTimeOptionWithNullProgrammingTimeOptionValue()),
-                Arguments.of(ProgrammingTimeOptionFactory.programmingTimeOptionWithProgrammingTimeOptionValueTooBig())
+                Arguments.of(ProgrammingTimeOptionCreator.programmingTimeOptionWithNullProgrammingTimeOptionValue()),
+                Arguments.of(ProgrammingTimeOptionCreator.programmingTimeOptionWithProgrammingTimeOptionValueTooBig())
         };
     }
 }
