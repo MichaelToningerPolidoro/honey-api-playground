@@ -52,11 +52,11 @@ public class ProgrammingTimeOptionRepositoryTest {
     @DisplayName("Saving new programming time option should be successfully inserted")
     void savingNewProgrammingTimeOptionShouldBeSuccessfullyInserted() {
         final ProgrammingTimeOption programmingTimeOptionToSave = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
-        final ProgrammingTimeOption programmingTimeOptionFactorySaved = programmingTimeOptionRepository.save(programmingTimeOptionToSave);
+        final ProgrammingTimeOption savedProgrammingTimeOption = programmingTimeOptionRepository.save(programmingTimeOptionToSave);
 
-        assertNotNull(programmingTimeOptionFactorySaved);
-        assertInstanceOf(Integer.class, programmingTimeOptionFactorySaved.getId());
-        assertEquals(programmingTimeOptionToSave.getProgrammingTime(), programmingTimeOptionFactorySaved.getProgrammingTime());
+        assertNotNull(savedProgrammingTimeOption);
+        assertInstanceOf(Integer.class, savedProgrammingTimeOption.getId());
+        assertEquals(programmingTimeOptionToSave.getProgrammingTime(), savedProgrammingTimeOption.getProgrammingTime());
     }
 
     @ParameterizedTest(name = "Saving new programming time option should thrown constraint violation")

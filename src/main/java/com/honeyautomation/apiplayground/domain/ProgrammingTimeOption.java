@@ -17,6 +17,7 @@ public class ProgrammingTimeOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "programming_time", nullable = false, unique = true, length = Validations.MAX_LENGTH_PROGRAMMING_TIME)
     private String programmingTime;
 }
