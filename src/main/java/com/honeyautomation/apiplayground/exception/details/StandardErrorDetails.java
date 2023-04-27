@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @Builder
-public class DataAlreadyUsedExceptionDetails implements Serializable {
+public class StandardErrorDetails implements Serializable {
 
     private String field;
     private String message;

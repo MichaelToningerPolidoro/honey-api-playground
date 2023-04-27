@@ -1,6 +1,5 @@
 package com.honeyautomation.apiplayground.exception.type;
 
-import com.honeyautomation.apiplayground.exception.models.DataAlreadyUsedInfo;
 import lombok.Getter;
 
 import java.util.List;
@@ -8,9 +7,9 @@ import java.util.List;
 @Getter
 public class DataAlreadyUsedException extends RuntimeException {
 
-    private final List<DataAlreadyUsedInfo> dataAlreadyUsed;
+    private final List<String> dataAlreadyUsed;
 
-    public DataAlreadyUsedException(List<DataAlreadyUsedInfo> dataAlreadyUsed) {
+    public DataAlreadyUsedException(List<String> dataAlreadyUsed) {
         this.dataAlreadyUsed = dataAlreadyUsed;
     }
 }

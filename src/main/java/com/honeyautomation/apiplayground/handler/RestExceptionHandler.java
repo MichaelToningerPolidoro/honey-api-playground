@@ -1,7 +1,10 @@
 package com.honeyautomation.apiplayground.handler;
 
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
-import com.honeyautomation.apiplayground.exception.details.*;
+import com.honeyautomation.apiplayground.exception.details.ItemNotFoundExceptionDetails;
+import com.honeyautomation.apiplayground.exception.details.ItemNotRegisteredExceptionDetails;
+import com.honeyautomation.apiplayground.exception.details.OnlyMessageDetails;
+import com.honeyautomation.apiplayground.exception.details.StandardErrorDetails;
 import com.honeyautomation.apiplayground.exception.models.Resource;
 import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
@@ -29,10 +32,10 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<List<ValidationExceptionDetails>> fieldValidationError(ConstraintViolationException constraintViolationException) {
-        final List<ValidationExceptionDetails> responseBody = constraintViolationException.getConstraintViolations()
+    public ResponseEntity<List<StandardErrorDetails>> fieldValidationError(ConstraintViolationException constraintViolationException) {
+        final List<StandardErrorDetails> responseBody = constraintViolationException.getConstraintViolations()
                 .stream()
-                .map(constraintViolation -> ValidationExceptionDetails.builder()
+                .map(constraintViolation -> StandardErrorDetails.builder()
                         .field(constraintViolation.getPropertyPath().toString())
                         .message(constraintViolation.getMessage())
                         .build())
@@ -57,12 +60,12 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(DataAlreadyUsedException.class)
-    public ResponseEntity<List<DataAlreadyUsedExceptionDetails>> dataAlreadyInUse(DataAlreadyUsedException dataAlreadyUsedException) {
-        final List<DataAlreadyUsedExceptionDetails> responseBody = dataAlreadyUsedException.getDataAlreadyUsed()
+    public ResponseEntity<List<StandardErrorDetails>> dataAlreadyInUse(DataAlreadyUsedException dataAlreadyUsedException) {
+        final List<StandardErrorDetails> responseBody = dataAlreadyUsedException.getDataAlreadyUsed()
                 .stream()
-                .map(data -> DataAlreadyUsedExceptionDetails.builder()
-                        .field(data.getField())
-                        .message(data.getMessage())
+                .map(data -> StandardErrorDetails.builder()
+                        .field(data)
+                        .message(ExceptionMessages.DATA_ALREADY_USED)
                         .build())
                 .collect(Collectors.toList());
 

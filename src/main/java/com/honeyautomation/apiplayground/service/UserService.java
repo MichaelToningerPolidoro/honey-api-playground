@@ -3,7 +3,6 @@ package com.honeyautomation.apiplayground.service;
 import com.honeyautomation.apiplayground.creator.LocalDateCreator;
 import com.honeyautomation.apiplayground.domain.*;
 import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
-import com.honeyautomation.apiplayground.exception.models.DataAlreadyUsedInfo;
 import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
 import com.honeyautomation.apiplayground.repository.UserRepository;
 import com.honeyautomation.apiplayground.validation.FieldValidator;
@@ -58,14 +57,14 @@ public class UserService {
     }
 
     private void checkForAlreadyUsedData(String email, String nickName) {
-        final List<DataAlreadyUsedInfo> dataAlreadyInUse = new ArrayList<>();
+        final List<String> dataAlreadyInUse = new ArrayList<>();
 
         if (isEmailAlreadyUsed(email)) {
-            dataAlreadyInUse.add(new DataAlreadyUsedInfo("email"));
+            dataAlreadyInUse.add("email");
         }
 
         if (isNickNameAlreadyUsed(nickName)) {
-            dataAlreadyInUse.add(new DataAlreadyUsedInfo("nickName"));
+            dataAlreadyInUse.add("nickName");
         }
 
         if (!dataAlreadyInUse.isEmpty()) {
