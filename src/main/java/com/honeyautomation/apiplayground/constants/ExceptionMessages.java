@@ -4,6 +4,7 @@ public final class ExceptionMessages {
 
     private ExceptionMessages() {}
 
+    public static final String DATA_ALREADY_USED = "This data is already in use ...";
     public static final String HTTP_MESSAGE_NOT_READABLE = "JSON body has invalid syntax";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";
     public static final String NOT_FOUND_COUNTRY = "No countries have been found ...";

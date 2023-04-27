@@ -1,11 +1,9 @@
 package com.honeyautomation.apiplayground.handler;
 
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
-import com.honeyautomation.apiplayground.exception.details.ItemNotFoundExceptionDetails;
-import com.honeyautomation.apiplayground.exception.details.ItemNotRegisteredExceptionDetails;
-import com.honeyautomation.apiplayground.exception.details.OnlyMessageDetails;
-import com.honeyautomation.apiplayground.exception.details.ValidationExceptionDetails;
+import com.honeyautomation.apiplayground.exception.details.*;
 import com.honeyautomation.apiplayground.exception.models.Resource;
+import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
 import org.springframework.http.HttpStatus;
@@ -40,7 +38,7 @@ public class RestExceptionHandler {
                         .build())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.badRequest().body(responseBody);
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ItemNotRegisteredException.class)
@@ -55,7 +53,20 @@ public class RestExceptionHandler {
                 .resource(resource)
                 .build();
 
-        return ResponseEntity.badRequest().body(responseBody);
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataAlreadyUsedException.class)
+    public ResponseEntity<List<DataAlreadyUsedExceptionDetails>> dataAlreadyInUse(DataAlreadyUsedException dataAlreadyUsedException) {
+        final List<DataAlreadyUsedExceptionDetails> responseBody = dataAlreadyUsedException.getDataAlreadyUsed()
+                .stream()
+                .map(data -> DataAlreadyUsedExceptionDetails.builder()
+                        .field(data.getField())
+                        .message(data.getMessage())
+                        .build())
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
