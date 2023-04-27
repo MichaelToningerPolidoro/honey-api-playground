@@ -1,12 +1,12 @@
-package com.honeyautomation.apiplayground.factory;
+package com.honeyautomation.apiplayground.creator;
 
 import com.honeyautomation.apiplayground.constants.General;
 
 import java.time.LocalDate;
 
-public final class LocalDateFactory {
+public final class LocalDateCreator {
 
-    private LocalDateFactory() {}
+    private LocalDateCreator() {}
 
     public static LocalDate getLocalDate(String rawDate) {
         return LocalDate.parse(rawDate, General.STANDARD_DATE_TIME_FORMATTER)

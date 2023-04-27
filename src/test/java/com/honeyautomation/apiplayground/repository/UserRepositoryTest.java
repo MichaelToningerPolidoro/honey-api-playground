@@ -2,7 +2,7 @@ package com.honeyautomation.apiplayground.repository;
 
 
 import com.honeyautomation.apiplayground.domain.User;
-import com.honeyautomation.apiplayground.factory.UserCreator;
+import com.honeyautomation.apiplayground.creator.UserCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

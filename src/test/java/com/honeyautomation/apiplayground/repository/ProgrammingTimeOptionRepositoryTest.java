@@ -1,7 +1,7 @@
 package com.honeyautomation.apiplayground.repository;
 
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
-import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionCreator;
+import com.honeyautomation.apiplayground.creator.ProgrammingTimeOptionCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

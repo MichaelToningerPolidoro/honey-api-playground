@@ -1,4 +1,4 @@
-package com.honeyautomation.apiplayground.factory;
+package com.honeyautomation.apiplayground.creator;
 
 import com.honeyautomation.apiplayground.handler.RestExceptionHandler;
 import org.springframework.test.web.servlet.MockMvc;

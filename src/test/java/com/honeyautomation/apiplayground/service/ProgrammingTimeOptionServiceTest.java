@@ -3,7 +3,7 @@ package com.honeyautomation.apiplayground.service;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
 import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
-import com.honeyautomation.apiplayground.factory.ProgrammingTimeOptionCreator;
+import com.honeyautomation.apiplayground.creator.ProgrammingTimeOptionCreator;
 import com.honeyautomation.apiplayground.repository.ProgrammingTimeOptionRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ public class ProgrammingTimeOptionServiceTest {
     @InjectMocks
     private ProgrammingTimeOptionService programmingTimeOptionService;
     @Mock
-    private ProgrammingTimeOptionRepository programmingTimeOptionRepository;
+    private ProgrammingTimeOptionRepository programmingTimeOptionRepositoryMock;
 
     @Test
     @DisplayName("Find all programming time options should return a list successfully")
@@ -32,7 +32,7 @@ public class ProgrammingTimeOptionServiceTest {
         final ProgrammingTimeOption programmingTimeOptionMockData = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
         final List<ProgrammingTimeOption> programmingTimeOptionListMockData = List.of(programmingTimeOptionMockData);
 
-        when(programmingTimeOptionRepository.findAll()).thenReturn(programmingTimeOptionListMockData);
+        when(programmingTimeOptionRepositoryMock.findAll()).thenReturn(programmingTimeOptionListMockData);
 
         assertDoesNotThrow(() -> programmingTimeOptionService.findAll(), ItemNotFoundException.class.getSimpleName());
 
@@ -55,7 +55,7 @@ public class ProgrammingTimeOptionServiceTest {
     @Test
     @DisplayName("Should thrown ItemNotFoundException when no programming time options have been found")
     void findAllProgrammingTimeOptionsShouldThrownNoItemFoundExceptionWhenNoOptionsWereFound() {
-        when(programmingTimeOptionRepository.findAll()).thenReturn(Collections.emptyList());
+        when(programmingTimeOptionRepositoryMock.findAll()).thenReturn(Collections.emptyList());
 
         assertThrows(ItemNotFoundException.class, () -> programmingTimeOptionService.findAll());
     }

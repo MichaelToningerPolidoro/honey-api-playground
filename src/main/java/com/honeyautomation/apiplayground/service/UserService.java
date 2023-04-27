@@ -2,7 +2,7 @@ package com.honeyautomation.apiplayground.service;
 
 import com.honeyautomation.apiplayground.domain.*;
 import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
-import com.honeyautomation.apiplayground.factory.LocalDateFactory;
+import com.honeyautomation.apiplayground.creator.LocalDateCreator;
 import com.honeyautomation.apiplayground.repository.UserRepository;
 import com.honeyautomation.apiplayground.validation.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class UserService {
 
         final List<Hobby> hobbies = hobbyService.findHobbies(registerRequestDTO.getHobbies());
         final Country country = countryService.findCountry(registerRequestDTO.getBornData().getCountry().trim());
-        final LocalDate bornDate = LocalDateFactory.getLocalDate(registerRequestDTO.getBornData().getDate().trim());
+        final LocalDate bornDate = LocalDateCreator.getLocalDate(registerRequestDTO.getBornData().getDate().trim());
 
         final User userToRegister = User.builder()
                 .nickName(registerRequestDTO.getNickName().trim())

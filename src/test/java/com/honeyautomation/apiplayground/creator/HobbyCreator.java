@@ -1,4 +1,4 @@
-package com.honeyautomation.apiplayground.factory;
+package com.honeyautomation.apiplayground.creator;
 
 import com.honeyautomation.apiplayground.constants.Validations;
 import com.honeyautomation.apiplayground.domain.Hobby;
