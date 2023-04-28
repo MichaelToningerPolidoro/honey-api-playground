@@ -1,7 +1,7 @@
 package com.honeyautomation.apiplayground.repository;
 
-import com.honeyautomation.apiplayground.domain.Country;
 import com.honeyautomation.apiplayground.creator.CountryCreator;
+import com.honeyautomation.apiplayground.domain.Country;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

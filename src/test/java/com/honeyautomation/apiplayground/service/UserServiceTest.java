@@ -1,6 +1,10 @@
 package com.honeyautomation.apiplayground.service;
 
+import com.honeyautomation.apiplayground.constants.Endpoints;
+import com.honeyautomation.apiplayground.constants.ExceptionMessages;
+import com.honeyautomation.apiplayground.exception.models.Resource;
 import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
 import com.honeyautomation.apiplayground.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,13 +41,14 @@ public class UserServiceTest {
     @Mock
     private HobbyService hobbyServiceMock;
 
-    // nesse daqui que eu posso retornar true caso exists .. assim mudando o comportamento do Service
     @Mock
     private UserRepository userRepositoryMock;
 
     @Test
     @DisplayName("Register new user should be successfully inserted")
     void registerNewUserShouldBeSuccessfullyInserted() {
+        when(userRepositoryMock.existsByEmail(any())).thenReturn(false);
+        when(userRepositoryMock.existsByNickName(any())).thenReturn(false);
         when(programmingTimeOptionServiceMock.findProgrammingTime(any())).thenReturn(validProgrammingTimeOption());
         when(countryServiceMock.findCountry(any())).thenReturn(validCountry());
         when(hobbyServiceMock.findHobbies(any())).thenReturn(List.of(validHobby()));
@@ -70,5 +75,41 @@ public class UserServiceTest {
     void registerAnUsedNickNameShouldThrowDataAlreadyUsedException() {
         when(userRepositoryMock.existsByNickName(any())).thenReturn(true);
         assertThrows(DataAlreadyUsedException.class, () -> userService.create(validRegisterRequestDTO()));
+    }
+
+    @Test
+    @DisplayName("Register an user with non registered programming time should throw ItemNotRegisteredException")
+    void registerUserWithNonRegisteredProgrammingTimeShouldThrowItemNotRegisteredException() {
+        final Resource resource = new Resource(
+                Endpoints.METHOD_FIND_ALL_PROGRAMMING_TIME_OPTIONS,
+                Endpoints.REQUEST_MAPPING_PROGRAMMING_TIME_OPTIONS
+        );
+
+        when(programmingTimeOptionServiceMock.findProgrammingTime(any()))
+                .thenThrow(new ItemNotRegisteredException(ExceptionMessages.NOT_REGISTERED_PROGRAMMING_TIME_OPTION, resource));
+
+        assertThrows(ItemNotRegisteredException.class, () -> userService.create(validRegisterRequestDTO()));
+    }
+
+    @Test
+    @DisplayName("Register an user with non registered hobby should throw ItemNotRegisteredException")
+    void registerUserWithNonRegisteredHobbyShouldThrowItemNotRegisteredException() {
+        final Resource resource = new Resource(Endpoints.METHOD_FIND_ALL_HOBBIES, Endpoints.REQUEST_MAPPING_HOBBY);
+
+        when(hobbyServiceMock.findHobbies(any()))
+                .thenThrow(new ItemNotRegisteredException(ExceptionMessages.NOT_REGISTERED_HOBBY, resource));
+
+        assertThrows(ItemNotRegisteredException.class, () -> userService.create(validRegisterRequestDTO()));
+    }
+
+    @Test
+    @DisplayName("Register an user with non registered country should throw ItemNotRegisteredException")
+    void registerUserWithNonRegisteredCountryShouldThrowItemNotRegisteredException() {
+        final Resource resource = new Resource(Endpoints.METHOD_FIND_ALL_COUNTRIES, Endpoints.REQUEST_MAPPING_COUNTRIES);
+
+        when(countryServiceMock.findCountry(any()))
+                .thenThrow(new ItemNotRegisteredException(ExceptionMessages.NOT_REGISTERED_COUNTRY, resource));
+
+        assertThrows(ItemNotRegisteredException.class, () -> userService.create(validRegisterRequestDTO()));
     }
 }
