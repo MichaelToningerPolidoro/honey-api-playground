@@ -3,6 +3,7 @@ package com.honeyautomation.apiplayground.dto.request;
 import com.honeyautomation.apiplayground.constants.Validations;
 import com.honeyautomation.apiplayground.constants.ValidationsMessages;
 import com.honeyautomation.apiplayground.dto.model.BornDataDTO;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.Valid;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Getter
+@Builder
 public class RegisterRequestDTO implements Serializable {
 
     @NotBlank(message = ValidationsMessages.NOT_BLANK_NICK_NAME)
