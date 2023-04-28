@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    long countByEmail(String email);
-    long countByNickName(String nickName);
+    boolean existsByEmail(String email);
+    boolean existsByNickName(String nickName);
 }

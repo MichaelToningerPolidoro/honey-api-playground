@@ -34,7 +34,7 @@ public class UserService {
         final String newUserEmail = registerRequestDTO.getEmail().trim().toLowerCase();
         final String newUserNickName = registerRequestDTO.getNickName().trim();
 
-        checkForAlreadyUsedData(newUserEmail, newUserNickName);
+        checkUserDataAvailability(newUserEmail, newUserNickName);
 
         final ProgrammingTimeOption programmingTimeOption = programmingTimeOptionService
                 .findProgrammingTime(registerRequestDTO.getProgrammingTime().trim());
@@ -56,7 +56,7 @@ public class UserService {
         userRepository.save(userToRegister);
     }
 
-    private void checkForAlreadyUsedData(String email, String nickName) {
+    private void checkUserDataAvailability(String email, String nickName) {
         final List<String> dataAlreadyInUse = new ArrayList<>();
 
         if (isEmailAlreadyUsed(email)) {
@@ -73,10 +73,10 @@ public class UserService {
     }
 
     private boolean isEmailAlreadyUsed(String email) {
-        return userRepository.countByEmail(email) > 0;
+        return userRepository.existsByEmail(email);
     }
 
     private boolean isNickNameAlreadyUsed(String nickName) {
-        return userRepository.countByNickName(nickName) > 0;
+        return userRepository.existsByNickName(nickName);
     }
 }
