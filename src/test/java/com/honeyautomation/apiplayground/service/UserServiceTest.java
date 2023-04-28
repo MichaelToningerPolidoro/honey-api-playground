@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.service;
 
+import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
 import com.honeyautomation.apiplayground.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,12 +52,23 @@ public class UserServiceTest {
         assertDoesNotThrow(() -> userService.create(validRegisterRequestDTO()));
     }
 
-    //FIXME: Change to an ParametrizedTest
     @Test
     @DisplayName("Register an invalid user should throw ConstraintViolationException")
     void registerAnInvalidUserShouldThrowConstraintViolationException() {
         assertThrows(ConstraintViolationException.class, () -> userService.create(invalidRegisterRequestDTO()));
     }
 
+    @Test
+    @DisplayName("Register an used email should throw DataAlreadyUsedException")
+    void registerAnUsedEmailShouldThrowDataAlreadyUsedException() {
+        when(userRepositoryMock.existsByEmail(any())).thenReturn(true);
+        assertThrows(DataAlreadyUsedException.class, () -> userService.create(validRegisterRequestDTO()));
+    }
 
+    @Test
+    @DisplayName("Register an used nickName should throw DataAlreadyUsedException")
+    void registerAnUsedNickNameShouldThrowDataAlreadyUsedException() {
+        when(userRepositoryMock.existsByNickName(any())).thenReturn(true);
+        assertThrows(DataAlreadyUsedException.class, () -> userService.create(validRegisterRequestDTO()));
+    }
 }
