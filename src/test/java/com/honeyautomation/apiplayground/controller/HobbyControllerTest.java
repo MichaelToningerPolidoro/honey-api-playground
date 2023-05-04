@@ -14,7 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -43,8 +45,10 @@ class HobbyControllerTest {
 
         assertDoesNotThrow(() -> hobbyController.findAll(), Exception.class.getSimpleName());
 
-        final HobbyResponseDTO responseBody = hobbyController.findAll().getBody();
+        final ResponseEntity<HobbyResponseDTO> response = hobbyController.findAll();
+        final HobbyResponseDTO responseBody = response.getBody();
 
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(responseBody);
         assertNotNull(responseBody.getHobbies());
         assertFalse(responseBody.getHobbies().isEmpty());

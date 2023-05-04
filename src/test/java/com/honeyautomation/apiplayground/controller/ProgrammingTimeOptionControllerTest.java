@@ -14,7 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -44,8 +46,10 @@ public class ProgrammingTimeOptionControllerTest {
 
         assertDoesNotThrow(() -> programmingTimeOptionsController.findAll(), Exception.class.getSimpleName());
 
-        final ProgrammingTimeOptionResponseDTO responseBody = programmingTimeOptionsController.findAll().getBody();
+        final ResponseEntity<ProgrammingTimeOptionResponseDTO> response = programmingTimeOptionsController.findAll();
+        final ProgrammingTimeOptionResponseDTO responseBody = response.getBody();
 
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(responseBody);
         assertNotNull(responseBody.getProgrammingTimeOptions());
         assertFalse(responseBody.getProgrammingTimeOptions().isEmpty());
