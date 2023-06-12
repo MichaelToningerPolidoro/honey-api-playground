@@ -2,7 +2,7 @@ package com.honeyautomation.apiplayground.repository;
 
 import com.honeyautomation.apiplayground.creator.ProgrammingTimeOptionCreator;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,29 +21,27 @@ public class ProgrammingTimeOptionRepositoryTest {
 
     @Autowired
     private ProgrammingTimeOptionRepository programmingTimeOptionRepository;
-    private final Set<ProgrammingTimeOption> programmingTimeOptionDataSet = new HashSet<>();
-    private static final ProgrammingTimeOption programmingTimeOptionDataToSaveBeforeTests = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
 
-    @BeforeEach
-    void before() {
+    @BeforeAll
+    static void beforeAll(@Autowired ProgrammingTimeOptionRepository programmingTimeOptionRepository) {
         programmingTimeOptionRepository.deleteAll();
-
-        programmingTimeOptionDataSet.add(programmingTimeOptionDataToSaveBeforeTests);
-
-        programmingTimeOptionRepository.saveAll(programmingTimeOptionDataSet);
     }
 
     @Test
     @DisplayName("Retrieve all values from database should return all programming time options successfully")
     void findAllShouldReturnAllProgrammingTimeOptionsSuccessfully() {
+        final ProgrammingTimeOption programmingTimeOptionToSave = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
+        programmingTimeOptionRepository.save(programmingTimeOptionToSave);
+
         final List<ProgrammingTimeOption> programmingTimeOptionsRetrievedFromDatabase = programmingTimeOptionRepository.findAll();
+
+        programmingTimeOptionsRetrievedFromDatabase.forEach(element -> System.out.println(element.getProgrammingTime()));
 
         assertNotNull(programmingTimeOptionsRetrievedFromDatabase);
         assertFalse(programmingTimeOptionsRetrievedFromDatabase.isEmpty());
-        assertEquals(programmingTimeOptionDataSet.size(), programmingTimeOptionsRetrievedFromDatabase.size());
         assertNotNull(programmingTimeOptionsRetrievedFromDatabase.get(0));
         assertInstanceOf(Integer.class, programmingTimeOptionsRetrievedFromDatabase.get(0).getId());
-        assertEquals(programmingTimeOptionDataToSaveBeforeTests.getProgrammingTime(), programmingTimeOptionsRetrievedFromDatabase.get(0).getProgrammingTime());
+        assertEquals(programmingTimeOptionToSave.getProgrammingTime(), programmingTimeOptionsRetrievedFromDatabase.get(0).getProgrammingTime());
     }
 
     @Test
@@ -59,6 +55,17 @@ public class ProgrammingTimeOptionRepositoryTest {
         assertEquals(programmingTimeOptionToSave.getProgrammingTime(), savedProgrammingTimeOption.getProgrammingTime());
     }
 
+    @Test
+    @DisplayName("Saving duplicated programming time option should thrown an exception")
+    void savingDuplicatedProgrammingTimeOptionShouldThrownException() {
+        final ProgrammingTimeOption programmingTimeOptionToSave = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
+        final ProgrammingTimeOption duplicatedProgrammingTime = ProgrammingTimeOptionCreator.getCopyOfWithDifferentId(programmingTimeOptionToSave);
+
+        programmingTimeOptionRepository.save(programmingTimeOptionToSave);
+
+        assertThrows(DataIntegrityViolationException.class, () -> programmingTimeOptionRepository.save(duplicatedProgrammingTime));
+    }
+
     @ParameterizedTest(name = "Saving new programming time option should thrown constraint violation")
     @MethodSource("constraintViolationProvidedParameters")
     void savingNewProgrammingTimeShouldThrowConstraintViolationException(ProgrammingTimeOption programmingTimeOption) {
@@ -67,7 +74,6 @@ public class ProgrammingTimeOptionRepositoryTest {
 
     private static Arguments[] constraintViolationProvidedParameters() {
         return new Arguments[] {
-                Arguments.of(programmingTimeOptionDataToSaveBeforeTests),
                 Arguments.of(ProgrammingTimeOptionCreator.programmingTimeOptionWithNullProgrammingTimeOptionValue()),
                 Arguments.of(ProgrammingTimeOptionCreator.programmingTimeOptionWithProgrammingTimeOptionValueTooBig())
         };
