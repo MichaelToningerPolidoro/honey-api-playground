@@ -14,6 +14,10 @@ public final class HobbyCreator {
         return new Hobby(getValidId(), "Programming" + System.currentTimeMillis());
     }
 
+    public static Hobby getCopyWithDifferentId(Hobby hobby) {
+        return new Hobby(getValidId(), hobby.getHobby());
+    }
+
     public static Hobby hobbyWithNullHobbyValue() {
         return new Hobby(getValidId(), null);
     }
