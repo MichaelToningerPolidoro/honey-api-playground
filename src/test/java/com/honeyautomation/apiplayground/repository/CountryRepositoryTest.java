@@ -2,7 +2,7 @@ package com.honeyautomation.apiplayground.repository;
 
 import com.honeyautomation.apiplayground.creator.CountryCreator;
 import com.honeyautomation.apiplayground.domain.Country;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,30 +22,25 @@ public class CountryRepositoryTest {
     @Autowired
     private CountryRepository countryRepository;
 
-    private final Set<Country> countryDataSet = new HashSet<>();
-    private static final Country countryDataToSaveBeforeTests = CountryCreator.validCountry();
-
-    @BeforeEach
-    public void before() {
+    @BeforeAll
+    static void beforeAll(@Autowired CountryRepository countryRepository) {
         countryRepository.deleteAll();
-
-        countryDataSet.add(countryDataToSaveBeforeTests);
-
-        countryRepository.saveAll(countryDataSet);
     }
 
     @Test
     @DisplayName("Retrieve all values from database should return all countries successfully")
     void findAllShouldReturnAllCountriesSuccessfully() {
+        final Country countryToSave = CountryCreator.validCountry();
+        countryRepository.save(countryToSave);
+
         final List<Country> countriesRetrievedFromDatabase = countryRepository.findAll();
 
         assertNotNull(countriesRetrievedFromDatabase);
         assertFalse(countriesRetrievedFromDatabase.isEmpty());
-        assertEquals(countryDataSet.size(), countriesRetrievedFromDatabase.size());
         assertNotNull(countriesRetrievedFromDatabase.get(0));
         assertInstanceOf(Integer.class, countriesRetrievedFromDatabase.get(0).getId());
-        assertEquals(countryDataToSaveBeforeTests.getCountry(), countriesRetrievedFromDatabase.get(0).getCountry());
-        assertEquals(countryDataToSaveBeforeTests.getIso(), countriesRetrievedFromDatabase.get(0).getIso());
+        assertEquals(countryToSave.getCountry(), countriesRetrievedFromDatabase.get(0).getCountry());
+        assertEquals(countryToSave.getIso(), countriesRetrievedFromDatabase.get(0).getIso());
     }
 
     @Test
@@ -62,7 +55,18 @@ public class CountryRepositoryTest {
         assertEquals(countryToSave.getIso(), savedCountry.getIso());
     }
 
-    @ParameterizedTest(name = "Saving new country should thrown constraint violation")
+    @Test
+    @DisplayName("Saving duplicated country should thrown an exception")
+    void savingDuplicatedCountryShouldThrownException() {
+        final Country countryToSave = CountryCreator.validCountry();
+        final Country duplicatedCountry = CountryCreator.getCopyWithDifferentId(countryToSave);
+
+        countryRepository.save(countryToSave);
+
+        assertThrows(DataIntegrityViolationException.class, () -> countryRepository.save(duplicatedCountry));
+    }
+
+    @ParameterizedTest(name = "Constraint violation tests")
     @MethodSource("constraintViolationProvidedParameters")
     void savingNewCountryShouldThrowConstraintViolationException(Country country) {
         assertThrows(DataIntegrityViolationException.class, () -> countryRepository.save(country));
@@ -70,7 +74,6 @@ public class CountryRepositoryTest {
 
     private static Arguments[] constraintViolationProvidedParameters() {
         return new Arguments[] {
-                Arguments.of(countryDataToSaveBeforeTests),
                 Arguments.of(CountryCreator.countryWithNullCountryValue()),
                 Arguments.of(CountryCreator.countryWithNullIsoValue()),
                 Arguments.of(CountryCreator.countryWithCountryValueTooBig()),

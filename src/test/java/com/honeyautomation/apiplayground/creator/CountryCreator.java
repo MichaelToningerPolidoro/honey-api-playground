@@ -54,4 +54,8 @@ public final class CountryCreator {
     private static String getIsoTooBig() {
         return ValuesGenerator.getStringExceedingLengthLimit(Validations.MAX_LENGTH_COUNTRY_ISO);
     }
+
+    public static Country getCopyWithDifferentId(Country country) {
+        return new Country(getValidId(), country.getCountry(), country.getIso());
+    }
 }

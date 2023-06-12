@@ -59,14 +59,14 @@ public class ProgrammingTimeOptionRepositoryTest {
     @DisplayName("Saving duplicated programming time option should thrown an exception")
     void savingDuplicatedProgrammingTimeOptionShouldThrownException() {
         final ProgrammingTimeOption programmingTimeOptionToSave = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
-        final ProgrammingTimeOption duplicatedProgrammingTime = ProgrammingTimeOptionCreator.getCopyOfWithDifferentId(programmingTimeOptionToSave);
+        final ProgrammingTimeOption duplicatedProgrammingTime = ProgrammingTimeOptionCreator.getCopyWithDifferentId(programmingTimeOptionToSave);
 
         programmingTimeOptionRepository.save(programmingTimeOptionToSave);
 
         assertThrows(DataIntegrityViolationException.class, () -> programmingTimeOptionRepository.save(duplicatedProgrammingTime));
     }
 
-    @ParameterizedTest(name = "Saving new programming time option should thrown constraint violation")
+    @ParameterizedTest(name = "Constraint violation tests")
     @MethodSource("constraintViolationProvidedParameters")
     void savingNewProgrammingTimeShouldThrowConstraintViolationException(ProgrammingTimeOption programmingTimeOption) {
         assertThrows(DataIntegrityViolationException.class, () -> programmingTimeOptionRepository.save(programmingTimeOption));

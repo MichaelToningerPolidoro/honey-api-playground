@@ -14,7 +14,7 @@ public final class ProgrammingTimeOptionCreator {
         return new ProgrammingTimeOption(getValidId(), getValidProgrammingTimeValue());
     }
 
-    public static ProgrammingTimeOption getCopyOfWithDifferentId(ProgrammingTimeOption programmingTimeOption) {
+    public static ProgrammingTimeOption getCopyWithDifferentId(ProgrammingTimeOption programmingTimeOption) {
         return new ProgrammingTimeOption(getValidId(), programmingTimeOption.getProgrammingTime());
     }
 
