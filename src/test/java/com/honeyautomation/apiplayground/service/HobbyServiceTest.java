@@ -4,6 +4,7 @@ import com.honeyautomation.apiplayground.creator.HobbyCreator;
 import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.dto.response.HobbyResponseDTO;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
 import com.honeyautomation.apiplayground.repository.HobbyRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -41,6 +43,28 @@ class HobbyServiceTest {
         assertNotNull(allHobbiesFound.getHobbies());
         assertEquals(hobbyListMockData.size(), allHobbiesFound.getHobbies().size());
         assertTrue(allHobbiesFound.getHobbies().contains(hobbyMockData.getHobby()));
+    }
+
+    @Test
+    @DisplayName("Find hobby should return a value successfully")
+    void findHobbyShouldReturnAValueSuccessfully() {
+        final Hobby hobbyMock = HobbyCreator.validHobby();
+
+        when(hobbyRepositoryMock.findAllByHobbyIn(any())).thenReturn(List.of(hobbyMock));
+
+        final List<Hobby> retrievedHobbies = hobbyService.findHobbies(List.of("testing"));
+
+        assertNotNull(retrievedHobbies);
+        assertFalse(retrievedHobbies.isEmpty());
+        assertEquals(hobbyMock, retrievedHobbies.get(0));
+    }
+
+    @Test
+    @DisplayName("Find no existent hobby should thrown ItemNotRegisteredException")
+    void findHobbyNoExistentShouldThrownItemNotRegisteredException() {
+        when(hobbyRepositoryMock.findAllByHobbyIn(any())).thenReturn(Collections.emptyList());
+
+        assertThrows(ItemNotRegisteredException.class, () -> hobbyService.findHobbies(List.of("any")));
     }
 
     @Test
