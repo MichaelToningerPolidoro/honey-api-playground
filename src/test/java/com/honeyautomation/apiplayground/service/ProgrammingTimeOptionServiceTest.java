@@ -4,6 +4,7 @@ import com.honeyautomation.apiplayground.creator.ProgrammingTimeOptionCreator;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
 import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
 import com.honeyautomation.apiplayground.repository.ProgrammingTimeOptionRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -50,6 +52,28 @@ public class ProgrammingTimeOptionServiceTest {
                 allProgrammingTimeOptionsFound.getProgrammingTimeOptions()
                         .contains(programmingTimeOptionMockData.getProgrammingTime())
         );
+    }
+
+    @Test
+    @DisplayName("Find programming time option should return a value successfully")
+    void findProgrammingTimeShouldReturnAValueSuccessfully() {
+        final ProgrammingTimeOption programmingTimeOptionMock = ProgrammingTimeOptionCreator.validProgrammingTimeOption();
+
+        when(programmingTimeOptionRepositoryMock.findByProgrammingTime(any())).thenReturn(programmingTimeOptionMock);
+
+        final ProgrammingTimeOption retrievedProgrammingTimeOption = programmingTimeOptionService
+                .findProgrammingTime(programmingTimeOptionMock.getProgrammingTime());
+
+        assertNotNull(retrievedProgrammingTimeOption);
+        assertEquals(programmingTimeOptionMock, retrievedProgrammingTimeOption);
+    }
+
+    @Test
+    @DisplayName("Find no existent programming time option should thrown ItemNotRegisteredException")
+    void findProgrammingTimeOptionNoExistentShouldThrownItemNotRegisteredException() {
+        when(programmingTimeOptionRepositoryMock.findByProgrammingTime(any())).thenReturn(null);
+
+        assertThrows(ItemNotRegisteredException.class, () -> programmingTimeOptionService.findProgrammingTime("any"));
     }
 
     @Test
