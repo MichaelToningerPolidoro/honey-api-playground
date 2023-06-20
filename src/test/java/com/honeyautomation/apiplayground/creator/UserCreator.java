@@ -9,10 +9,6 @@ import java.util.List;
 
 public final class UserCreator {
 
-    private static final ProgrammingTimeOption validProgrammingTimeOptionCache = getValidProgrammingTimeOption();
-    private static final Country validCountryCache = CountryCreator.validCountry();
-    private static final List<Hobby> hobbiesListCache = getValidHobbiesList();
-
     private UserCreator() {}
 
     public static User validUser() {
@@ -21,9 +17,9 @@ public final class UserCreator {
                 .name(getValidName())
                 .email(getValidEmail())
                 .password(getValidPassword())
-                .programmingTimeOption(validProgrammingTimeOptionCache)
+                .programmingTimeOption(getValidProgrammingTimeOption())
                 .bornData(getValidBornData())
-                .hobbies(hobbiesListCache)
+                .hobbies(getValidHobbiesList())
                 .build();
     }
 
@@ -33,9 +29,9 @@ public final class UserCreator {
                 .name(getValidName())
                 .email(getValidEmail())
                 .password(getValidPassword())
-                .programmingTimeOption(validProgrammingTimeOptionCache)
+                .programmingTimeOption(getValidProgrammingTimeOption())
                 .bornData(getValidBornData())
-                .hobbies(hobbiesListCache)
+                .hobbies(getValidHobbiesList())
                 .build();
     }
 
@@ -45,9 +41,21 @@ public final class UserCreator {
                 .name(getValidName())
                 .email(getValidEmail())
                 .password(getValidPassword())
-                .programmingTimeOption(validProgrammingTimeOptionCache)
+                .programmingTimeOption(getValidProgrammingTimeOption())
                 .bornData(getValidBornData())
-                .hobbies(hobbiesListCache)
+                .hobbies(getValidHobbiesList())
+                .build();
+    }
+
+    public static User userCopyWithForeignValues(User user, ProgrammingTimeOption pto, Country country, List<Hobby> hobbies) {
+        return User.builder()
+                .nickName(user.getNickName())
+                .name(user.getName())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .programmingTimeOption(pto)
+                .bornData(getBornDataWithCountry(country))
+                .hobbies(hobbies)
                 .build();
     }
 
@@ -76,7 +84,11 @@ public final class UserCreator {
     }
 
     private static BornData getValidBornData() {
-        return new BornData(LocalDate.now(), validCountryCache);
+        return new BornData(LocalDate.now().minusYears(10), CountryCreator.validCountry());
+    }
+
+    private static BornData getBornDataWithCountry(Country country) {
+        return new BornData(LocalDate.now().minusYears(10), country);
     }
 
     private static List<Hobby> getValidHobbiesList() {
