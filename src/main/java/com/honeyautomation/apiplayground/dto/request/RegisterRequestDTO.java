@@ -17,10 +17,12 @@ public class RegisterRequestDTO implements Serializable {
 
     @NotBlank(message = ValidationsMessages.NOT_BLANK_NICK_NAME)
     @Size(max = Validations.MAX_LENGTH_NICK_NAME, message = ValidationsMessages.MAX_LENGTH_NICK_NAME)
+    @Pattern(regexp = Validations.REGEX_PATTERN_NICKNAME_VALIDATION, message = ValidationsMessages.REGEX_PATTERN_NICKNAME_VALIDATION)
     private String nickName;
 
     @NotBlank(message = ValidationsMessages.NOT_BLANK_NAME)
     @Size(max = Validations.MAX_LENGTH_NAME, message = ValidationsMessages.MAX_LENGTH_NAME)
+    @Pattern(regexp = Validations.REGEX_PATTERN_NAME_VALIDATION, message = ValidationsMessages.REGEX_PATTERN_NAME_VALIDATION)
     private String name;
 
     @NotBlank(message = ValidationsMessages.NOT_BLANK_EMAIL)

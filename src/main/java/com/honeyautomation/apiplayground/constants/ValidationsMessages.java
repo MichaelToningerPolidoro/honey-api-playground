@@ -5,7 +5,9 @@ public final class ValidationsMessages {
     private ValidationsMessages() {}
 
     public static final String REGEX_PATTERN_EMAIL_VALIDATION = "The email needs to be valid";
-    public static final String REGEX_PATTERN_PASSWORD_VALIDATION = "The password can only contain numbers, letters and these characters !\";#$%&'()*+,-/:<=>?@[]_{|}.";
+    public static final String REGEX_PATTERN_NAME_VALIDATION = "The name can only contain letters and space";
+    public static final String REGEX_PATTERN_NICKNAME_VALIDATION = "The nickname must start with a letter and cannot contain spaces, only numbers";
+    public static final String REGEX_PATTERN_PASSWORD_VALIDATION = "The password can only contain letters, numbers and these characters !\";#$%&'()*+,-/:<=>?@[]_{|}.";
 
     public static final String MAX_LENGTH_NICK_NAME = "The character limit for nickName is " + Validations.MAX_LENGTH_NICK_NAME;
     public static final String MAX_LENGTH_NAME = "The character limit for name is " + Validations.MAX_LENGTH_NAME;
