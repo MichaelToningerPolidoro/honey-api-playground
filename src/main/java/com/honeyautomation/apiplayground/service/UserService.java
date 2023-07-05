@@ -1,9 +1,11 @@
 package com.honeyautomation.apiplayground.service;
 
+import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.creator.LocalDateCreator;
 import com.honeyautomation.apiplayground.domain.*;
 import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
 import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.repository.UserRepository;
 import com.honeyautomation.apiplayground.validation.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,16 @@ public class UserService {
                 .build();
 
         userRepository.save(userToRegister);
+    }
+
+    public User findUserByEmail(String email) {
+        final User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            throw new ItemNotFoundException(ExceptionMessages.NOT_FOUND_USER);
+        }
+
+        return user;
     }
 
     private void checkUserDataAvailability(String email, String nickName) {
