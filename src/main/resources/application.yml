@@ -7,4 +7,6 @@ spring:
 api:
   security:
     token:
+      expiration: 600
+      issuer: honey-api-playground
       secret: ${JWT_SECRET:my-default-secret-key}
