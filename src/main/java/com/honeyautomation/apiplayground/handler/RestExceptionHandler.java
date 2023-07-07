@@ -1,12 +1,12 @@
 package com.honeyautomation.apiplayground.handler;
 
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
-import com.honeyautomation.apiplayground.exception.details.ItemNotFoundExceptionDetails;
 import com.honeyautomation.apiplayground.exception.details.ItemNotRegisteredExceptionDetails;
 import com.honeyautomation.apiplayground.exception.details.OnlyMessageDetails;
 import com.honeyautomation.apiplayground.exception.details.StandardErrorDetails;
 import com.honeyautomation.apiplayground.exception.models.Resource;
 import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
+import com.honeyautomation.apiplayground.exception.type.InvalidCredentialsException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
 import org.springframework.http.HttpStatus;
@@ -22,15 +22,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class RestExceptionHandler {
 
-    @ExceptionHandler(ItemNotFoundException.class)
-    public ResponseEntity<ItemNotFoundExceptionDetails> notFound(ItemNotFoundException itemNotFoundException) {
-        final ItemNotFoundExceptionDetails responseBody = ItemNotFoundExceptionDetails.builder()
-                .message(itemNotFoundException.getMessage())
-                .build();
-
-        return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
-    }
-
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<List<StandardErrorDetails>> fieldValidationError(ConstraintViolationException constraintViolationException) {
         final List<StandardErrorDetails> responseBody = constraintViolationException.getConstraintViolations()
@@ -42,6 +33,29 @@ public class RestExceptionHandler {
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataAlreadyUsedException.class)
+    public ResponseEntity<List<StandardErrorDetails>> dataAlreadyInUse(DataAlreadyUsedException dataAlreadyUsedException) {
+        final List<StandardErrorDetails> responseBody = dataAlreadyUsedException.getDataAlreadyUsed()
+                .stream()
+                .map(data -> StandardErrorDetails.builder()
+                        .field(data)
+                        .message(ExceptionMessages.DATA_ALREADY_USED)
+                        .build())
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<OnlyMessageDetails> invalidCredentials(InvalidCredentialsException invalidCredentialsException) {
+        return new ResponseEntity<>(new OnlyMessageDetails(invalidCredentialsException.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<OnlyMessageDetails> notFound(ItemNotFoundException itemNotFoundException) {
+        return new ResponseEntity<>(new OnlyMessageDetails(itemNotFoundException.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ItemNotRegisteredException.class)
@@ -59,18 +73,6 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(DataAlreadyUsedException.class)
-    public ResponseEntity<List<StandardErrorDetails>> dataAlreadyInUse(DataAlreadyUsedException dataAlreadyUsedException) {
-        final List<StandardErrorDetails> responseBody = dataAlreadyUsedException.getDataAlreadyUsed()
-                .stream()
-                .map(data -> StandardErrorDetails.builder()
-                        .field(data)
-                        .message(ExceptionMessages.DATA_ALREADY_USED)
-                        .build())
-                .collect(Collectors.toList());
-
-        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<OnlyMessageDetails> httpMessageNotReadable (HttpMessageNotReadableException HttpMessageNotReadableException) {
