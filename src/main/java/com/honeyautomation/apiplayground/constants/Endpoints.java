@@ -6,6 +6,7 @@ public final class Endpoints {
 
     public static final String REQUEST_MAPPING_COUNTRIES = "/v1/countries";
     public static final String REQUEST_MAPPING_HOBBY = "/v1/hobbies";
+    public static final String REQUEST_MAPPING_LOGIN  = "/v1/login";
     public static final String REQUEST_MAPPING_PROGRAMMING_TIME_OPTIONS = "/v1/programming-time-options";
     public static final String REQUEST_MAPPING_USER = "/v1/user";
 

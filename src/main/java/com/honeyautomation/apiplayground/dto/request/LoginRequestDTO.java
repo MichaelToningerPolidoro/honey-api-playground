@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @Getter
 @Builder
-public class LoginDTO implements Serializable {
+public class LoginRequestDTO implements Serializable {
 
     @NotBlank(message = ValidationsMessages.NOT_BLANK_EMAIL)
     @Size(max = Validations.MAX_LENGTH_EMAIL, message = ValidationsMessages.MAX_LENGTH_EMAIL)

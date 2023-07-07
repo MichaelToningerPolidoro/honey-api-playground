@@ -1,7 +1,8 @@
 package com.honeyautomation.apiplayground.service;
 
 import com.honeyautomation.apiplayground.domain.User;
-import com.honeyautomation.apiplayground.dto.request.LoginDTO;
+import com.honeyautomation.apiplayground.dto.request.LoginRequestDTO;
+import com.honeyautomation.apiplayground.dto.response.LoginResponseDTO;
 import com.honeyautomation.apiplayground.encoder.DefaultPasswordEncoder;
 import com.honeyautomation.apiplayground.validation.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,21 @@ public class LoginService {
     @Autowired
     private UserService userService;
 
-    public void login(LoginDTO loginDTO) {
-        FieldValidator.validate(loginDTO);
-        final User userFound = userService.findUserByEmail(loginDTO.getEmail().trim());
+    @Autowired
+    private TokenService tokenService;
+
+    public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
+        FieldValidator.validate(loginRequestDTO);
+        final User userFound = userService.findUserByEmail(loginRequestDTO.getEmail().trim());
 
         final boolean passwordMatches =
-                DefaultPasswordEncoder.getDefaultEncoder().matches(loginDTO.getPassword(), userFound.getPassword().getPassword());
+                DefaultPasswordEncoder.getDefaultEncoder().matches(loginRequestDTO.getPassword(), userFound.getPassword().getPassword());
 
         if (!passwordMatches) {
             // thrown InvalidCredentialsException
         }
 
-//        return token;
+        return new LoginResponseDTO(tokenService.generateToken(loginRequestDTO.getEmail()));
     }
 }
 
