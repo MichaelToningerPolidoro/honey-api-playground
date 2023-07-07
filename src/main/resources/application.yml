@@ -3,3 +3,8 @@ spring:
     active: ${APP_PROFILE:local}
   jpa:
     open-in-view: false
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:my-default-secret-key}
