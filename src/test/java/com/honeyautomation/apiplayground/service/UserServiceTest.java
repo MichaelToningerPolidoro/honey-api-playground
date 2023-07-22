@@ -2,8 +2,10 @@ package com.honeyautomation.apiplayground.service;
 
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
+import com.honeyautomation.apiplayground.creator.UserCreator;
 import com.honeyautomation.apiplayground.exception.models.Resource;
 import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
+import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
 import com.honeyautomation.apiplayground.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -55,6 +57,20 @@ public class UserServiceTest {
         when(userRepositoryMock.save(any())).thenReturn(null);
 
         assertDoesNotThrow(() -> userService.create(validRegisterRequestDTO()));
+    }
+
+    @Test
+    @DisplayName("Find user by email should return a user successfully")
+    void findUserByEmailShouldReturnAUserSuccessfully() {
+        when(userRepositoryMock.findByEmail(any())).thenReturn(UserCreator.validUser());
+        assertDoesNotThrow(() -> userService.findUserByEmail("anyemail@testing.com"));
+    }
+
+    @Test
+    @DisplayName("Find user by email should thrown exception")
+    void findUserShouldThrownException() {
+        when(userRepositoryMock.findByEmail(any())).thenReturn(null);
+        assertThrows(ItemNotFoundException.class, () -> userService.findUserByEmail("anyemail@testing.com"));
     }
 
     @Test
