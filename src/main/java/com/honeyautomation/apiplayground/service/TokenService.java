@@ -1,14 +1,14 @@
 package com.honeyautomation.apiplayground.service;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.honeyautomation.apiplayground.config.LoginTokenConfig;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.constants.General;
 import com.honeyautomation.apiplayground.creator.LocalDateTimeCreator;
 import com.honeyautomation.apiplayground.exception.type.InvalidLoginTokenException;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -16,24 +16,16 @@ import java.time.Instant;
 @Service
 public class TokenService {
 
-    @Value("${api.security.token.issuer}")
-    private String issuer;
-
-    @Value("${api.security.token.secret}")
-    private String secretKey;
-
-    @Value("${api.security.token.expiration.in.seconds}")
-    private int tokenExpirationTimeInSeconds;
+    @Autowired
+    private LoginTokenConfig loginTokenConfig;
 
     public String generateToken(String email) {
         try {
-            final Algorithm algorithm = Algorithm.HMAC256(secretKey);
-
             return JWT.create()
-                    .withIssuer(issuer)
+                    .withIssuer(loginTokenConfig.getIssuer())
                     .withSubject(email)
                     .withExpiresAt(generateExpirationDate())
-                    .sign(algorithm);
+                    .sign(loginTokenConfig.getAlgorithm());
 
         } catch (JWTCreationException exception) {
             throw new RuntimeException(ExceptionMessages.LOGIN_TOKEN_GENERATION, exception);
@@ -42,9 +34,8 @@ public class TokenService {
 
     public boolean isLoginTokenValid(String token) {
         try {
-            final Algorithm algorithm = Algorithm.HMAC256(secretKey);
-            final String subject = JWT.require(algorithm)
-                    .withIssuer(issuer)
+            final String subject = JWT.require(loginTokenConfig.getAlgorithm())
+                    .withIssuer(loginTokenConfig.getIssuer())
                     .build()
                     .verify(token)
                     .getSubject();
@@ -57,7 +48,7 @@ public class TokenService {
     }
 
     private Instant generateExpirationDate() {
-        return LocalDateTimeCreator.getToday().plusSeconds(tokenExpirationTimeInSeconds)
+        return LocalDateTimeCreator.getToday().plusSeconds(loginTokenConfig.getTokenExpirationTimeInSeconds())
                 .toInstant(General.STANDARD_ZONE_OFFSET);
     }
 }
