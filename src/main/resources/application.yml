@@ -8,7 +8,7 @@ api:
   security:
     token:
       issuer: honey-api-playground
-      secret: ${JWT_SECRET:my-default-secret-key}
+      secret: ${JWT_SECRET:my-default-honey-secret-key}
       expiration:
         in:
           seconds: 600
