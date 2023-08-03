@@ -62,7 +62,7 @@ public class TokenServiceTest {
 
         final String token = tokenService.generateToken(standardIssuer);
 
-        assertDoesNotThrow(() -> tokenService.isLoginTokenValid(token));
+        assertDoesNotThrow(() -> tokenService.validateLoginToken(token));
     }
 
     @Test
@@ -75,8 +75,6 @@ public class TokenServiceTest {
 
         final String invalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJob25leS1hcGktcGxheWdyb3VuZCIsInN1YiI6ImVtYWlsQGdtYWlsLmNvbSIsImV4cCI6MTY5MDAyNjc3NH0.ScGoAeZCgjDMHv9grkkbEXKEROhGK0WnV0daJZ2xOhU";
 
-        assertThrows(InvalidLoginTokenException.class, () -> tokenService.isLoginTokenValid(invalidToken));
+        assertThrows(InvalidLoginTokenException.class, () -> tokenService.validateLoginToken(invalidToken));
     }
-
-
 }

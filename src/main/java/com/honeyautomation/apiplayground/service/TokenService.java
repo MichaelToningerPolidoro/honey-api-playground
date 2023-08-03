@@ -32,19 +32,28 @@ public class TokenService {
         }
     }
 
-    public boolean isLoginTokenValid(String token) {
+    public void validateLoginToken(String token) {
+        String subject;
+
         try {
-            final String subject = JWT.require(loginTokenConfig.getAlgorithm())
-                    .withIssuer(loginTokenConfig.getIssuer())
-                    .build()
-                    .verify(token)
-                    .getSubject();
-
-            return subject != null && !subject.isBlank();
-
+            subject = getLoginSubject(token);
         } catch (JWTVerificationException exception) {
             throw new InvalidLoginTokenException(ExceptionMessages.INVALID_LOGIN_TOKEN);
         }
+
+        final boolean isTokenValid = subject != null && !subject.isBlank();
+
+        if (!isTokenValid) {
+            throw new InvalidLoginTokenException(ExceptionMessages.INVALID_LOGIN_TOKEN);
+        }
+    }
+
+    public String getLoginSubject(String token) {
+        return JWT.require(loginTokenConfig.getAlgorithm())
+                .withIssuer(loginTokenConfig.getIssuer())
+                .build()
+                .verify(token)
+                .getSubject();
     }
 
     private Instant generateExpirationDate() {
