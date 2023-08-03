@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class CountryResponseDTO implements Serializable {
+public final class CountryResponseDTO implements Serializable {
 
     private final List<String> countries;
 

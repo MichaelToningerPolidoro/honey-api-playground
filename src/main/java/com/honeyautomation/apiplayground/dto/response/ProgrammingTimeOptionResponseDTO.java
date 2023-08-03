@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class ProgrammingTimeOptionResponseDTO implements Serializable {
+public final class ProgrammingTimeOptionResponseDTO implements Serializable {
 
     private final List<String> programmingTimeOptions;
 

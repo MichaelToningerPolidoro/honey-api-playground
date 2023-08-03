@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class HobbyResponseDTO implements Serializable {
+public final class HobbyResponseDTO implements Serializable {
 
     private final List<String> hobbies;
 
