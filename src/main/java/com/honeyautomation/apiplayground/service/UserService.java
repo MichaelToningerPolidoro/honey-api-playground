@@ -30,6 +30,9 @@ public class UserService {
     @Autowired
     private HobbyService hobbyService;
 
+    @Autowired
+    private TokenService tokenService;
+
     public void create(RegisterRequestDTO registerRequestDTO) {
         FieldValidator.validate(registerRequestDTO);
 
@@ -66,6 +69,14 @@ public class UserService {
         }
 
         return user;
+    }
+
+    // TODO: Adjust to return a DTO
+    public void getUserData(String loginToken) {
+        tokenService.validateLoginToken(loginToken);
+        final User findedUser = findUserByEmail(tokenService.getLoginSubject(loginToken));
+
+        // TODO: Return a DTO with relevant user data
     }
 
     private void checkUserDataAvailability(String email, String nickName) {

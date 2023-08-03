@@ -53,6 +53,8 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(new OnlyMessageDetails(invalidCredentialsException.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
+    // TODO: add here a handling for InvalidLoginTokenException when login token is invalid (403 or 401)
+
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<OnlyMessageDetails> notFound(ItemNotFoundException itemNotFoundException) {
         return new ResponseEntity<>(new OnlyMessageDetails(itemNotFoundException.getMessage()), HttpStatus.NOT_FOUND);

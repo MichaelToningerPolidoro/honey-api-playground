@@ -6,10 +6,7 @@ import com.honeyautomation.apiplayground.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(Endpoints.REQUEST_MAPPING_USER)
@@ -22,5 +19,12 @@ public class UserController {
     public ResponseEntity<Void> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
         userService.create(registerRequestDTO);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
+    }
+
+    // TODO: Change return type here to a DTO
+    @GetMapping
+    public ResponseEntity<String> search(@RequestHeader String loginToken) {
+        userService.getUserData(loginToken);
+        return new ResponseEntity<>("Finded", HttpStatus.OK);
     }
 }
