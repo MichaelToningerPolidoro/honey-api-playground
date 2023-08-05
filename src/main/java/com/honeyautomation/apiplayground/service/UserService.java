@@ -4,6 +4,7 @@ import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.creator.LocalDateCreator;
 import com.honeyautomation.apiplayground.domain.*;
 import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
+import com.honeyautomation.apiplayground.dto.response.UserResponseDTO;
 import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.repository.UserRepository;
@@ -72,11 +73,12 @@ public class UserService {
     }
 
     // TODO: Adjust to return a DTO
-    public void getUserData(String loginToken) {
+    public UserResponseDTO getUserData(String loginToken) {
         tokenService.validateLoginToken(loginToken);
-        final User findedUser = findUserByEmail(tokenService.getLoginSubject(loginToken));
 
-        // TODO: Return a DTO with relevant user data
+        final User user = findUserByEmail(tokenService.getLoginSubject(loginToken));
+
+        return new UserResponseDTO(user);
     }
 
     private void checkUserDataAvailability(String email, String nickName) {

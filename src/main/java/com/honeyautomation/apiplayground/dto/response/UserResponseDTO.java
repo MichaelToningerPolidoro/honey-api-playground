@@ -4,6 +4,7 @@ import com.honeyautomation.apiplayground.domain.BornData;
 import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.domain.User;
 import com.honeyautomation.apiplayground.dto.model.BornDataDTO;
+import com.honeyautomation.apiplayground.utils.Mask;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -23,7 +24,7 @@ public class UserResponseDTO implements Serializable {
     public UserResponseDTO(User user) {
         nickname = user.getNickName();
         name = user.getName();
-        email = user.getEmail(); // TODO: Mask email when it be added
+        email = Mask.getMaskedEmail(user.getEmail());
         programmingTime = user.getProgrammingTimeOption().getProgrammingTime();
         hobbies = user.getHobbies().stream().map(Hobby::getHobby).collect(Collectors.toList());
 

@@ -1,7 +1,7 @@
 package com.honeyautomation.apiplayground.annotation.validation;
 
 import com.honeyautomation.apiplayground.creator.LocalDateCreator;
-import com.honeyautomation.apiplayground.utils.PatternValidationUtils;
+import com.honeyautomation.apiplayground.utils.PatternValidation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -14,7 +14,7 @@ public class DateValidator implements ConstraintValidator<ValidDate, String> {
 
     @Override
     public boolean isValid(String rawDate, ConstraintValidatorContext constraintValidatorContext) {
-        if (!PatternValidationUtils.isDateValid(rawDate)) {
+        if (!PatternValidation.isDateValid(rawDate)) {
             return false;
         }
 

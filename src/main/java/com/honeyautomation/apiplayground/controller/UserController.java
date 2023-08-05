@@ -2,6 +2,7 @@ package com.honeyautomation.apiplayground.controller;
 
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
+import com.honeyautomation.apiplayground.dto.response.UserResponseDTO;
 import com.honeyautomation.apiplayground.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +22,8 @@ public class UserController {
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
-    // TODO: Change return type here to a DTO
     @GetMapping
-    public ResponseEntity<String> search(@RequestHeader String loginToken) {
-        userService.getUserData(loginToken);
-        return new ResponseEntity<>("Finded", HttpStatus.OK);
+    public ResponseEntity<UserResponseDTO> search(@RequestHeader String loginToken) {
+        return new ResponseEntity<>(userService.getUserData(loginToken), HttpStatus.OK);
     }
 }

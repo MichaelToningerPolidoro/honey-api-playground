@@ -6,12 +6,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PatternValidationUtilsTest {
+public class PatternValidationTest {
 
     @ParameterizedTest(name = "Value {0} should match date pattern: {1}")
     @MethodSource("datePatternTestProvidedParameters")
     void dateValidationPattern(String date, boolean expectedValue) {
-        assertEquals(expectedValue, PatternValidationUtils.isDateValid(date));
+        assertEquals(expectedValue, PatternValidation.isDateValid(date));
     }
 
     private static Arguments[] datePatternTestProvidedParameters() {

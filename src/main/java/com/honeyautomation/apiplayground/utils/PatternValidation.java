@@ -4,9 +4,9 @@ import com.honeyautomation.apiplayground.constants.Validations;
 
 import java.util.regex.Pattern;
 
-public final class PatternValidationUtils {
+public final class PatternValidation {
 
-    private PatternValidationUtils() {}
+    private PatternValidation() {}
 
     public static boolean isDateValid(String rawDate) {
         return Pattern.matches(Validations.REGEX_PATTERN_DATE_VALIDATION, rawDate);
