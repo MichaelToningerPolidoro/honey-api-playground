@@ -72,7 +72,6 @@ public class UserService {
         return user;
     }
 
-    // TODO: Adjust to return a DTO
     public UserResponseDTO getUserData(String loginToken) {
         tokenService.validateLoginToken(loginToken);
 
