@@ -3,11 +3,15 @@ package com.honeyautomation.apiplayground.service;
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.creator.UserCreator;
+import com.honeyautomation.apiplayground.domain.Hobby;
+import com.honeyautomation.apiplayground.domain.User;
+import com.honeyautomation.apiplayground.dto.response.UserResponseDTO;
 import com.honeyautomation.apiplayground.exception.models.Resource;
 import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
 import com.honeyautomation.apiplayground.repository.UserRepository;
+import com.honeyautomation.apiplayground.utils.Mask;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,14 +21,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.honeyautomation.apiplayground.creator.CountryCreator.validCountry;
 import static com.honeyautomation.apiplayground.creator.HobbyCreator.validHobby;
 import static com.honeyautomation.apiplayground.creator.ProgrammingTimeOptionCreator.validProgrammingTimeOption;
 import static com.honeyautomation.apiplayground.creator.RegisterRequestDTOCreator.invalidRegisterRequestDTO;
 import static com.honeyautomation.apiplayground.creator.RegisterRequestDTOCreator.validRegisterRequestDTO;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -46,6 +50,9 @@ public class UserServiceTest {
     @Mock
     private UserRepository userRepositoryMock;
 
+    @Mock
+    private TokenService tokenServiceMock;
+
     @Test
     @DisplayName("Register new user should be successfully inserted")
     void registerNewUserShouldBeSuccessfullyInserted() {
@@ -64,6 +71,28 @@ public class UserServiceTest {
     void findUserByEmailShouldReturnAUserSuccessfully() {
         when(userRepositoryMock.findByEmail(any())).thenReturn(UserCreator.validUser());
         assertDoesNotThrow(() -> userService.findUserByEmail("anyemail@testing.com"));
+    }
+
+    @Test
+    @DisplayName("Find user data should return user data successfully")
+    void findUserDataShouldReturnUserDataSuccessfully() {
+        final User mockUser = UserCreator.validUser();
+
+        when(tokenServiceMock.getLoginSubject(any())).thenReturn(mockUser.getEmail());
+        when(userRepositoryMock.findByEmail(any())).thenReturn(mockUser);
+
+        final UserResponseDTO retrievedUserData = userService.getUserData("SomeLoginToken");
+
+        assertNotNull(retrievedUserData);
+        assertEquals(mockUser.getNickName(), retrievedUserData.getNickname());
+        assertEquals(mockUser.getName(), retrievedUserData.getName());
+        assertEquals(Mask.getMaskedEmail(mockUser.getEmail()), retrievedUserData.getEmail());
+        assertEquals(mockUser.getProgrammingTimeOption().getProgrammingTime(), retrievedUserData.getProgrammingTime());
+        assertEquals(mockUser.getBornData().getCountry().getCountry(), retrievedUserData.getBornDataDTO().getCountry());
+        assertEquals(mockUser.getBornData().getDate().toString(), retrievedUserData.getBornDataDTO().getDate());
+
+        final List<String> expectedHobbies = mockUser.getHobbies().stream().map(Hobby::getHobby).collect(Collectors.toList());
+        assertIterableEquals(expectedHobbies, retrievedUserData.getHobbies());
     }
 
     @Test
