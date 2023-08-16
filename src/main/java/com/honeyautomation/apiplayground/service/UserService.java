@@ -1,5 +1,6 @@
 package com.honeyautomation.apiplayground.service;
 
+import com.honeyautomation.apiplayground.annotation.RequiresLoginTokenValidation;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.creator.LocalDateCreator;
 import com.honeyautomation.apiplayground.domain.*;
@@ -72,9 +73,8 @@ public class UserService {
         return user;
     }
 
+    @RequiresLoginTokenValidation
     public UserResponseDTO getUserData(String loginToken) {
-        tokenService.validateLoginToken(loginToken);
-
         final User user = findUserByEmail(tokenService.getLoginSubject(loginToken));
 
         return new UserResponseDTO(user);
