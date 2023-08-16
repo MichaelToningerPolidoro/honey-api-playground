@@ -23,4 +23,6 @@ public class LoginController {
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         return new ResponseEntity<>(loginService.login(loginRequestDTO), HttpStatus.OK);
     }
+
+    // TODO: Add unit tests for this class
 }
