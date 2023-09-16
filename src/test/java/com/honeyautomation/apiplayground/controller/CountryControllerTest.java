@@ -3,7 +3,6 @@ package com.honeyautomation.apiplayground.controller;
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.creator.CountryCreator;
-import com.honeyautomation.apiplayground.creator.MockMvcCreator;
 import com.honeyautomation.apiplayground.domain.Country;
 import com.honeyautomation.apiplayground.dto.response.CountryResponseDTO;
 import com.honeyautomation.apiplayground.exception.TestException;
@@ -12,12 +11,14 @@ import com.honeyautomation.apiplayground.service.CountryService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -28,14 +29,19 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = CountryController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@ExtendWith(MockitoExtension.class)
 public class CountryControllerTest {
 
-    @InjectMocks
+    @Autowired
     private CountryController countryController;
 
-    @Mock
+    @MockBean
     private CountryService countryServiceMock;
+
+    @Autowired
+    private MockMvc mockMvc;
 
 
     @Test
@@ -61,8 +67,6 @@ public class CountryControllerTest {
     @Test
     @DisplayName("Country controller should return ItemNotFoundExceptionTemplate body")
     void countryControllerShouldReturnItemNotFoundExceptionTemplateWhenNoCountriesHaveBeenFound() throws Exception {
-        final MockMvc mockMvc = MockMvcCreator.create(countryController);
-
         when(countryServiceMock.findAll()).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_COUNTRY));
 
         assertThrows(ItemNotFoundException.class, () -> countryController.findAll());
@@ -77,8 +81,6 @@ public class CountryControllerTest {
     @Test
     @DisplayName("Country controller should thrown internal server body")
     void countryControllerShouldReturnInternalServerError() throws Exception {
-        final MockMvc mockMvc = MockMvcCreator.create(countryController);
-
         when(countryServiceMock.findAll()).thenThrow(new TestException());
 
         mockMvc.perform(get(Endpoints.REQUEST_MAPPING_COUNTRIES))
