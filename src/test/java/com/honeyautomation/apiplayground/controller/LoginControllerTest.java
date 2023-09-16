@@ -1,12 +1,12 @@
 package com.honeyautomation.apiplayground.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
 import com.honeyautomation.apiplayground.creator.LoginRequestDTOCreator;
 import com.honeyautomation.apiplayground.dto.response.LoginResponseDTO;
 import com.honeyautomation.apiplayground.exception.type.InvalidCredentialsException;
 import com.honeyautomation.apiplayground.service.LoginService;
+import com.honeyautomation.apiplayground.utils.JsonParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,9 +45,6 @@ public class LoginControllerTest {
     private LoginService loginService;
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     private MockMvc mockMvc;
 
     @Test
@@ -70,9 +67,9 @@ public class LoginControllerTest {
         when(loginService.login(any())).thenThrow(new InvalidCredentialsException(ExceptionMessages.INVALID_USER_CREDENTIALS));
 
         final MockHttpServletRequestBuilder request = post(Endpoints.REQUEST_MAPPING_LOGIN)
-                .characterEncoding(StandardCharsets.UTF_8)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(LoginRequestDTOCreator.invalidLoginRequestDTO()));
+                .characterEncoding(StandardCharsets.UTF_8)
+                .content(JsonParser.parse(LoginRequestDTOCreator.invalidLoginRequestDTO()));
 
         mockMvc.perform(request)
                 .andDo(MockMvcResultHandlers.print())
