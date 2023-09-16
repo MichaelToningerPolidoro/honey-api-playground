@@ -2,26 +2,31 @@ package com.honeyautomation.apiplayground.controller;
 
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
-import com.honeyautomation.apiplayground.creator.MockMvcCreator;
 import com.honeyautomation.apiplayground.creator.RegisterRequestDTOCreator;
 import com.honeyautomation.apiplayground.creator.UserResponseDTOCreator;
 import com.honeyautomation.apiplayground.dto.response.UserResponseDTO;
 import com.honeyautomation.apiplayground.exception.TestException;
+import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
 import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
 import com.honeyautomation.apiplayground.service.UserService;
 import com.honeyautomation.apiplayground.utils.JsonParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import static com.honeyautomation.apiplayground.creator.RegisterRequestDTOCreator.validRegisterRequestDTO;
 import static org.hamcrest.Matchers.is;
@@ -32,14 +37,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = UserController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
 
-    @InjectMocks
+    @Autowired
     private UserController userController;
 
-    @Mock
+    @MockBean
     private UserService userServiceMock;
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
     @DisplayName("User controller should successfully register a new user")
@@ -68,8 +78,6 @@ public class UserControllerTest {
     @Test
     @DisplayName("User controller should thrown ItemNotFoundException when no user was found")
     void userControllerShouldThrownItemNotFoundExceptionWhenNoUserWasFound() throws Exception {
-        final MockMvc mockMvc = MockMvcCreator.create(userController);
-
         when(userServiceMock.getUserData(any())).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_USER));
 
         final HttpHeaders httpHeaders = new HttpHeaders() {{
@@ -88,12 +96,11 @@ public class UserControllerTest {
     @Test
     @DisplayName("User controller should thrown internal server error when unexpected error occurs")
     void userControllerShouldThrownInternalServerErrorWhenUnexpectedErrorOccurs() throws Exception {
-        final MockMvc mockMvc = MockMvcCreator.create(userController);
-
         doThrow(new TestException()).when(userServiceMock).create(any());
 
         final MockHttpServletRequestBuilder request = post(Endpoints.REQUEST_MAPPING_USER)
                 .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding(StandardCharsets.UTF_8)
                 .content(JsonParser.parse(RegisterRequestDTOCreator.validRegisterRequestDTO()));
 
         mockMvc.perform(request)
@@ -104,7 +111,24 @@ public class UserControllerTest {
 
     }
 
-    // TODO: ADD more tests
-    //  1. create -> data is already in use (nickname and email)
+    @Test
+    @DisplayName("User should thrown DataAlreadyUsedException")
+    void userControllerShouldThrownDataAlreadyUsedException() throws Exception {
+        doThrow(new DataAlreadyUsedException(List.of("email", "nickName"))).when(userServiceMock).create(any());
 
+        final MockHttpServletRequestBuilder request = post(Endpoints.REQUEST_MAPPING_USER)
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding(StandardCharsets.UTF_8)
+                .content(JsonParser.parse(RegisterRequestDTOCreator.validRegisterRequestDTO()));
+
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("[0].field", is("email")))
+                .andExpect(jsonPath("[0].message", is(ExceptionMessages.DATA_ALREADY_USED)))
+                .andExpect(jsonPath("[1].field", is("nickName")))
+                .andExpect(jsonPath("[1].message", is(ExceptionMessages.DATA_ALREADY_USED)))
+        ;
+
+    }
 }
