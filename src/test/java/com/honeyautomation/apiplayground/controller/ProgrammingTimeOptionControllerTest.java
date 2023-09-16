@@ -2,7 +2,6 @@ package com.honeyautomation.apiplayground.controller;
 
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
-import com.honeyautomation.apiplayground.creator.MockMvcCreator;
 import com.honeyautomation.apiplayground.creator.ProgrammingTimeOptionCreator;
 import com.honeyautomation.apiplayground.domain.ProgrammingTimeOption;
 import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
@@ -12,12 +11,14 @@ import com.honeyautomation.apiplayground.service.ProgrammingTimeOptionService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -28,13 +29,18 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = ProgrammingTimeOptionController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@ExtendWith(MockitoExtension.class)
 public class ProgrammingTimeOptionControllerTest {
 
-    @InjectMocks
+    @Autowired
     private ProgrammingTimeOptionController programmingTimeOptionsController;
-    @Mock
+    @MockBean
     private ProgrammingTimeOptionService programmingTimeOptionServiceMock;
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
     @DisplayName("Programming time option controller should return list of options successfully")
@@ -60,8 +66,6 @@ public class ProgrammingTimeOptionControllerTest {
     @Test
     @DisplayName("Programming time option controller should return ItemNotFoundExceptionTemplate body")
     void programmingTimeOptionControllerShouldReturnItemNotFoundWhenNoOptionsHaveBeenFound() throws Exception {
-        final MockMvc mockMvc = MockMvcCreator.create(programmingTimeOptionsController);
-
         when(programmingTimeOptionServiceMock.findAll()).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_PROGRAMMING_TIME_OPTION));
 
         assertThrows(ItemNotFoundException.class, () -> programmingTimeOptionsController.findAll());
@@ -76,8 +80,6 @@ public class ProgrammingTimeOptionControllerTest {
     @Test
     @DisplayName("Programming time option controller should thrown internal server body")
     void countryControllerShouldReturnInternalServerError() throws Exception {
-        final MockMvc mockMvc = MockMvcCreator.create(programmingTimeOptionsController);
-
         when(programmingTimeOptionServiceMock.findAll()).thenThrow(new TestException());
 
         mockMvc.perform(get(Endpoints.REQUEST_MAPPING_PROGRAMMING_TIME_OPTIONS))
