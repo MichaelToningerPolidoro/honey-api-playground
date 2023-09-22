@@ -2,6 +2,7 @@ package com.honeyautomation.apiplayground.controller;
 
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
+import com.honeyautomation.apiplayground.dto.request.UpdateUserRequestDTO;
 import com.honeyautomation.apiplayground.dto.response.UserResponseDTO;
 import com.honeyautomation.apiplayground.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,11 @@ public class UserController {
     @GetMapping
     public ResponseEntity<UserResponseDTO> search(@RequestHeader String loginToken) {
         return new ResponseEntity<>(userService.getUserData(loginToken), HttpStatus.OK);
+    }
+
+    @PatchMapping
+    public ResponseEntity<Void> update(@RequestHeader String loginToken, @RequestBody UpdateUserRequestDTO updateUserRequestDTO) {
+        userService.update(loginToken, updateUserRequestDTO);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 }
