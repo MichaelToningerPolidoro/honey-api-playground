@@ -5,10 +5,7 @@ import com.honeyautomation.apiplayground.exception.details.ItemNotRegisteredExce
 import com.honeyautomation.apiplayground.exception.details.OnlyMessageDetails;
 import com.honeyautomation.apiplayground.exception.details.StandardErrorDetails;
 import com.honeyautomation.apiplayground.exception.models.Resource;
-import com.honeyautomation.apiplayground.exception.type.DataAlreadyUsedException;
-import com.honeyautomation.apiplayground.exception.type.InvalidCredentialsException;
-import com.honeyautomation.apiplayground.exception.type.ItemNotFoundException;
-import com.honeyautomation.apiplayground.exception.type.ItemNotRegisteredException;
+import com.honeyautomation.apiplayground.exception.type.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -53,7 +50,10 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(new OnlyMessageDetails(invalidCredentialsException.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
-    // TODO: add here a handling for InvalidLoginTokenException when login token is invalid (403 or 401)
+    @ExceptionHandler(InvalidLoginTokenException.class)
+    public ResponseEntity<OnlyMessageDetails> invalidLoginToken(InvalidLoginTokenException invalidLoginTokenException) {
+        return new ResponseEntity<>(new OnlyMessageDetails(invalidLoginTokenException.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<OnlyMessageDetails> notFound(ItemNotFoundException itemNotFoundException) {
