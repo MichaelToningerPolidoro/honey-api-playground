@@ -5,6 +5,8 @@ import com.honeyautomation.apiplayground.dto.request.RegisterRequestDTO;
 
 import java.util.List;
 
+import static com.honeyautomation.apiplayground.creator.CountryCreator.validCountry;
+
 public final class RegisterRequestDTOCreator {
 
     private RegisterRequestDTOCreator() {
@@ -55,7 +57,7 @@ public final class RegisterRequestDTOCreator {
     }
 
     private static BornDataDTO getValidBornDateData() {
-        return new BornDataDTO("1970-01-01", "Valid Country");
+        return new BornDataDTO("1970-01-01", validCountry().getCountry());
     }
 
     private static List<String> getValidHobbiesList() {

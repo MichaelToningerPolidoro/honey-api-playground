@@ -2,7 +2,6 @@ package com.honeyautomation.apiplayground.service;
 
 import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.constants.ExceptionMessages;
-import com.honeyautomation.apiplayground.creator.UserCreator;
 import com.honeyautomation.apiplayground.domain.Hobby;
 import com.honeyautomation.apiplayground.domain.User;
 import com.honeyautomation.apiplayground.dto.response.UserResponseDTO;
@@ -28,6 +27,8 @@ import static com.honeyautomation.apiplayground.creator.HobbyCreator.validHobby;
 import static com.honeyautomation.apiplayground.creator.ProgrammingTimeOptionCreator.validProgrammingTimeOption;
 import static com.honeyautomation.apiplayground.creator.RegisterRequestDTOCreator.invalidRegisterRequestDTO;
 import static com.honeyautomation.apiplayground.creator.RegisterRequestDTOCreator.validRegisterRequestDTO;
+import static com.honeyautomation.apiplayground.creator.UpdateUserRequestDTOCreator.validUpdateUserRequest;
+import static com.honeyautomation.apiplayground.creator.UserCreator.validUser;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -69,14 +70,14 @@ public class UserServiceTest {
     @Test
     @DisplayName("Find user by email should return a user successfully")
     void findUserByEmailShouldReturnAUserSuccessfully() {
-        when(userRepositoryMock.findByEmail(any())).thenReturn(UserCreator.validUser());
+        when(userRepositoryMock.findByEmail(any())).thenReturn(validUser());
         assertDoesNotThrow(() -> userService.findUserByEmail("anyemail@testing.com"));
     }
 
     @Test
     @DisplayName("Find user data should return user data successfully")
     void findUserDataShouldReturnUserDataSuccessfully() {
-        final User mockUser = UserCreator.validUser();
+        final User mockUser = validUser();
 
         when(tokenServiceMock.getLoginSubject(any())).thenReturn(mockUser.getEmail());
         when(userRepositoryMock.findByEmail(any())).thenReturn(mockUser);
@@ -96,8 +97,22 @@ public class UserServiceTest {
     }
 
     @Test
+    @DisplayName("Updating user data should be successfully updated")
+    void updatingUserDataShouldBeSuccessfullyUpdated() {
+        when(userRepositoryMock.existsByNickName(any())).thenReturn(false);
+        when(userRepositoryMock.findByEmail(any())).thenReturn(validUser());
+        when(programmingTimeOptionServiceMock.findProgrammingTime(any())).thenReturn(validProgrammingTimeOption());
+        when(countryServiceMock.findCountry(any())).thenReturn(validCountry());
+        when(hobbyServiceMock.findHobbies(any())).thenReturn(List.of(validHobby()));
+        when(userRepositoryMock.save(any())).thenReturn(null);
+
+        final String loginTokenMock = "Some login token";
+        assertDoesNotThrow(() -> userService.update(loginTokenMock, validUpdateUserRequest()));
+    }
+
+    @Test
     @DisplayName("Find user by email should thrown exception")
-    void findUserShouldThrownException() {
+    void findUserByEmailShouldThrownException() {
         when(userRepositoryMock.findByEmail(any())).thenReturn(null);
         assertThrows(ItemNotFoundException.class, () -> userService.findUserByEmail("anyemail@testing.com"));
     }
@@ -113,6 +128,15 @@ public class UserServiceTest {
     void registerAnUsedEmailShouldThrowDataAlreadyUsedException() {
         when(userRepositoryMock.existsByEmail(any())).thenReturn(true);
         assertThrows(DataAlreadyUsedException.class, () -> userService.create(validRegisterRequestDTO()));
+    }
+
+    @Test
+    @DisplayName("Update an used nickName should thrown DataAlreadyUsedException")
+    void updateAnUsedNickNameShouldThrownDataAlreadyUsedException() {
+        final String loginTokenMock = "Some Login Token";
+        when(userRepositoryMock.existsByNickName(any())).thenReturn(true);
+
+        assertThrows(DataAlreadyUsedException.class, () -> userService.update(loginTokenMock, validUpdateUserRequest()));
     }
 
     @Test
