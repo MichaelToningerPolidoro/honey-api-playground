@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 import static com.honeyautomation.apiplayground.creator.CountryCreator.validCountry;
 import static com.honeyautomation.apiplayground.creator.HobbyCreator.validHobby;
+import static com.honeyautomation.apiplayground.creator.LoginTokenCreator.getSomeLoginToken;
 import static com.honeyautomation.apiplayground.creator.ProgrammingTimeOptionCreator.validProgrammingTimeOption;
 import static com.honeyautomation.apiplayground.creator.RegisterRequestDTOCreator.invalidRegisterRequestDTO;
 import static com.honeyautomation.apiplayground.creator.RegisterRequestDTOCreator.validRegisterRequestDTO;
@@ -82,7 +83,7 @@ public class UserServiceTest {
         when(tokenServiceMock.getLoginSubject(any())).thenReturn(mockUser.getEmail());
         when(userRepositoryMock.findByEmail(any())).thenReturn(mockUser);
 
-        final UserResponseDTO retrievedUserData = userService.getUserData("SomeLoginToken");
+        final UserResponseDTO retrievedUserData = userService.getUserData(getSomeLoginToken());
 
         assertNotNull(retrievedUserData);
         assertEquals(mockUser.getNickName(), retrievedUserData.getNickname());
@@ -106,8 +107,7 @@ public class UserServiceTest {
         when(hobbyServiceMock.findHobbies(any())).thenReturn(List.of(validHobby()));
         when(userRepositoryMock.save(any())).thenReturn(null);
 
-        final String loginTokenMock = "Some login token";
-        assertDoesNotThrow(() -> userService.update(loginTokenMock, validUpdateUserRequest()));
+        assertDoesNotThrow(() -> userService.update(getSomeLoginToken(), validUpdateUserRequest()));
     }
 
     @Test
@@ -133,10 +133,9 @@ public class UserServiceTest {
     @Test
     @DisplayName("Update an used nickName should thrown DataAlreadyUsedException")
     void updateAnUsedNickNameShouldThrownDataAlreadyUsedException() {
-        final String loginTokenMock = "Some Login Token";
         when(userRepositoryMock.existsByNickName(any())).thenReturn(true);
 
-        assertThrows(DataAlreadyUsedException.class, () -> userService.update(loginTokenMock, validUpdateUserRequest()));
+        assertThrows(DataAlreadyUsedException.class, () -> userService.update(getSomeLoginToken(), validUpdateUserRequest()));
     }
 
     @Test

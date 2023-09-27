@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import static com.honeyautomation.apiplayground.creator.LoginTokenCreator.getSomeLoginToken;
 import static com.honeyautomation.apiplayground.creator.RegisterRequestDTOCreator.validRegisterRequestDTO;
 import static com.honeyautomation.apiplayground.creator.UpdateUserRequestDTOCreator.validUpdateUserRequest;
 import static org.hamcrest.Matchers.is;
@@ -69,7 +70,7 @@ public class UserControllerTest {
         final UserResponseDTO userResponseDTOMock = UserResponseDTOCreator.validUserResponseDTO();
         when(userServiceMock.getUserData(any())).thenReturn(userResponseDTOMock);
 
-        final ResponseEntity<UserResponseDTO> response = userController.search("SomeLoginToken");
+        final ResponseEntity<UserResponseDTO> response = userController.search(getSomeLoginToken());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
@@ -79,10 +80,9 @@ public class UserControllerTest {
     @Test
     @DisplayName("User controller should return no content when updating a user successfully")
     void userControllerShouldReturnNoContentWhenUpdatingUserSuccessfully() {
-        final String loginTokenMock = "Some Login Token";
         doNothing().when(userServiceMock).update(any(), any());
 
-        final ResponseEntity<Void> response = userController.update(loginTokenMock, validUpdateUserRequest());
+        final ResponseEntity<Void> response = userController.update(getSomeLoginToken(), validUpdateUserRequest());
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         assertNull(response.getBody());
@@ -94,7 +94,7 @@ public class UserControllerTest {
         when(userServiceMock.getUserData(any())).thenThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_USER));
 
         final HttpHeaders httpHeaders = new HttpHeaders() {{
-            set("loginToken", "SomeLoginToken");
+            set("loginToken", getSomeLoginToken());
         }};
 
         final MockHttpServletRequestBuilder request = get(Endpoints.REQUEST_MAPPING_USER).headers(httpHeaders);
@@ -112,7 +112,7 @@ public class UserControllerTest {
         doThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_USER)).when(userServiceMock).update(any(), any());
 
         final HttpHeaders httpHeaders = new HttpHeaders() {{
-            set("loginToken", "SomeLoginToken");
+            set("loginToken", getSomeLoginToken());
         }};
 
         final MockHttpServletRequestBuilder request = patch(Endpoints.REQUEST_MAPPING_USER)
@@ -172,7 +172,7 @@ public class UserControllerTest {
         doThrow(new DataAlreadyUsedException(List.of("nickName"))).when(userServiceMock).update(any(), any());
 
         final HttpHeaders httpHeaders = new HttpHeaders() {{
-            set("loginToken", "SomeLoginToken");
+            set("loginToken", getSomeLoginToken());
         }};
 
         final MockHttpServletRequestBuilder request = patch(Endpoints.REQUEST_MAPPING_USER)
