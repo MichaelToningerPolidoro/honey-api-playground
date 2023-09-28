@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.validation.ConstraintViolationException;
@@ -32,7 +34,7 @@ import static com.honeyautomation.apiplayground.creator.UpdateUserRequestDTOCrea
 import static com.honeyautomation.apiplayground.creator.UserCreator.validUser;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 public class UserServiceTest {
@@ -66,13 +68,6 @@ public class UserServiceTest {
         when(userRepositoryMock.save(any())).thenReturn(null);
 
         assertDoesNotThrow(() -> userService.create(validRegisterRequestDTO()));
-    }
-
-    @Test
-    @DisplayName("Find user by email should return a user successfully")
-    void findUserByEmailShouldReturnAUserSuccessfully() {
-        when(userRepositoryMock.findByEmail(any())).thenReturn(validUser());
-        assertDoesNotThrow(() -> userService.findUserByEmail("anyemail@testing.com"));
     }
 
     @Test
@@ -111,6 +106,27 @@ public class UserServiceTest {
     }
 
     @Test
+    @DisplayName("User service should not throw exception when deleting user successfully")
+    void userServiceShouldNotThrowExceptionWhenDeletingUserSuccessfully() {
+        doNothing().when(userRepositoryMock).delete(any());
+        assertDoesNotThrow(() -> userService.delete(getSomeLoginToken()));
+    }
+
+    @Test
+    @DisplayName("User service should not thrown exception when deleting no existent user")
+    void userServiceShouldNotThrowExceptionWhenDeletingNoExistentUser() {
+        doThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_USER)).when(userRepositoryMock).findByEmail(any());
+        assertDoesNotThrow(() -> userService.delete(getSomeLoginToken()));
+    }
+
+    @Test
+    @DisplayName("Find user by email should return a user successfully")
+    void findUserByEmailShouldReturnAUserSuccessfully() {
+        when(userRepositoryMock.findByEmail(any())).thenReturn(validUser());
+        assertDoesNotThrow(() -> userService.findUserByEmail("anyemail@testing.com"));
+    }
+
+    @Test
     @DisplayName("Find user by email should thrown exception")
     void findUserByEmailShouldThrownException() {
         when(userRepositoryMock.findByEmail(any())).thenReturn(null);
@@ -134,6 +150,7 @@ public class UserServiceTest {
     @DisplayName("Update an used nickName should thrown DataAlreadyUsedException")
     void updateAnUsedNickNameShouldThrownDataAlreadyUsedException() {
         when(userRepositoryMock.existsByNickName(any())).thenReturn(true);
+        when(userRepositoryMock.findByEmail(any())).thenReturn(validUser());
 
         assertThrows(DataAlreadyUsedException.class, () -> userService.update(getSomeLoginToken(), validUpdateUserRequest()));
     }
