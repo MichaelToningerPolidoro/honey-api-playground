@@ -75,9 +75,9 @@ public class UserService {
     public void update(String loginToken, UpdateUserRequestDTO updateUserRequestDTO) {
         FieldValidator.validate(updateUserRequestDTO);
 
-        checkUserDataAvailabilityForUpdate(updateUserRequestDTO.getNickName().trim());
-
         final User retrievedUser = findUserByEmail(tokenService.getLoginSubject(loginToken));
+
+        checkUserDataAvailabilityForUpdate(updateUserRequestDTO.getNickName().trim());
         final ProgrammingTimeOption newProgrammingTimeOption = programmingTimeOptionService
                 .findProgrammingTime(updateUserRequestDTO.getProgrammingTime().trim());
 
@@ -97,6 +97,15 @@ public class UserService {
                 .build();
 
         userRepository.save(userWithNewData);
+    }
+
+    @RequiresLoginTokenValidation
+    public void delete(String loginToken) {
+        try {
+            userRepository.delete(findUserByEmail(tokenService.getLoginSubject(loginToken)));
+        } catch (Exception e) {
+            // TODO: Implement log message here
+        }
     }
 
     public User findUserByEmail(String email) {

@@ -33,4 +33,10 @@ public class UserController {
         userService.update(loginToken, updateUserRequestDTO);
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> delete(@RequestHeader String loginToken) {
+        userService.delete(loginToken);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
 }
