@@ -9,8 +9,7 @@ import static com.honeyautomation.apiplayground.creator.CountryCreator.validCoun
 
 public final class RegisterRequestDTOCreator {
 
-    private RegisterRequestDTOCreator() {
-    }
+    private RegisterRequestDTOCreator() {}
 
     public static RegisterRequestDTO validRegisterRequestDTO() {
         return RegisterRequestDTO.builder()

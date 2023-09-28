@@ -3,6 +3,8 @@ package com.honeyautomation.apiplayground.creator;
 import com.honeyautomation.apiplayground.dto.request.LoginRequestDTO;
 
 public final class LoginRequestDTOCreator {
+
+    private LoginRequestDTOCreator() {}
     
     public static LoginRequestDTO validLoginRequestDTO() {
         return LoginRequestDTO.builder()
