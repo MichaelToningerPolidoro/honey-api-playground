@@ -84,6 +84,31 @@ public class UserControllerTest {
 
         final ResponseEntity<Void> response = userController.update(getSomeLoginToken(), validUpdateUserRequest());
 
+        assertNotNull(response);
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertNull(response.getBody());
+    }
+
+    @Test
+    @DisplayName("User controller should return no content when deleting user successfully")
+    void userControllerShouldReturnNoContentWhenDeletingUserSuccessfully() {
+        doNothing().when(userServiceMock).delete(any());
+
+        final ResponseEntity<Void> response = userController.delete(getSomeLoginToken());
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertNull(response.getBody());
+    }
+
+    @Test
+    @DisplayName("User controller should return no content when deleting no existent user")
+    void userControllerShouldReturnNoContentWhenDeletingNoExistentUser() {
+        doThrow(new ItemNotFoundException(ExceptionMessages.NOT_FOUND_USER)).when(userServiceMock).findUserByEmail(any());
+
+        final ResponseEntity<Void> response = userController.delete(getSomeLoginToken());
+
+        assertNotNull(response);
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         assertNull(response.getBody());
     }
