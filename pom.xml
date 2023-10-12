@@ -8,7 +8,7 @@
         <version>2.6.15</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.honeyautomation</groupId>
+    <groupId>com.honey</groupId>
     <artifactId>apiplayground</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>apiplayground</name>
