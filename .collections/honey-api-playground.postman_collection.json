@@ -1,0 +1,1277 @@
+{
+	"info": {
+		"_postman_id": "182419df-a069-4582-a5b5-9e14425af924",
+		"name": "Honey API Playground",
+		"description": "This collection compiles all the requests to the endpoints found in the Honey API Playground project, which essentially constitutes a CRUD system with a basic user authentication feature.\n\nThe list of available endpoints includes:\n\n- GET - /v1/hobbies\n    \n- GET - /v1/programming-time-options\n    \n- GET - /v1/countries\n    \n- GET - /v1/login\n    \n- GET - /v1/user\n    \n- POST - /v1/user\n    \n- PATCH - /v1/user\n    \n- DELETE - /v1/user\n    \n\nDetailed instructions on how to use each service can be found in the respective documentation.\n\nNote: The primary objective of this project is to further explore Spring Boot.  \n  \nThanks for using it :)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15414874"
+	},
+	"item": [
+		{
+			"name": "Data Search",
+			"item": [
+				{
+					"name": "Search Hobbies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{honeyApiPlaygroundUser}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{honeyApiPlaygroundSecret}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/hobbies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"hobbies"
+							]
+						},
+						"description": "This request searchs for all hobbies available to use during register.\n\nAll data comes from a table containing data previous imputed on that.\n\nA success response example\n\n``` json\n{\n    \"hobbies\": [\n        \"Programming\",\n        \"Watch movies\",\n        \"Watch series\",\n        \"Play video games\",\n        \"Practice sports\",\n        \"Ride a bicycle\"\n    ]\n}\n\n ```\n\nSee examples in request to see more return contracts."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/hobbies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"hobbies"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"hobbies\": [\n        \"Programming\",\n        \"Watch movies\",\n        \"Watch series\",\n        \"Play video games\",\n        \"Practice sports\",\n        \"Ride a bicycle\"\n    ]\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/hobbies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"hobbies"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"message\": \"No hobbies have been found ...\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/hobbies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"hobbies"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Internal server error\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Search Programming Time Options",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{honeyApiPlaygroundSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{honeyApiPlaygroundUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/programming-time-options",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"programming-time-options"
+							]
+						},
+						"description": "This request searchs for all programming time options available to use during register.\n\nAll data comes from a table containing data previous imputed on that.\n\nA success response example\n\n``` json\n{\n    \"programmingTimeOptions\": [\n        \"Less than a month\",\n        \"Between 1 and 6 months\",\n        \"Between 6 months and 1 year\",\n        \"Between 1 and 2 years\",\n        \"More than 2 years\"\n    ]\n}\n\n ```\n\nSee examples in request to see more return contracts."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/programming-time-options",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"programming-time-options"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"programmingTimeOptions\": [\r\n        \"Less than a month\",\r\n        \"Between 1 and 6 months\",\r\n        \"Between 6 months and 1 year\",\r\n        \"Between 1 and 2 years\",\r\n        \"More than 2 years\"\r\n    ]\r\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/programming-time-options",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"programming-time-options"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"message\": \"No countries have been found ...\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/programming-time-options",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"programming-time-options"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Internal server error\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Search Countries",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{honeyApiPlaygroundSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{honeyApiPlaygroundUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/countries",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"countries"
+							]
+						},
+						"description": "This request searchs for all countries available to use during register.\n\nAll data comes from a table containing data previous imputed on that.\n\nA success response example\n\n``` json\n{\n    \"countries\": [\n        \"Afghanistan\",\n        \"Albania\",\n        \"Algeria\",\n        \"American Samoa\",\n        \"Andorra\",\n        ...\n    ]\n}\n\n ```\n\nSee examples in request to see more return contracts."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/countries",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"countries"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"countries\": [\n        \"values\",\n        \"values\"\n    ]\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/countries",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"countries"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"message\": \"No countries have been found ...\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/countries",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"countries"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Internal server error\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('loginToken', pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{honeyApiPlaygroundSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{honeyApiPlaygroundUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"email@domain.com\",\r\n    \"password\": \"SomeRandomPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						},
+						"description": "This requests made a user login using it e-mail and password.\n\nSuccess response example\n\n``` json\n{\n    \"token\": \"valid login token here\"\n}\n\n ```\n\nActually, token is a JWT and expires in 10 minutes (600 seconds).\n\nSee examples in request to see more return contracts."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic tokenHere",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"email@domain.com\",\r\n    \"password\": \"SomeRandomPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"valid login token here\"\n}"
+						},
+						{
+							"name": "Invalid Credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"email@domain.com\",\r\n    \"password\": \"invalidPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid user credentials\"\n}"
+						},
+						{
+							"name": "User Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"usernotfound@domain.com\",\r\n    \"password\": \"SomeRandomPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User not found\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/hobbies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"hobbies"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Internal server error\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{honeyApiPlaygroundSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{honeyApiPlaygroundUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nickName\": \"testingGuy\",\r\n    \"name\": \"Joaquim\",\r\n    \"email\": \"email@domain.com\",\r\n    \"password\": \"SomeRandomPassword\",\r\n    \"programmingTime\": \"Between 6 months and 1 year\",\r\n    \"bornData\": {\r\n        \"date\": \"2022-12-22\",\r\n        \"country\": \"Brazil\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch movies\",\r\n        \"Play video games\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						},
+						"description": "This request register a new user.\n\nAll requests contains data validations, so you can't send any random data in request body.\n\nList of requirements:\n\n- nickName\n    - Can only contain letters and numbers.\n    - Cannot start with number\n- Name\n    - Can only contain letters\n- email\n    - Need to be a valid email\n- password\n    - Can contain lettters, numbers and some special characters\n- programmingTime\n    - Need to be a previous registered value from GET -> /v1/programming-time-options\n- bornData\n    \n    - date\n        - Need to be a valid date\n        - Need to be today or before today\n    - country\n        \n        - Need to be a previous registered value from GET -> /v1/countries\n            \n- hobbies\n    \n    - Need to be a list of previous registered values from GET -> /v1/hobbies\n        \n    - Min list size is 1\n        \n    - Max list size is 3\n        \n\nSee some possible values in data search endpoints in Honey API Playground > Data Search .\n\nThe success response is only a HTTP created status.\n\nSee examples in request to see more return contracts."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickName\": \"testingGuy\",\r\n    \"name\": \"Joaquim\",\r\n    \"email\": \"email@domain.com\",\r\n    \"password\": \"SomeRandomPassword\",\r\n    \"programmingTime\": \"Between 6 months and 1 year\",\r\n    \"bornData\": {\r\n        \"date\": \"2022-12-22\",\r\n        \"country\": \"Brazil\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch movies\",\r\n        \"Play video games\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Data Already Used",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickName\": \"testingGuy\",\r\n    \"name\": \"Joaquim\",\r\n    \"email\": \"email@domain.com\",\r\n    \"password\": \"SomeRandomPassword\",\r\n    \"programmingTime\": \"Between 6 months and 1 year\",\r\n    \"bornData\": {\r\n        \"date\": \"2022-12-22\",\r\n        \"country\": \"Brazil\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch movies\",\r\n        \"Play video games\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"field\": \"email\",\n        \"message\": \"This data is already in use ...\"\n    },\n    {\n        \"field\": \"nickName\",\n        \"message\": \"This data is already in use ...\"\n    }\n]"
+						},
+						{
+							"name": "Invalid Resource",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickName\": \"testingGuy\",\r\n    \"name\": \"Joaquim\",\r\n    \"email\": \"email@domain.com\",\r\n    \"password\": \"SomeRandomPassword\",\r\n    \"programmingTime\": \"invalid value\",\r\n    \"bornData\": {\r\n        \"date\": \"2022-12-22\",\r\n        \"country\": \"Brazil\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch movies\",\r\n        \"Play video games\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"The programming time option is invalid! Please check the resource below to see all available options\",\n    \"resource\": {\n        \"method\": \"GET\",\n        \"endpoint\": \"/v1/programming-time-options\"\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickName\": \"testingGuy\",\r\n    \"name\": \"Joaquim\",\r\n    \"email\": \"email@domain.com\",\r\n    \"password\": \"SomeRandomPassword\",\r\n    \"programmingTime\": \"Between 6 months and 1 year\",\r\n    \"bornData\": {\r\n        \"date\": \"2022-12-22\",\r\n        \"country\": \"Brazil\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch movies\",\r\n        \"Play video games\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"message\": \"Internal server error\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{honeyApiPlaygroundSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{honeyApiPlaygroundUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "loginToken",
+								"value": "{{loginToken}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						},
+						"description": "This request get data from a previous registered user.\n\nFor using this request, you will need a valid loginToken from POST -> /v1/login\n\nSuccess response example\n\n``` json\n{\n    \"nickname\": \"testingGuy2\",\n    \"name\": \"Joaquim\",\n    \"email\": \"ema*****@domain.com\",\n    \"programmingTime\": \"Between 6 months and 1 year\",\n    \"bornDataDTO\": {\n        \"date\": \"2022-12-22\",\n        \"country\": \"Brazil\"\n    },\n    \"hobbies\": [\n        \"Play video games\",\n        \"Programming\",\n        \"Watch movies\"\n    ]\n}\n\n ```\n\nSee examples in request to see more return contracts."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "loginToken",
+										"value": "{{loginToken}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"nickname\": \"testingGuy2\",\n    \"name\": \"Joaquim\",\n    \"email\": \"ema*****@domain.com\",\n    \"programmingTime\": \"Between 6 months and 1 year\",\n    \"bornDataDTO\": {\n        \"date\": \"2022-12-22\",\n        \"country\": \"Brazil\"\n    },\n    \"hobbies\": [\n        \"Play video games\",\n        \"Programming\",\n        \"Watch movies\"\n    ]\n}"
+						},
+						{
+							"name": "User Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "loginToken",
+										"value": "{{loginToken}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User not found\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "loginToken",
+										"value": "{{loginToken}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Internal server error\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{honeyApiPlaygroundSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{honeyApiPlaygroundUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "loginToken",
+								"value": "{{loginToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nickName\": \"newNickName\",\r\n    \"name\": \"newName\",\r\n    \"password\": \"myNewPassword\",\r\n    \"programmingTime\": \"More than 2 years\",\r\n    \"bornData\": {\r\n        \"date\": \"2023-01-15\",\r\n        \"country\": \"Australia\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch series\",\r\n        \"Ride a bicycle\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						},
+						"description": "This request update a previous registered user.\n\nFor using this request, you will need a valid loginToken from POST -> /v1/login\n\nAll requests contains data validations, so you can't send any random data in request body.\n\nList of requirements:\n\n- nickName\n    - Can only contain letters and numbers.\n    - Cannot start with number\n- Name\n    - Can only contain letters\n- email\n    - This field doesn't exists because you can't update email.\n- password\n    - Can contain lettters, numbers and some special characters\n- programmingTime\n    - Need to be a previous registered value from GET -> /v1/programming-time-options\n- bornData\n    - date\n        - Need to be a valid date\n        - Need to be today or before today\n- country\n    - Need to be a previous registered value from GET -> /v1/countries\n- hobbies\n    - Need to be a list of previous registered values from GET -> /v1/hobbies\n    - Min list size is 1\n    - Max list size is 3\n\nSee some possible values in data search endpoints in Honey API Playground > Data Search .\n\nThe success response is only a HTTP no content status.  \nSee examples in request to see more return contracts."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "loginToken",
+										"value": "{{loginToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickName\": \"newNickName\",\r\n    \"name\": \"newName\",\r\n    \"password\": \"myNewPassword\",\r\n    \"programmingTime\": \"More than 2 years\",\r\n    \"bornData\": {\r\n        \"date\": \"2023-01-15\",\r\n        \"country\": \"Australia\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch series\",\r\n        \"Ride a bicycle\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Data Already Used",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "loginToken",
+										"value": "{{loginToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickName\": \"newNickName\",\r\n    \"name\": \"newName\",\r\n    \"password\": \"myNewPassword\",\r\n    \"programmingTime\": \"More than 2 years\",\r\n    \"bornData\": {\r\n        \"date\": \"2023-01-15\",\r\n        \"country\": \"Australia\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch series\",\r\n        \"Ride a bicycle\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"field\": \"nickName\",\n        \"message\": \"This data is already in use ...\"\n    }\n]"
+						},
+						{
+							"name": "User Not Found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "loginToken",
+										"value": "{{loginToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickName\": \"newNickName\",\r\n    \"name\": \"newName\",\r\n    \"password\": \"myNewPassword\",\r\n    \"programmingTime\": \"More than 2 years\",\r\n    \"bornData\": {\r\n        \"date\": \"2023-01-15\",\r\n        \"country\": \"Australia\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch series\",\r\n        \"Ride a bicycle\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User not found\"\n}"
+						},
+						{
+							"name": "Invalid Resource",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "loginToken",
+										"value": "{{loginToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickName\": \"newNickName\",\r\n    \"name\": \"newName\",\r\n    \"password\": \"myNewPassword\",\r\n    \"programmingTime\": \"More than 2 years\",\r\n    \"bornData\": {\r\n        \"date\": \"2023-01-15\",\r\n        \"country\": \"Australia\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch series\",\r\n        \"Ride a bicycle\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"The programming time option is invalid! Please check the resource below to see all available options\",\n    \"resource\": {\n        \"method\": \"GET\",\n        \"endpoint\": \"/v1/programming-time-options\"\n    }\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "loginToken",
+										"value": "{{loginToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nickName\": \"newNickName\",\r\n    \"name\": \"newName\",\r\n    \"password\": \"myNewPassword\",\r\n    \"programmingTime\": \"More than 2 years\",\r\n    \"bornData\": {\r\n        \"date\": \"2023-01-15\",\r\n        \"country\": \"Australia\"\r\n    },\r\n    \"hobbies\": [\r\n        \"Programming\",\r\n        \"Watch series\",\r\n        \"Ride a bicycle\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Internal server error\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{honeyApiPlaygroundSecret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{honeyApiPlaygroundUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "loginToken",
+								"value": "{{loginToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						},
+						"description": "This request deletes a previous registered user.\n\nFor using this request, you will need a valid loginToken from POST -> /v1/login\n\nFor all kinds of response, just a HTTP status no content.\n\nSee examples in request to see more return contracts."
+					},
+					"response": [
+						{
+							"name": "Only No Content",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "loginToken",
+										"value": "{{loginToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "default"
+		},
+		{
+			"key": "honeyApiPlaygroundUser",
+			"value": "HoneyApiPlayground",
+			"type": "default"
+		},
+		{
+			"key": "honeyApiPlaygroundSecret",
+			"value": "HoneyBasicPassword",
+			"type": "default"
+		},
+		{
+			"key": "loginToken",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

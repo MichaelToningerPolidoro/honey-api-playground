@@ -1,0 +1,577 @@
+_type: export
+__export_format: 4
+__export_date: 2023-10-12T11:43:54.222Z
+__export_source: insomnia.desktop.app:v2023.5.8
+resources:
+  - _id: req_668e035a251c449b8064ac7e9ed0d6f4
+    parentId: fld_528a1b9c02664b379897e8d99140c63a
+    modified: 1697110156489
+    created: 1697110045910
+    url: "{{ _.baseUrl }}/v1/hobbies"
+    name: Search Hobbies
+    description: |+
+      This request searchs for all hobbies available to use during register.
+
+      All data comes from a table containing data previous imputed on that.
+
+      A success response example
+
+
+      ```JSON
+      {
+          "hobbies": [
+              "Programming",
+              "Watch movies",
+              "Watch series",
+              "Play video games",
+              "Practice sports",
+              "Ride a bicycle"
+          ]
+      }
+      ```
+
+
+      See examples in request to see more return contracts.
+
+
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: "{{ _.honeyApiPlaygroundUser }}"
+      password: "{{ _.honeyApiPlaygroundSecret }}"
+    metaSortKey: -1697110045910
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_528a1b9c02664b379897e8d99140c63a
+    parentId: wrk_42a916a995bc445abee13aebb6cfc75b
+    modified: 1697110484762
+    created: 1697110032081
+    name: Data Search
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1697110032481
+    _type: request_group
+  - _id: wrk_42a916a995bc445abee13aebb6cfc75b
+    parentId: null
+    modified: 1697109945667
+    created: 1697109945667
+    name: honey-api-playground.yaml
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: req_b961a0dd1bb54c7ba8e727ad1d36b124
+    parentId: fld_528a1b9c02664b379897e8d99140c63a
+    modified: 1697110247274
+    created: 1697110178372
+    url: "{{ _.baseUrl }}/v1/programming-time-options"
+    name: Search Programming Time Options
+    description: >+
+      This request searchs for all programming time options available to use
+      during register.
+
+
+      All data comes from a table containing data previous imputed on that.
+
+
+      A success response example
+
+
+
+      ```JSON
+
+      {
+          "programmingTimeOptions": [
+              "Less than a month",
+              "Between 1 and 6 months",
+              "Between 6 months and 1 year",
+              "Between 1 and 2 years",
+              "More than 2 years"
+          ]
+      }
+
+      ```
+
+
+
+      See examples in request to see more return contracts.
+
+
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: "{{ _.honeyApiPlaygroundUser }}"
+      password: "{{ _.honeyApiPlaygroundSecret }}"
+    metaSortKey: -1697110045810
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_954d899f8f0f4e89b531fd54ec5d38e2
+    parentId: fld_528a1b9c02664b379897e8d99140c63a
+    modified: 1697110363421
+    created: 1697110259101
+    url: "{{ _.baseUrl }}/v1/countries"
+    name: Search Countries
+    description: |
+      This request searchs for all countries available to use during register.
+
+      All data comes from a table containing data previous imputed on that.
+
+      A success response example
+
+
+      ```JSON
+      {
+          "countries": [
+              "Afghanistan",
+              "Albania",
+              "Algeria",
+              "American Samoa",
+              "Andorra",
+              ...
+          ]
+      }
+      ```
+
+      See examples in request to see more return contracts.
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: "{{ _.honeyApiPlaygroundUser }}"
+      password: "{{ _.honeyApiPlaygroundSecret }}"
+    metaSortKey: -1697110045710
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4149bbe6f5584675abc977bf10f6a65f
+    parentId: fld_1158c39070694da0865117d6165b6ca5
+    modified: 1697110455463
+    created: 1697110375717
+    url: "{{ _.baseUrl }}/v1/login"
+    name: Login
+    description: |
+      This requests made a user login using it e-mail and password.
+
+      Success response example
+      ```JSON
+      {
+          "token": "valid login token here"
+      }
+      ```
+
+      Actually, token is a JWT and expires in 10 minutes (600 seconds).
+
+      See examples in request to see more return contracts.
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "email@domain.com",
+        	"password": "SomeRandomPassword"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_9ff1e67aabd049999129eee17fe0defc
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: "{{ _.honeyApiPlaygroundUser }}"
+      password: "{{ _.honeyApiPlaygroundSecret }}"
+    metaSortKey: -1697110375717
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1158c39070694da0865117d6165b6ca5
+    parentId: wrk_42a916a995bc445abee13aebb6cfc75b
+    modified: 1697110485840
+    created: 1697110333022
+    name: Login
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1697110032431
+    _type: request_group
+  - _id: req_fa920fc9af774d33b6fe571c4b247e3a
+    parentId: fld_6cb3a6fca2304ab2966022319d8bedbc
+    modified: 1697110908822
+    created: 1697110489441
+    url: "{{ _.baseUrl }}/v1/user"
+    name: Create User
+    description: >+
+      This request register a new user.
+
+
+      All requests contains data validations, so you can't send any random data in request body.
+
+
+      List of requirements:
+
+      - nickName
+        - Can only contain letters and numbers.
+        - Cannot start with number
+
+      - Name
+        - Can only contain letters
+
+      - email
+        - Need to be a valid email
+
+      - password
+        - Can contain lettters, numbers and some special characters
+
+      - programmingTime
+        - Need to be a previous registered value from GET -> /v1/programming-time-options
+
+      - bornData
+        - date
+          - Need to be a valid date
+          - Need to be today or before today
+
+      - country
+        - Need to be a previous registered value from GET -> /v1/countries
+
+
+      - hobbies
+        - Need to be a list of previous registered values from GET -> /v1/hobbies
+        - Min list size is 1
+        - Max list size is 3
+
+
+      See some possible values in data search endpoints in Honey API Playground > Data Search .
+
+
+      The success response is only a HTTP created status.
+
+
+      See examples in request to see more return contracts.
+
+
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"nickName": "testingGuy",
+        	"name": "Joaquim",
+        	"email": "email@domain.com",
+        	"password": "SomeRandomPassword",
+        	"programmingTime": "Between 6 months and 1 year",
+        	"bornData": {
+        		"date": "2022-12-22",
+        		"country": "Brazil"
+        	},
+        	"hobbies": [
+        		"Programming",
+        		"Watch movies",
+        		"Play video games"
+        	]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: "{{ _.honeyApiPlaygroundUser }}"
+      password: "{{ _.honeyApiPlaygroundSecret }}"
+    metaSortKey: -1697110907530
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_6cb3a6fca2304ab2966022319d8bedbc
+    parentId: wrk_42a916a995bc445abee13aebb6cfc75b
+    modified: 1697110481693
+    created: 1697110477271
+    name: User
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1697110032381
+    _type: request_group
+  - _id: req_9ed0c644d22c447d8a062b377f2f2b89
+    parentId: fld_6cb3a6fca2304ab2966022319d8bedbc
+    modified: 1697110909659
+    created: 1697110641803
+    url: "{{ _.baseUrl }}/v1/user"
+    name: Get User
+    description: >
+      This request get data from a previous registered user.
+
+
+      For using this request, you will need a valid loginToken from POST -> /v1/login
+
+
+      Success response example
+
+      ```JSON
+
+      {
+          "nickname": "testingGuy2",
+          "name": "Joaquim",
+          "email": "ema*****@domain.com",
+          "programmingTime": "Between 6 months and 1 year",
+          "bornDataDTO": {
+              "date": "2022-12-22",
+              "country": "Brazil"
+          },
+          "hobbies": [
+              "Play video games",
+              "Programming",
+              "Watch movies"
+          ]
+      }
+
+      ```
+
+
+      See examples in request to see more return contracts.
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_8bbb08a11be8402fa83c2eb28b724abc
+        name: loginToken
+        value: "{% response 'body', 'req_4149bbe6f5584675abc977bf10f6a65f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1697110907480
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_50269e7044a547e39941cfc4469acfed
+    parentId: fld_6cb3a6fca2304ab2966022319d8bedbc
+    modified: 1697110910559
+    created: 1697110753488
+    url: "{{ _.baseUrl }}/v1/user"
+    name: Update User
+    description: >
+      This request update a previous registered user.
+
+
+      For using this request, you will need a valid loginToken from POST -> /v1/login
+
+
+      All requests contains data validations, so you can't send any random data in request body.
+
+
+      List of requirements:
+
+
+      - nickName
+        - Can only contain letters and numbers.
+        - Cannot start with number
+
+      - Name
+        - Can only contain letters
+
+      - email
+        - This field doesn't exists because you can't update email.
+
+      - password
+        - Can contain lettters, numbers and some special characters
+
+      - programmingTime
+        - Need to be a previous registered value from GET -> /v1/programming-time-options
+
+      - bornData
+        - date
+          - Need to be a valid date
+          - Need to be today or before today
+
+
+      - country
+        - Need to be a previous registered value from GET -> /v1/countries
+
+      - hobbies
+        - Need to be a list of previous registered values from GET -> /v1/hobbies
+        - Min list size is 1
+        - Max list size is 3
+
+
+      See some possible values in data search endpoints in Honey API Playground > Data Search .
+
+
+      The success response is only a HTTP no content status.
+
+
+      See examples in request to see more return contracts.
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"nickName": "newNickName",
+        	"name": "newName",
+        	"password": "myNewPassword",
+        	"programmingTime": "More than 2 years",
+        	"bornData": {
+        		"date": "2023-01-15",
+        		"country": "Australia"
+        	},
+        	"hobbies": [
+        		"Programming",
+        		"Watch series",
+        		"Ride a bicycle"
+        	]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_db03db3ae41841618c737d538c36c4da
+      - id: pair_ea221fc85ed244368ebb26a350e52b42
+        name: loginToken
+        value: "{% response 'body', 'req_4149bbe6f5584675abc977bf10f6a65f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: "{{ _.honeyApiPlaygroundUser }}"
+      password: "{{ _.honeyApiPlaygroundSecret }}"
+    metaSortKey: -1697110907455
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5e85438f5616491da8a6d7198669e43b
+    parentId: fld_6cb3a6fca2304ab2966022319d8bedbc
+    modified: 1697110979701
+    created: 1697110907430
+    url: "{{ _.baseUrl }}/v1/user"
+    name: Delete User
+    description: >-
+      This request deletes a previous registered user.
+
+
+      For using this request, you will need a valid loginToken from POST -> /v1/login
+
+
+      For all kinds of response, just a HTTP status no content.
+
+
+      See examples in request to see more return contracts.
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_67987e3767b548b792d83cb20b3855b7
+        name: loginToken
+        value: "{% response 'body', 'req_4149bbe6f5584675abc977bf10f6a65f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication:
+      type: basic
+      useISO88591: false
+      disabled: false
+      username: "{{ _.honeyApiPlaygroundUser }}"
+      password: "{{ _.honeyApiPlaygroundSecret }}"
+    metaSortKey: -1697110907430
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_92a9d446c79ad08508a5a3b30c208821422a6118
+    parentId: wrk_42a916a995bc445abee13aebb6cfc75b
+    modified: 1697110012965
+    created: 1697109945692
+    name: Base Environment
+    data:
+      baseUrl: http://localhost:8080
+      honeyApiPlaygroundUser: HoneyApiPlayground
+      honeyApiPlaygroundSecret: HoneyBasicPassword
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+        - honeyApiPlaygroundUser
+        - honeyApiPlaygroundSecret
+    color: null
+    isPrivate: false
+    metaSortKey: 1697109945692
+    _type: environment
+  - _id: jar_92a9d446c79ad08508a5a3b30c208821422a6118
+    parentId: wrk_42a916a995bc445abee13aebb6cfc75b
+    modified: 1697110159624
+    created: 1697109945695
+    name: Default Jar
+    cookies:
+      - key: JSESSIONID
+        value: 9779631D9F062D7DF33A51FA17E3CED0
+        domain: localhost
+        path: /
+        httpOnly: true
+        hostOnly: true
+        creation: 2023-10-12T11:29:19.624Z
+        lastAccessed: 2023-10-12T11:29:19.624Z
+        id: "249494418389272"
+    _type: cookie_jar
+  - _id: spc_7092445d134f44519579a7cb1b1425a0
+    parentId: wrk_42a916a995bc445abee13aebb6cfc75b
+    modified: 1697109945687
+    created: 1697109945687
+    fileName: New Document
+    contents: ""
+    contentType: yaml
+    _type: api_spec
