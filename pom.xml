@@ -10,11 +10,12 @@
     </parent>
     <groupId>com.honeyautomation</groupId>
     <artifactId>apiplayground</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>apiplayground</name>
-    <description>The project is an API to be used in Honey Automation Playground.</description>
+    <description>The project is an CRUD with authentication feature.</description>
     <properties>
         <java.version>11</java.version>
+        <java-jwt.version>4.4.0</java-jwt.version>
     </properties>
 
     <dependencies>
@@ -72,7 +73,7 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>4.4.0</version>
+            <version>${java-jwt.version}</version>
         </dependency>
 
     </dependencies>
