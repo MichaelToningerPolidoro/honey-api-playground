@@ -4,6 +4,7 @@ import com.honeyautomation.apiplayground.constants.Endpoints;
 import com.honeyautomation.apiplayground.dto.response.ProgrammingTimeOptionResponseDTO;
 import com.honeyautomation.apiplayground.service.ProgrammingTimeOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,6 @@ public class ProgrammingTimeOptionController {
 
     @GetMapping
     public ResponseEntity<ProgrammingTimeOptionResponseDTO> findAll() {
-        return ResponseEntity.ok(programmingTimeOptionService.findAll());
+        return new ResponseEntity<>(programmingTimeOptionService.findAll(), HttpStatus.OK);
     }
 }
