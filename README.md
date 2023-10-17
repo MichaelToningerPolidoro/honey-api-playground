@@ -36,6 +36,7 @@ Technologies and tools used in this project:
 - Spring Boot 2
 - Spring Data JPA
 - AspectJ
+- JWT
 - Junit
 - Mockito
 - H2 In-Memory Database
