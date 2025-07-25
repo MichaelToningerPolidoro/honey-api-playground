@@ -14,7 +14,7 @@
     <name>apiplayground</name>
     <description>The project is an CRUD with authentication feature.</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <java-jwt.version>4.4.0</java-jwt.version>
     </properties>
 
