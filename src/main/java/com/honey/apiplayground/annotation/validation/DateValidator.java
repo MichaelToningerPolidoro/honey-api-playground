@@ -14,7 +14,7 @@ public class DateValidator implements ConstraintValidator<ValidDate, String> {
 
     @Override
     public boolean isValid(String rawDate, ConstraintValidatorContext constraintValidatorContext) {
-        if (!PatternValidation.isDateValid(rawDate)) {
+        if (rawDate == null || !PatternValidation.isDateValid(rawDate)) {
             return false;
         }
 
