@@ -6,14 +6,15 @@ The Honey API Playground is a single Spring Boot application organized using a l
 
 ## High-Level Structure
 
-```text
-Controller
-    ↓
-Service
-    ↓
-Repository
-    ↓
-Database
+The main application components can also be represented as follows:
+
+```mermaid
+flowchart TD
+    Client --> Security[Spring Security]
+    Security --> Controller[REST Controller]
+    Controller --> Service[Service Layer]
+    Service --> Repository[Repository Layer]
+    Repository --> Database[(H2 or PostgreSQL)]
 ```
 
 The application also uses DTOs, validation components, exception handlers, and cross-cutting concerns for token validation.
@@ -51,6 +52,39 @@ Define the application's custom exceptions and translate them into HTTP response
 ### `aspect` and `annotation`
 
 Contain the custom annotation and AspectJ logic used to validate the JWT token before protected user operations.
+
+## Domain Model
+
+The main domain relationships are structured as follows:
+
+```mermaid
+erDiagram
+    USER ||--|| PASSWORD : has
+    USER ||--|| BORN_DATA : has
+    BORN_DATA ||--|| COUNTRY : references
+    USER }o--|| PROGRAMMING_TIME_OPTION : selects
+    USER }o--o{ HOBBY : has
+```
+
+The same structure can be represented in a simpler hierarchical view:
+
+```text
+User
+ ├── 1:1 Password
+ ├── 1:1 BornData
+ │       └── 1:1 Country
+ ├── N:1 ProgrammingTimeOption
+ └── N:N Hobby
+```
+
+The `User` entity is the central domain object. It is related to:
+
+- One `Password` entity.
+- One `BornData` entity.
+- One `ProgrammingTimeOption` entity, which can be shared by multiple users.
+- Multiple `Hobby` entities.
+
+The `BornData` entity is also related to one `Country` entity. Countries, hobbies, and programming time options act as supporting reference data used during user registration and update operations.
 
 ## Application Style
 
