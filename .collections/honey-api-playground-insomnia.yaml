@@ -10,11 +10,11 @@ resources:
     url: "{{ _.baseUrl }}/v1/hobbies"
     name: Search Hobbies
     description: |+
-      This request searchs for all hobbies available to use during register.
+      This request searches for all hobbies available during registration.
 
-      All data comes from a table containing data previous imputed on that.
+      All data comes from tables containing previously inserted data.
 
-      A success response example
+      Example of a successful response
 
 
       ```JSON
@@ -31,7 +31,7 @@ resources:
       ```
 
 
-      See examples in request to see more return contracts.
+      See the examples in each request for additional response contracts.
 
 
     method: GET
@@ -78,14 +78,14 @@ resources:
     url: "{{ _.baseUrl }}/v1/programming-time-options"
     name: Search Programming Time Options
     description: >+
-      This request searchs for all programming time options available to use
-      during register.
+      This request searches for all programming time options available to use
+      during registration.
 
 
-      All data comes from a table containing data previous imputed on that.
+      All data comes from tables containing previously inserted data.
 
 
-      A success response example
+      Example of a successful response
 
 
 
@@ -105,7 +105,7 @@ resources:
 
 
 
-      See examples in request to see more return contracts.
+      See the examples in each request for additional response contracts.
 
 
     method: GET
@@ -134,11 +134,11 @@ resources:
     url: "{{ _.baseUrl }}/v1/countries"
     name: Search Countries
     description: |
-      This request searchs for all countries available to use during register.
+      This request searches for all countries available during registration.
 
-      All data comes from a table containing data previous imputed on that.
+      All data comes from tables containing previously inserted data.
 
-      A success response example
+      Example of a successful response
 
 
       ```JSON
@@ -154,7 +154,7 @@ resources:
       }
       ```
 
-      See examples in request to see more return contracts.
+      See the examples in each request for additional response contracts.
     method: GET
     body: {}
     parameters: []
@@ -181,9 +181,9 @@ resources:
     url: "{{ _.baseUrl }}/v1/login"
     name: Login
     description: |
-      This requests made a user login using it e-mail and password.
+      This request logs a user in using their email and password.
 
-      Success response example
+      Example of a successful response
       ```JSON
       {
           "token": "valid login token here"
@@ -192,7 +192,7 @@ resources:
 
       Actually, token is a JWT and expires in 10 minutes (600 seconds).
 
-      See examples in request to see more return contracts.
+      See the examples in each request for additional response contracts.
     method: POST
     body:
       mimeType: application/json
@@ -238,10 +238,10 @@ resources:
     url: "{{ _.baseUrl }}/v1/user"
     name: Create User
     description: >+
-      This request register a new user.
+      This request registers a new user.
 
 
-      All requests contains data validations, so you can't send any random data in request body.
+      All requests contain data validation, so arbitrary data cannot be sent in the request body.
 
 
       List of requirements:
@@ -254,36 +254,36 @@ resources:
         - Can only contain letters
 
       - email
-        - Need to be a valid email
+        - Must be a valid email
 
       - password
-        - Can contain lettters, numbers and some special characters
+        - Can contain letters, numbers, and some special characters
 
       - programmingTime
-        - Need to be a previous registered value from GET -> /v1/programming-time-options
+        - Must be a previously registered value from GET -> /v1/programming-time-options
 
       - bornData
         - date
-          - Need to be a valid date
-          - Need to be today or before today
+          - Must be a valid date
+          - Must be today or earlier
 
       - country
-        - Need to be a previous registered value from GET -> /v1/countries
+        - Must be a previously registered value from GET -> /v1/countries
 
 
       - hobbies
-        - Need to be a list of previous registered values from GET -> /v1/hobbies
-        - Min list size is 1
-        - Max list size is 3
+        - Must be a list of previously registered values from GET -> /v1/hobbies
+        - Minimum list size is 1
+        - Maximum list size is 3
 
 
-      See some possible values in data search endpoints in Honey API Playground > Data Search .
+      See possible values in the data search endpoints under Honey API Playground > Data Search.
 
 
-      The success response is only a HTTP created status.
+      A successful request returns HTTP 201 Created with no response body.
 
 
-      See examples in request to see more return contracts.
+      See the examples in each request for additional response contracts.
 
 
     method: POST
@@ -342,13 +342,13 @@ resources:
     url: "{{ _.baseUrl }}/v1/user"
     name: Get User
     description: >
-      This request get data from a previous registered user.
+      This request gets data from a previously registered user.
 
 
-      For using this request, you will need a valid loginToken from POST -> /v1/login
+      To use this request, you will need a valid loginToken from POST -> /v1/login
 
 
-      Success response example
+      Example of a successful response
 
       ```JSON
 
@@ -371,7 +371,7 @@ resources:
       ```
 
 
-      See examples in request to see more return contracts.
+      See the examples in each request for additional response contracts.
     method: GET
     body: {}
     parameters: []
@@ -398,13 +398,13 @@ resources:
     url: "{{ _.baseUrl }}/v1/user"
     name: Update User
     description: >
-      This request update a previous registered user.
+      This request updates a previously registered user.
 
 
-      For using this request, you will need a valid loginToken from POST -> /v1/login
+      To use this request, you will need a valid loginToken from POST -> /v1/login
 
 
-      All requests contains data validations, so you can't send any random data in request body.
+      All requests contain data validation, so arbitrary data cannot be sent in the request body.
 
 
       List of requirements:
@@ -418,36 +418,36 @@ resources:
         - Can only contain letters
 
       - email
-        - This field doesn't exists because you can't update email.
+        - This field does not exist because the email cannot be updated.
 
       - password
-        - Can contain lettters, numbers and some special characters
+        - Can contain letters, numbers, and some special characters
 
       - programmingTime
-        - Need to be a previous registered value from GET -> /v1/programming-time-options
+        - Must be a previously registered value from GET -> /v1/programming-time-options
 
       - bornData
         - date
-          - Need to be a valid date
-          - Need to be today or before today
+          - Must be a valid date
+          - Must be today or earlier
 
 
       - country
-        - Need to be a previous registered value from GET -> /v1/countries
+        - Must be a previously registered value from GET -> /v1/countries
 
       - hobbies
-        - Need to be a list of previous registered values from GET -> /v1/hobbies
-        - Min list size is 1
-        - Max list size is 3
+        - Must be a list of previously registered values from GET -> /v1/hobbies
+        - Minimum list size is 1
+        - Maximum list size is 3
 
 
-      See some possible values in data search endpoints in Honey API Playground > Data Search .
+      See possible values in the data search endpoints under Honey API Playground > Data Search.
 
 
-      The success response is only a HTTP no content status.
+      A successful request returns HTTP 204 No Content with no response body.
 
 
-      See examples in request to see more return contracts.
+      See the examples in each request for additional response contracts.
     method: PATCH
     body:
       mimeType: application/json
@@ -499,16 +499,16 @@ resources:
     url: "{{ _.baseUrl }}/v1/user"
     name: Delete User
     description: >-
-      This request deletes a previous registered user.
+      This request deletes a previously registered user.
 
 
-      For using this request, you will need a valid loginToken from POST -> /v1/login
+      To use this request, you will need a valid loginToken from POST -> /v1/login
 
 
-      For all kinds of response, just a HTTP status no content.
+      For all response types, only an HTTP status with no content is returned.
 
 
-      See examples in request to see more return contracts.
+      See the examples in each request for additional response contracts.
     method: DELETE
     body: {}
     parameters: []

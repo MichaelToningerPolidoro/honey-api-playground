@@ -51,7 +51,7 @@
 								"hobbies"
 							]
 						},
-						"description": "This request searchs for all hobbies available to use during register.\n\nAll data comes from a table containing data previous imputed on that.\n\nA success response example\n\n``` json\n{\n    \"hobbies\": [\n        \"Programming\",\n        \"Watch movies\",\n        \"Watch series\",\n        \"Play video games\",\n        \"Practice sports\",\n        \"Ride a bicycle\"\n    ]\n}\n\n ```\n\nSee examples in request to see more return contracts."
+						"description": "This request searches for all hobbies available during registration.\n\nAll data comes from tables containing previously inserted data.\n\nExample of a successful response\n\n``` json\n{\n    \"hobbies\": [\n        \"Programming\",\n        \"Watch movies\",\n        \"Watch series\",\n        \"Play video games\",\n        \"Practice sports\",\n        \"Ride a bicycle\"\n    ]\n}\n\n ```\n\nSee the examples in each request for additional response contracts."
 					},
 					"response": [
 						{
@@ -155,7 +155,7 @@
 								"programming-time-options"
 							]
 						},
-						"description": "This request searchs for all programming time options available to use during register.\n\nAll data comes from a table containing data previous imputed on that.\n\nA success response example\n\n``` json\n{\n    \"programmingTimeOptions\": [\n        \"Less than a month\",\n        \"Between 1 and 6 months\",\n        \"Between 6 months and 1 year\",\n        \"Between 1 and 2 years\",\n        \"More than 2 years\"\n    ]\n}\n\n ```\n\nSee examples in request to see more return contracts."
+						"description": "This request searches for all programming time options available during registration.\n\nAll data comes from tables containing previously inserted data.\n\nExample of a successful response\n\n``` json\n{\n    \"programmingTimeOptions\": [\n        \"Less than a month\",\n        \"Between 1 and 6 months\",\n        \"Between 6 months and 1 year\",\n        \"Between 1 and 2 years\",\n        \"More than 2 years\"\n    ]\n}\n\n ```\n\nSee the examples in each request for additional response contracts."
 					},
 					"response": [
 						{
@@ -259,7 +259,7 @@
 								"countries"
 							]
 						},
-						"description": "This request searchs for all countries available to use during register.\n\nAll data comes from a table containing data previous imputed on that.\n\nA success response example\n\n``` json\n{\n    \"countries\": [\n        \"Afghanistan\",\n        \"Albania\",\n        \"Algeria\",\n        \"American Samoa\",\n        \"Andorra\",\n        ...\n    ]\n}\n\n ```\n\nSee examples in request to see more return contracts."
+						"description": "This request searches for all countries available during registration.\n\nAll data comes from tables containing previously inserted data.\n\nExample of a successful response\n\n``` json\n{\n    \"countries\": [\n        \"Afghanistan\",\n        \"Albania\",\n        \"Algeria\",\n        \"American Samoa\",\n        \"Andorra\",\n        ...\n    ]\n}\n\n ```\n\nSee the examples in each request for additional response contracts."
 					},
 					"response": [
 						{
@@ -388,7 +388,7 @@
 								"login"
 							]
 						},
-						"description": "This requests made a user login using it e-mail and password.\n\nSuccess response example\n\n``` json\n{\n    \"token\": \"valid login token here\"\n}\n\n ```\n\nActually, token is a JWT and expires in 10 minutes (600 seconds).\n\nSee examples in request to see more return contracts."
+						"description": "This request logs a user in using their email and password.\n\nExample of a successful response\n\n``` json\n{\n    \"token\": \"valid login token here\"\n}\n\n ```\n\nActually, token is a JWT and expires in 10 minutes (600 seconds).\n\nSee the examples in each request for additional response contracts."
 					},
 					"response": [
 						{
@@ -586,7 +586,7 @@
 								"user"
 							]
 						},
-						"description": "This request register a new user.\n\nAll requests contains data validations, so you can't send any random data in request body.\n\nList of requirements:\n\n- nickName\n    - Can only contain letters and numbers.\n    - Cannot start with number\n- Name\n    - Can only contain letters\n- email\n    - Need to be a valid email\n- password\n    - Can contain lettters, numbers and some special characters\n- programmingTime\n    - Need to be a previous registered value from GET -> /v1/programming-time-options\n- bornData\n    \n    - date\n        - Need to be a valid date\n        - Need to be today or before today\n    - country\n        \n        - Need to be a previous registered value from GET -> /v1/countries\n            \n- hobbies\n    \n    - Need to be a list of previous registered values from GET -> /v1/hobbies\n        \n    - Min list size is 1\n        \n    - Max list size is 3\n        \n\nSee some possible values in data search endpoints in Honey API Playground > Data Search .\n\nThe success response is only a HTTP created status.\n\nSee examples in request to see more return contracts."
+						"description": "This request registers a new user.\n\nAll requests contain data validation, so arbitrary data cannot be sent in the request body.\n\nList of requirements:\n\n- nickName\n    - Can only contain letters and numbers.\n    - Cannot start with number\n- Name\n    - Can only contain letters\n- email\n    - Must be a valid email\n- password\n    - Can contain letters, numbers, and some special characters\n- programmingTime\n    - Must be a previously registered value from GET -> /v1/programming-time-options\n- bornData\n    \n    - date\n        - Must be a valid date\n        - Must be today or earlier\n    - country\n        \n        - Must be a previously registered value from GET -> /v1/countries\n            \n- hobbies\n    \n    - Must be a list of previously registered values from GET -> /v1/hobbies\n        \n    - Minimum list size is 1\n        \n    - Maximum list size is 3\n        \n\nSee possible values in the data search endpoints under Honey API Playground > Data Search.\n\nA successful request returns HTTP 201 Created with no response body.\n\nSee the examples in each request for additional response contracts."
 					},
 					"response": [
 						{
@@ -771,7 +771,7 @@
 								"user"
 							]
 						},
-						"description": "This request get data from a previous registered user.\n\nFor using this request, you will need a valid loginToken from POST -> /v1/login\n\nSuccess response example\n\n``` json\n{\n    \"nickname\": \"testingGuy2\",\n    \"name\": \"Joaquim\",\n    \"email\": \"ema*****@domain.com\",\n    \"programmingTime\": \"Between 6 months and 1 year\",\n    \"bornDataDTO\": {\n        \"date\": \"2022-12-22\",\n        \"country\": \"Brazil\"\n    },\n    \"hobbies\": [\n        \"Play video games\",\n        \"Programming\",\n        \"Watch movies\"\n    ]\n}\n\n ```\n\nSee examples in request to see more return contracts."
+						"description": "This request gets data from a previously registered user.\n\nTo use this request, you will need a valid loginToken from POST -> /v1/login\n\nExample of a successful response\n\n``` json\n{\n    \"nickname\": \"testingGuy2\",\n    \"name\": \"Joaquim\",\n    \"email\": \"ema*****@domain.com\",\n    \"programmingTime\": \"Between 6 months and 1 year\",\n    \"bornDataDTO\": {\n        \"date\": \"2022-12-22\",\n        \"country\": \"Brazil\"\n    },\n    \"hobbies\": [\n        \"Play video games\",\n        \"Programming\",\n        \"Watch movies\"\n    ]\n}\n\n ```\n\nSee the examples in each request for additional response contracts."
 					},
 					"response": [
 						{
@@ -932,7 +932,7 @@
 								"user"
 							]
 						},
-						"description": "This request update a previous registered user.\n\nFor using this request, you will need a valid loginToken from POST -> /v1/login\n\nAll requests contains data validations, so you can't send any random data in request body.\n\nList of requirements:\n\n- nickName\n    - Can only contain letters and numbers.\n    - Cannot start with number\n- Name\n    - Can only contain letters\n- email\n    - This field doesn't exists because you can't update email.\n- password\n    - Can contain lettters, numbers and some special characters\n- programmingTime\n    - Need to be a previous registered value from GET -> /v1/programming-time-options\n- bornData\n    - date\n        - Need to be a valid date\n        - Need to be today or before today\n- country\n    - Need to be a previous registered value from GET -> /v1/countries\n- hobbies\n    - Need to be a list of previous registered values from GET -> /v1/hobbies\n    - Min list size is 1\n    - Max list size is 3\n\nSee some possible values in data search endpoints in Honey API Playground > Data Search .\n\nThe success response is only a HTTP no content status.  \nSee examples in request to see more return contracts."
+						"description": "This request updates a previously registered user.\n\nTo use this request, you will need a valid loginToken from POST -> /v1/login\n\nAll requests contain data validation, so arbitrary data cannot be sent in the request body.\n\nList of requirements:\n\n- nickName\n    - Can only contain letters and numbers.\n    - Cannot start with number\n- Name\n    - Can only contain letters\n- email\n    - This field does not exist because the email cannot be updated.\n- password\n    - Can contain letters, numbers, and some special characters\n- programmingTime\n    - Must be a previously registered value from GET -> /v1/programming-time-options\n- bornData\n    - date\n        - Must be a valid date\n        - Must be today or earlier\n- country\n    - Must be a previously registered value from GET -> /v1/countries\n- hobbies\n    - Must be a list of previously registered values from GET -> /v1/hobbies\n    - Minimum list size is 1\n    - Maximum list size is 3\n\nSee possible values in the data search endpoints under Honey API Playground > Data Search.\n\nA successful request returns HTTP 204 No Content with no response body.  \nSee the examples in each request for additional response contracts."
 					},
 					"response": [
 						{
@@ -1195,7 +1195,7 @@
 								"user"
 							]
 						},
-						"description": "This request deletes a previous registered user.\n\nFor using this request, you will need a valid loginToken from POST -> /v1/login\n\nFor all kinds of response, just a HTTP status no content.\n\nSee examples in request to see more return contracts."
+						"description": "This request deletes a previously registered user.\n\nTo use this request, you will need a valid loginToken from POST -> /v1/login\n\nFor all response types, only an HTTP status with no content is returned.\n\nSee the examples in each request for additional response contracts."
 					},
 					"response": [
 						{
