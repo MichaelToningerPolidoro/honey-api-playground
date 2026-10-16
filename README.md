@@ -55,6 +55,12 @@ The project currently includes:
 
 The complete endpoint documentation, including request and response examples, is available in the [API documentation](docs/api.md).
 
+### Integration Tests
+
+This project also has a dedicated integration test project that validates the API functionalities and user flows available here.
+
+You can find it in the [Honey API Playground Integration Tests repository](https://github.com/MichaelToningerPolidoro/honey-api-playground-integration-tests).
+
 ### Profiles and Configuration
 
 The default application profile is **local**, which uses an H2 in-memory database and predefined local data.
@@ -73,18 +79,6 @@ To run this project, you'll need the following tools:
 
 The project includes a Maven Wrapper, so Maven does not need to be installed globally.
 
-To run the tests:
-
-```bash
-./mvnw test
-```
-
-On Windows:
-
-```powershell
-.\mvnw.cmd test
-```
-
 To start the application using the default **local** profile:
 
 ```bash
@@ -101,6 +95,18 @@ After starting the application, the API will be available at:
 
 ```text
 http://localhost:8080
+```
+
+To run the tests:
+
+```bash
+./mvnw test
+```
+
+On Windows:
+
+```powershell
+.\mvnw.cmd test
 ```
 
 ## Concepts Learned 📚
