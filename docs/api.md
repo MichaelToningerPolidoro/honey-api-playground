@@ -4,7 +4,7 @@ First of all, thank you for taking a look at this documentation :)
 
 This document describes the endpoints currently available in the Honey API Playground project.
 
-## Base URL
+## 1. Base URL
 
 When running the application locally, the base URL is:
 
@@ -14,11 +14,11 @@ http://localhost:8080
 
 All endpoints use the `/v1` path prefix.
 
-## Authentication
+## 2. Authentication
 
 The API uses HTTP Basic authentication together with a JWT token for user-specific operations.
 
-### HTTP Basic Authentication
+### 2.1 HTTP Basic Authentication
 
 HTTP Basic authentication is required to access the API.
 
@@ -31,7 +31,7 @@ Password: HoneyBasicPassword
 
 These credentials are intended for local learning and demonstration purposes only. They must not be used in a production environment.
 
-### Authentication Flow
+### 2.2 Authentication Flow
 
 The complete flow is:
 
@@ -41,7 +41,7 @@ The complete flow is:
 4. Receive a JWT token in the response.
 5. Send the token using the `loginToken` header when accessing user operations.
 
-### JWT Token
+### 2.3 JWT Token
 
 The token must be sent in the `loginToken` request header:
 
@@ -57,13 +57,13 @@ The following operations require this token:
 
 The default token expiration time is 600 seconds. This value can be changed in the application configuration.
 
-### Security Notes
+### 2.4 Security Notes
 
 The default credentials and JWT secret are included to make local setup easier. This project is intended for learning purposes and should not be exposed to the internet without changing the credentials, secret, and database configuration.
 
-## Endpoints
+## 3. Endpoints
 
-### Search Hobbies
+### 3.1 Search Hobbies
 
 ```http
 GET /v1/hobbies
@@ -83,7 +83,7 @@ Example response:
 }
 ```
 
-### Search Countries
+### 3.2 Search Countries
 
 ```http
 GET /v1/countries
@@ -104,7 +104,7 @@ Example response:
 }
 ```
 
-### Search Programming Time Options
+### 3.3 Search Programming Time Options
 
 ```http
 GET /v1/programming-time-options
@@ -125,7 +125,7 @@ Example response:
 }
 ```
 
-### Login
+### 3.4 Login
 
 ```http
 POST /v1/login
@@ -150,7 +150,7 @@ Example response:
 }
 ```
 
-### Register User
+### 3.5 Register User
 
 ```http
 POST /v1/user
@@ -180,7 +180,7 @@ Request body:
 
 Returns `201 Created` when the user is successfully registered.
 
-### Search User
+### 3.6 Search User
 
 ```http
 GET /v1/user
@@ -213,7 +213,7 @@ Example response:
 }
 ```
 
-### Update User
+### 3.7 Update User
 
 ```http
 PATCH /v1/user
@@ -247,7 +247,7 @@ Request body:
 }
 ```
 
-### Delete User
+### 3.8 Delete User
 
 ```http
 DELETE /v1/user
@@ -261,7 +261,7 @@ Required header:
 loginToken: jwt-token-here
 ```
 
-## Main HTTP Status Codes
+## 4. Main HTTP Status Codes
 
 | Status | Meaning |
 |---|---|
@@ -272,7 +272,7 @@ loginToken: jwt-token-here
 | `401 Unauthorized` | Credentials or JWT token are invalid |
 | `404 Not Found` | Requested resource was not found |
 
-## Collections
+## 5. Collections
 
 Request examples are available in the [Postman and Insomnia collections](../README.md#collections-).
 

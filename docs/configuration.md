@@ -4,9 +4,9 @@ First of all, thank you for taking a look at this documentation :)
 
 The application supports different Spring profiles for local development and PostgreSQL-based development.
 
-## Available Profiles
+## 1. Available Profiles
 
-### `local`
+### 1.1 `local`
 
 The `local` profile is active by default.
 
@@ -18,7 +18,7 @@ It uses:
 
 The database is recreated when the application restarts.
 
-### `dev`
+### 1.2 `dev`
 
 The `dev` profile uses PostgreSQL with the following default local connection:
 
@@ -31,9 +31,9 @@ Username: postgres
 
 The database password is configured in `application-dev.yml` and should be changed before using this profile in any shared environment.
 
-## Environment Variables
+## 2. Environment Variables
 
-### `APP_PROFILE`
+### 2.1 `APP_PROFILE`
 
 Defines the active Spring profile.
 
@@ -49,7 +49,7 @@ Example:
 APP_PROFILE=dev
 ```
 
-### `JWT_SECRET`
+### 2.2 `JWT_SECRET`
 
 Defines the secret used to sign JWT tokens.
 
@@ -61,7 +61,7 @@ Example:
 JWT_SECRET=my-custom-secret
 ```
 
-## H2 Console
+## 3. H2 Console
 
 When using the `local` profile, the application uses an H2 in-memory database. The H2 Console is enabled to make it easier to inspect the database during local development.
 
@@ -86,7 +86,7 @@ Then click **Connect**. The database schema and the predefined local data will b
 
 Because this is an in-memory database, its data is lost whenever the application stops or restarts. The tables and predefined data are recreated when the application starts again.
 
-## Security Notes
+## 4. Security Notes
 
 The default passwords and secrets in this project are intended for local development only. They should be replaced with environment-specific values before sharing or deploying the application.
 

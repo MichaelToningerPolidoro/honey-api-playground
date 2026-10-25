@@ -6,15 +6,15 @@ This is a learning project using Spring Boot to gain a better understanding of t
 
 In a nutshell, this project provides a REST API for user management, with authentication, validation, relationships between entities, and some supporting data resources.
 
-## Objectives
+## 1. Objectives
 
 The main objective of this project is to practice backend development concepts by building a complete API with Spring Boot.
 
 It was also created to explore different approaches to authentication, data validation, persistence, testing, and code organization in a backend application.
 
-## About the Project
+## 2. About the Project
 
-### Technologies and Tools
+### 2.1 Technologies and Tools
 
 The main technologies and tools used in this project are:
 
@@ -32,7 +32,7 @@ The main technologies and tools used in this project are:
 - Postman
 - Insomnia
 
-### Architecture
+### 2.2 Architecture
 
 This project is organized using a layered architecture, separating controllers, services, repositories, domains, DTOs, validations, and exception handling.
 
@@ -40,7 +40,7 @@ The application is a single Spring Boot application with different API resources
 
 For more details, see the [architecture documentation](docs/architecture.md).
 
-### Features
+### 2.3 Features
 
 The project currently includes:
 
@@ -55,13 +55,13 @@ The project currently includes:
 
 The complete endpoint documentation, including request and response examples, is available in the [API documentation](docs/api.md).
 
-### Integration Tests
+### 2.4 Integration Tests
 
 This project also has a dedicated integration test project that validates the API functionalities and user flows available here.
 
 You can find it in the [Honey API Playground Integration Tests repository](https://github.com/MichaelToningerPolidoro/honey-api-playground-integration-tests).
 
-### Profiles and Configuration
+### 2.5 Profiles and Configuration
 
 The default application profile is **local**, which uses an H2 in-memory database and predefined local data.
 
@@ -69,7 +69,7 @@ The **dev** profile can be used with PostgreSQL.
 
 More details about profiles, environment variables, and database configuration are available in the [configuration documentation](docs/configuration.md).
 
-## Running the Project ✅
+## 3. Running the Project ✅
 
 To run this project, you'll need the following tools:
 
@@ -109,7 +109,7 @@ On Windows:
 .\mvnw.cmd test
 ```
 
-## Concepts Learned 📚
+## 4. Concepts Learned 📚
 
 Key concepts learned from this project:
 
@@ -125,7 +125,7 @@ Key concepts learned from this project:
 - Aspect-Oriented Programming (AOP)
 - Applying AOP with AspectJ and Spring Boot
 
-## Collections 📂
+## 5. Collections 📂
 
 You can import the Postman or Insomnia collections to test requests and perform user operations and login in the project.
 
@@ -136,6 +136,6 @@ The collections are available in the `.collections` folder:
 
 The collections include examples of successful requests and some invalid request scenarios.
 
-## License
+## 6. License
 
 This project is licensed under the terms described in the [LICENSE](LICENSE) file.

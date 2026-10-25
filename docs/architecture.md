@@ -4,7 +4,7 @@ First of all, thank you for taking a look at this documentation :)
 
 The Honey API Playground is a single Spring Boot application organized using a layered architecture.
 
-## High-Level Structure
+## 1. High-Level Structure
 
 The main application components can also be represented as follows:
 
@@ -19,41 +19,41 @@ flowchart TD
 
 The application also uses DTOs, validation components, exception handlers, and cross-cutting concerns for token validation.
 
-## Main Packages
+## 2. Main Packages
 
-### `controller`
+### 2.1 `controller`
 
 Defines the REST endpoints and receives HTTP requests.
 
-### `service`
+### 2.2 `service`
 
 Contains the main business rules and coordinates operations between controllers and repositories.
 
-### `repository`
+### 2.3 `repository`
 
 Provides persistence access through Spring Data JPA.
 
-### `domain`
+### 2.4 `domain`
 
 Contains the entities persisted in the database, such as users, hobbies, countries, and programming time options.
 
-### `dto`
+### 2.5 `dto`
 
 Contains request, response, and model objects used to control the data exchanged through the API.
 
-### `validation`
+### 2.6 `validation`
 
 Contains reusable validation logic for request fields and custom validation rules.
 
-### `handler` and `exception`
+### 2.7 `handler` and `exception`
 
 Define the application's custom exceptions and translate them into HTTP responses.
 
-### `aspect` and `annotation`
+### 2.8 `aspect` and `annotation`
 
 Contain the custom annotation and AspectJ logic used to validate the JWT token before protected user operations.
 
-## Domain Model
+## 3. Domain Model
 
 The main domain relationships are structured as follows:
 
@@ -86,7 +86,7 @@ The `User` entity is the central domain object. It is related to:
 
 The `BornData` entity is also related to one `Country` entity. Countries, hobbies, and programming time options act as supporting reference data used during user registration and update operations.
 
-## Application Style
+## 4. Application Style
 
 The project is a monolithic application with separated internal layers. The current structure is intended to keep responsibilities organized while remaining simple enough for learning and experimentation.
 
